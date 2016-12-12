@@ -94,3 +94,7 @@ $route["permisoPerfil"] = "perfiles/permisoPerfil";
 // ==== rutas modulo departamentos ===
 $route["crearDepartamento"] = "departamentos/crearDepartamento";	
 
+
+// ==== rutas modulo Proveedores ===
+$route["crearProveedor"] = "proveedores/crearProveedor";
+$route["editarProveedor/(:num)"] = "proveedores/editarProveedor/$1";

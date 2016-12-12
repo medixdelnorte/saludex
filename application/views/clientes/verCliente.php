@@ -56,91 +56,91 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Nombre Comercial</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="ncomercial" placeholder="Nombre Comercial" value="<?php echo $infoCliente->cliente_nombre_comercial ?>" name="cliente_nombre_comercial">
+                        <input type="text" class="form-control" id="ncomercial" value="<?php echo $infoCliente->cliente_nombre_comercial ?>" name="cliente_nombre_comercial">
                     </div> 
                 </div>
                 <div class="form-group">
                     <label for="rfc" class="col-sm-2 control-label">R.F.C.*</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="rfc" placeholder="RFC" value="<?php echo $infoCliente->cliente_rfc ?>" name="cliente_rfc" required>
+                        <input type="text" class="form-control" id="rfc" value="<?php echo $infoCliente->cliente_rfc ?>" name="cliente_rfc" required>
                     </div> 
                 </div>               
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Numero de Cliente</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="ncliente" placeholder="Numero de Cliente" value="<?php echo $infoCliente->cliente_numero_cliente ?>" name="cliente_numero_cliente">
+                        <input type="text" class="form-control" id="ncliente" value="<?php echo $infoCliente->cliente_numero_cliente ?>" name="cliente_numero_cliente">
                     </div>  
                 </div>                  
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Direccion*</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="direccion" placeholder="Direccion" value="<?php echo $infoCliente->cliente_direccion ?>" name="cliente_direccion" required>
+                        <input type="text" class="form-control" id="direccion" value="<?php echo $infoCliente->cliente_direccion ?>" name="cliente_direccion" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Numero Externo</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="nexterno" placeholder="Numero Externo" value="<?php echo $infoCliente->cliente_num_externo ?>" name="cliente_num_externo">
+                        <input type="text" class="form-control" id="nexterno" value="<?php echo $infoCliente->cliente_num_externo ?>" name="cliente_num_externo">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Numero Interno</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="ninterno" placeholder="Numero Interno" value="<?php echo $infoCliente->cliente_num_interno ?>" name="cliente_num_interno">
+                        <input type="text" class="form-control" id="ninterno" value="<?php echo $infoCliente->cliente_num_interno ?>" name="cliente_num_interno">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">C.P.*</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="cp" placeholder="Codigo Postal" value="<?php echo $infoCliente->cliente_cp ?>" name="cliente_cp" required>
+                        <input type="text" class="form-control" id="cp" value="<?php echo $infoCliente->cliente_cp ?>" name="cliente_cp" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Colonia*</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="colonia" placeholder="Colonia" value="<?php echo $infoCliente->cliente_colonia ?>" name="cliente_colonia" required>
+                        <input type="text" class="form-control" id="colonia" value="<?php echo $infoCliente->cliente_colonia ?>" name="cliente_colonia" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Ciudad*</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="ciudad" placeholder="Ciudad" value="<?php echo $infoCliente->cliente_ciudad ?>" name="cliente_ciudad" required>
+                        <input type="text" class="form-control" id="ciudad" value="<?php echo $infoCliente->cliente_ciudad ?>" name="cliente_ciudad" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Estado*</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="estado" placeholder="Estado" value="<?php echo $infoCliente->cliente_estado ?>" name="cliente_estado" required>
+                        <input type="text" class="form-control" id="estado" value="<?php echo $infoCliente->cliente_estado ?>" name="cliente_estado" required>
                     </div>
                 </div> 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Correo</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="correo" placeholder="Correo Electronico" value="<?php echo $infoCliente->cliente_correo ?>" name="cliente_correo">    
+                        <input type="text" class="form-control" id="correo" value="<?php echo $infoCliente->cliente_correo ?>" name="cliente_correo">    
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Telefono</label>
                     <div class="col-sm-3">
-                        <input type="text" id="telefono" placeholder="Telefono" class="form-control" data-mask="(999) 999-9999" value="<?php echo $infoCliente->cliente_telefono ?>" name="cliente_telefono">
+                        <input type="text" id="telefono" class="form-control" data-mask="(999) 999-9999" value="<?php echo $infoCliente->cliente_telefono ?>" name="cliente_telefono">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Celular</label>
                     <div class="col-sm-3">
-                        <input type="text" id="celular" placeholder="Celular" class="form-control" data-mask="(999) 999-9999" value="<?php echo $infoCliente->cliente_celular ?>" name="cliente_celular">
+                        <input type="text" id="celular" class="form-control" data-mask="(999) 999-9999" value="<?php echo $infoCliente->cliente_celular ?>" name="cliente_celular">
                     </div>
                 </div>  
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Dias Credito</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="dias" placeholder="Dias de Credito" value="<?php echo $infoCliente->cliente_dias_credito ?>" name="cliente_dias_credito">     
+                        <input type="text" class="form-control" id="dias" value="<?php echo $infoCliente->cliente_dias_credito ?>" name="cliente_dias_credito">     
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Limite Credito</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="limitec" placeholder="Limite de Credito" value="<?php echo $infoCliente->cliente_limite_credito ?>" name="cliente_limite_credito">     
+                        <input type="text" class="form-control" id="limitec" value="<?php echo $infoCliente->cliente_limite_credito ?>" name="cliente_limite_credito">     
                     </div>
                 </div>
                 <div class="form-group">
@@ -175,6 +175,10 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                     </div>
                 </div>
             </form>
+
+            <div id="container-error">
+             
+            </div>
             
         </div><!--/.c_content-->
 

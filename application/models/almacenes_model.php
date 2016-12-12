@@ -11,24 +11,6 @@ class Almacenes_model extends CI_Model
 		parent::__construct();
 	}
 
-	function actualizarAlmacen($almacenID,$camposActualizar)
-	{
-		$this->db->where("almacen_id",$almacenID);
-		$this->db->update("t_almacen",$camposActualizar);
-
-		$actualizados = $this->db->affected_rows();
-
-		if ($actualizados > 0) {
-
-			return true;
-
-		}else{
-
-			return false;
-
-		}
-	}
-
 	function getAlmacenes()
 	{
 		$this->db->select("alm.almacen_id,alm.almacen_nombre,suc.sucursal_nombre,emp.empresa_razon");	

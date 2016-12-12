@@ -9,24 +9,6 @@ class Usuarios_model extends CI_Model
 		parent::__construct();
 	}
 
-	function actualizarUsuario($usuarioID,$camposActualizar)
-	{
-		$this->db->where("usuario_id",$usuarioID);
-		$this->db->update("t_usuario",$camposActualizar);
-
-		$actualizados = $this->db->affected_rows();
-
-		if ($actualizados > 0) {
-
-			return true;
-
-		}else{
-
-			return false;
-
-		}
-	}
-
 	function cambiaPwd($usuarioID,$nuevoPwd)
 	{		
 		$camposActualizar = array("usuario_pwd"	=>	$nuevoPwd);

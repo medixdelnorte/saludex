@@ -27,6 +27,8 @@ class Sucursales extends CI_Controller {
 		$this->load->model("empresas_model");
 		//cargamos el modelo para validar la existencia de la sucursal
 		$this->load->model("validaNuevoRegistro_model");
+		//cargamos el modelo para realizar consultas basicas
+		$this->load->model("consultas_model");
 
 		$this->permisos = array(
 				"sucursales"	=>	4500
@@ -80,11 +82,14 @@ class Sucursales extends CI_Controller {
 
 		//validamos si se cumplieron las reglas
 		if ($this->form_validation->run() === true) {
+
 			//tomamos los datos del formulario
 			$datosFormulario = $this->input->post();
 			$sucursalID = $this->uri->segment(2);
 
-			$updateSucursal = $this->sucursales_model->actualizarSucursal($sucursalID,$datosFormulario);
+			$paramWhere = array("sucursal_id" => $sucursalID);
+
+			$updateSucursal = $this->consultas_model->actualizar("t_sucursal",$datosFormulario,$paramWhere);
 			//si no existe la sucursal se inserta
 			if ($updateSucursal === true) {
 				

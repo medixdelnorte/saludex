@@ -10,24 +10,6 @@ class Productos_model extends CI_Model
 		parent::__construct();
 	}
 
-	function actualizarProducto($productoID,$camposActualizar)
-	{
-		$this->db->where("producto_id",$productoID);
-		$this->db->update("t_producto",$camposActualizar);
-		//cachamos cuantos rows fueron actualizados
-		$actualizacion = $this->db->affected_rows();
-		//si se actualizo un row enviamos true de lo contrario devolvemos false
-		if ($actualizacion > 0) {
-			
-			return true;
-
-		}else{
-
-			return false;
-
-		}
-	}
-
 	function getProductos()
 	{
 		$this->db->select("prod.producto_id,prod.producto_codigob,prod.producto_descripcion,prod.producto_sustancia,prod.producto_ppublico");

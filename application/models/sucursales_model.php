@@ -9,24 +9,6 @@ class Sucursales_model extends CI_Model
 		parent::__construct();
 	}
 
-	function actualizarSucursal($sucursalID,$camposActualizar)
-	{
-		$this->db->where("sucursal_id",$sucursalID);
-		$this->db->update("t_sucursal",$camposActualizar);
-
-		$actualizados = $this->db->affected_rows();
-
-		if ($actualizados > 0) {
-
-			return true;
-
-		}else{
-
-			return false;
-
-		}
-	}
-
 	function getInfoSucursal($sucursalID)
 	{
 		$this->db->select("suc.sucursal_id,suc.sucursal_nombre,emp.empresa_razon,suc.sucursal_direccion,suc.sucursal_num_externo, suc.sucursal_num_interno,suc.sucursal_cp,suc.sucursal_colonia,suc.sucursal_ciudad,suc.sucursal_estado,suc.empresa_id");
@@ -68,6 +50,7 @@ class Sucursales_model extends CI_Model
 
 	function getListSucursales()
 	{
+		$this->db->select("sucursal_id,sucursal_nombre");
 		$sucursales = $this->db->get("t_sucursal");
 
 		if ($sucursales->num_rows() > 0) {

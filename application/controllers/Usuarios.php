@@ -27,6 +27,8 @@ class Usuarios extends CI_Controller {
 		$this->load->model("validaNuevoRegistro_model");
 		//cargamos el modelo de usuario
 		$this->load->model("usuarios_model");
+		//cargamos el modelo para realizar consultas basicas
+		$this->load->model("consultas_model");
 
 		$this->salt1 = md5("Lokdi09//_rf@67cwoiwmMoidwe[");
 		$this->salt2 = md5("P0dw098jdwomJ__Uude/,sdib(few._dwe[}");
@@ -134,8 +136,9 @@ class Usuarios extends CI_Controller {
 			//tomamos los datos del formulario
 			$datosFormulario = $this->input->post();
 			$usuarioID = $this->uri->segment(2);
+			$paramWhere = array("usuario_id" => $usuarioID);
 
-			$updateUsuario = $this->usuarios_model->actualizarUsuario($usuarioID,$datosFormulario);
+			$updateUsuario = $this->consultas_model->actualizar("t_usuario",$datosFormulario,$paramWhere);
 			//si no existe la sucursal se inserta
 			if ($updateUsuario === true) {
 				

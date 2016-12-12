@@ -25,6 +25,8 @@ class Clientes extends CI_Controller {
 		$this->load->model("clientes_model");
 		//cargamos el modelo para validar si existe un cliente
 		$this->load->model("validaNuevoRegistro_model");
+		//cargamos el modelo para realizar consultas basicas
+		$this->load->model("consultas_model");
 
 		$this->permisos = array(
 				"clientes"	=>	1100
@@ -42,7 +44,7 @@ class Clientes extends CI_Controller {
 		if (in_array($this->permisos["clientes"], $this->permisosUsuario)) {
 
 			//traemos los clientes del a base de datos
-			$data["clientes"] = $this->clientes_model->getClientes();
+			$data["clientes"] = $this->consultas_model->traerTodo("t_cliente");
 
 			$this->load->view("clientes/controlClientes",$data);
 
@@ -104,24 +106,44 @@ class Clientes extends CI_Controller {
 
 	function editarCliente()
 	{
-		//tomamos el id del cliente del segmento 3
-		$clienteID = $this->uri->segment(2);
+		// ====== reglas del formulario ====== //
+		$this->form_validation->set_rules("cliente_razon","Razon Social",'trim|required|min_length[5]');
+		$this->form_validation->set_rules("cliente_rfc","",'trim|required|min_length[10]');
+		$this->form_validation->set_rules("cliente_direccion","",'trim|required|min_length[10]');
+		$this->form_validation->set_rules("cliente_cp","",'trim|required|min_length[5]');
+		$this->form_validation->set_rules("cliente_colonia","",'trim|required|min_length[5]');
+		$this->form_validation->set_rules("cliente_ciudad","",'trim|required|min_length[5]');
+		$this->form_validation->set_rules("cliente_estado","",'trim|required|min_length[5]');
+		// ====== fin reglas del formulario ====== //
 
-		$data["clienteID"] = $clienteID;
+		if ($this->form_validation->run() === true) {
+			
+			//tomamos el id del cliente del segmento 3
+			$clienteID = $this->uri->segment(2);
 
-		//tomamos los datos del formulario
-		$datosFormulario = $this->input->post();
-		//actualizamos al cliente
-		$actualizarCliente = $this->clientes_model->actualizarCliente($clienteID,$datosFormulario);
+			$data["clienteID"] = $clienteID;
 
-		//validamos si se actualizo el cliente
-		if ($actualizarCliente === true) {
 
-			echo "update";
+			$paramWhere = array("cliente_id" => $clienteID);
+			//tomamos los datos del formulario
+			$datosFormulario = $this->input->post();
+			//actualizamos al cliente
+			$actualizarCliente = $this->consultas_model->actualizar("t_cliente",$datosFormulario,$paramWhere);
+
+			//validamos si se actualizo el cliente
+			if ($actualizarCliente === true) {
+
+				echo "update";
+
+			}else{
+
+				echo "no-update";
+
+			}
 
 		}else{
 
-			echo "no-update";
+			echo "error";
 
 		}
 
@@ -145,7 +167,8 @@ class Clientes extends CI_Controller {
 		$clienteID = $this->uri->segment(3);
 		$data["clienteID"] = $clienteID;
 
-		$data["infoCliente"] = $this->clientes_model->getInfoCliente($clienteID);
+		$paramWhere = array("cliente_id" => $clienteID);
+		$data["infoCliente"] = $this->consultas_model->traerRow("t_cliente",$paramWhere);
 		$data["listaStatusCliente"] = $this->clientes_model->getListaStatusCliente();
 
 		//si el cliente existe muestra la informacion, de lo contrario se muestra error

@@ -26,6 +26,8 @@ class Empresas extends CI_Controller {
 		$this->load->model("empresas_model");
 		//cargamos el modelo de validacion
 		$this->load->model("validaNuevoRegistro_model");
+		//cargamos el modelo para realizar consultas basicas
+		$this->load->model("consultas_model");
 
 		$this->permisos = array(
 				"empresas"	=>	4400
@@ -41,7 +43,7 @@ class Empresas extends CI_Controller {
 		//validamos si el usuario tiene permiso para acceder al modulo
 		if (in_array($this->permisos["empresas"], $this->permisosUsuario)) {
 
-			$data["empresas"] = $this->empresas_model->getEmpresas();
+			$data["empresas"] = $this->consultas_model->traerTodo("t_empresa");
 
 			$this->load->view("empresa/empresas",$data);
 
@@ -113,11 +115,14 @@ class Empresas extends CI_Controller {
 		if ($this->form_validation->run() === true) {
 			//tomamos el id del producto
 			$empresaID = $this->uri->segment(2);
+
+
+			$paramWhere = array("empresa_id" => $empresaID);
 			//cachamos los datos del formulario
 			$datosFormulario = $this->input->post();
 
 			//actualizamos el producto
-			$updateEmpresa = $this->empresas_model->actualizarEmpresa($empresaID,$datosFormulario);
+			$updateEmpresa = $this->consultas_model->actualizar("t_empresa",$datosFormulario,$paramWhere);
 
 			if ($updateEmpresa === true) {
 				
@@ -153,7 +158,8 @@ class Empresas extends CI_Controller {
 		$empresaID = $this->uri->segment(3);
 		$data["empresaID"] = $empresaID;
 
-		$data["infoEmpresa"] = $this->empresas_model->getInfoEmpresa($empresaID);
+		$paramWhere = array("empresa_id" => $empresaID);
+		$data["infoEmpresa"] = $this->consultas_model->traerRow("t_empresa",$paramWhere);
 
 		//si el cliente existe muestra la informacion, de lo contrario se muestra error
 		if ($data["infoEmpresa"] != false) {

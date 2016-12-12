@@ -27,6 +27,8 @@ class Almacenes extends CI_Controller
 		$this->load->model("validaNuevoRegistro_model");
 		//cargamos el modelo de sucursales
 		$this->load->model("sucursales_model");
+		//cargamos el modelo para realizar consultas basicas
+		$this->load->model("consultas_model");
 
 		$this->permisos = array(
 				"almacenes"	=>	4600
@@ -102,7 +104,8 @@ class Almacenes extends CI_Controller
 			$datosFormulario = $this->input->post();
 			$almacenID = $this->uri->segment(2);
 
-			$updateAlmacen = $this->almacenes_model->actualizarAlmacen($almacenID,$datosFormulario);
+			$paramWhere = array("almacen_id" => $almacenID);
+			$updateAlmacen = $this->consultas_model->actualizar("t_almacen",$datosFormulario,$paramWhere);
 			//si no existe la sucursal se inserta
 			if ($updateAlmacen === true) {
 				

@@ -25,6 +25,8 @@ class Departamentos extends CI_Controller {
 		$this->load->model("departamentos_model");
 		//cargamos el modelo para validar la existencia de la sucursal
 		$this->load->model("validaNuevoRegistro_model");
+		//cargamos el modeo de consultas generales
+		$this->load->model("consultas_model");
 
 		$this->permisos = array(
 				"departamentos"	=>	4300
@@ -70,7 +72,7 @@ class Departamentos extends CI_Controller {
 	{
 		$data["menu"] = $this->menu;
 
-		$data["departamentos"] = $this->departamentos_model->getDepartamentos();
+		$data["departamentos"] = $this->consultas_model->traerTodo("t_usuario_departamento");
 
 		$this->load->view("header",$data);
 		$this->load->view("departamentos/departamentos");

@@ -28,36 +28,6 @@ class Perfiles_model extends CI_Model
 		}
 	}
 
-	function getInfoPerfil($perfilID)
-	{
-		$paramWhere = array("usuario_perfil_id" => $perfilID);
-		$perfil = $this->db->get_where("t_usuario_perfil",$paramWhere);
-
-		if ($perfil->num_rows() == 1) {
-			
-			return $perfil->row();
-
-		}else{
-
-			return false;
-
-		}
-	}
-
-	function getPerfiles()
-	{
-		$perfiles = $this->db->get("t_usuario_perfil");
-
-		if ($perfiles->num_rows() > 0) {
-			
-			return $perfiles->result();
-
-		}else{
-
-			return false;
-
-		}
-	}
 
 	function getPermisos()
 	{

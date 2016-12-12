@@ -327,12 +327,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         <li class=''><a href="<?php echo base_url("dashboard"); ?>" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "dashboard")?"active":"" ?>"><span class='icon-sidebar icon-home fa-2x'></span><span>Dashboard</span></a>
                         </li>
 
-                        <li class='sub-menu '><a href="#" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "clientes")?"active":"" ?>"><span class='icon-sidebar fa fa-briefcase fa-2x'></span><span>Clientes</span></a>
-                            <ul class='sub'>
-                                <li><a href="<?php echo base_url("clientes/controlClientes"); ?>">Control de Clientes</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <li class=''><a href="<?php echo base_url("clientes/controlClientes"); ?>" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "clientes")?"active":"" ?>"><span class='icon-sidebar fa fa-briefcase fa-2x'></span><span>Clientes</span></a></li>
+
+                        <li class=''><a href="<?php echo base_url("proveedores/proveedores"); ?>" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "proveedores")?"active":"" ?>"><span class='icon-sidebar pe-7s-id fa-2x'></span><span>Proveedores</span></a></li>
 
                         <li class='sub-menu '><a href="#" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "productos")?"active":"" ?>"><span class='icon-sidebar fa fa-cubes fa-2x'></span><span>Productos</span></a>
                             <ul class='sub'>

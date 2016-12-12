@@ -25,6 +25,8 @@ class Productos extends CI_Controller {
 		$this->load->model("productos_model");
 		//cargamos la libreria para validar la existencia de un producto
 		$this->load->model("validaNuevoRegistro_model");
+		//cargamos el modelo para realizar consultas basicas
+		$this->load->model("consultas_model");
 
 		$this->permisos = array(
 				"productos"	=>	2100
@@ -106,11 +108,13 @@ class Productos extends CI_Controller {
 		if ($this->form_validation->run() === true) {
 			//tomamos el id del producto
 			$productoID = $this->uri->segment(2);
+
+			$paramWhere = array("producto_id" => $productoID);
 			//cachamos los datos del formulario
 			$datosFormulario = $this->input->post();
 
 			//actualizamos el producto
-			$updateProducto = $this->productos_model->actualizarProducto($productoID,$datosFormulario);
+			$updateProducto = $this->consultas_model->actualizar("t_producto",$datosFormulario,$paramWhere);
 
 			if ($updateProducto === true) {
 				
