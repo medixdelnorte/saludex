@@ -19,6 +19,11 @@ class Departamentos extends CI_Controller {
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
+		//establecemos los permisos del modulo
+		$this->permisos = array("departamentos" => 4300);
+		//tomamos los permisos del usuario
+		$this->permisosUsuario = $this->session->userdata("permisos");
+		!in_array($this->permisos["departamentos"], $this->permisosUsuario)? redirect(base_url("home"),"refresh") : "";
 		//asignamos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
 		//cargamos el modelo de departamentos
@@ -27,10 +32,6 @@ class Departamentos extends CI_Controller {
 		$this->load->model("validaNuevoRegistro_model");
 		//cargamos el modeo de consultas generales
 		$this->load->model("consultas_model");
-
-		$this->permisos = array(
-				"departamentos"	=>	4300
-			);
 	}
 
 	function crearDepartamento()
@@ -43,6 +44,7 @@ class Departamentos extends CI_Controller {
 		if ($this->form_validation->run() === true) {
 
 			$datosFormulario = $this->input->post();
+			$datosFormulario["usuario_id"] = $this->usuarioID;
 
 			//validamos si el nombre del departamento esta disponible
 			$paramWhere = array("usuario_departamento_nombre" => $datosFormulario["usuario_departamento_nombre"]);

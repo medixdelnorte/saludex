@@ -20,18 +20,17 @@ class Empresas extends CI_Controller {
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
+		$this->permisos = array("empresas"	=>	4400);
 		//asignamos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["empresas"], $this->permisosUsuario) ? redirect(base_url("home"),"refresh") : "";
 		//cargamos el modelo de empresas
 		$this->load->model("empresas_model");
 		//cargamos el modelo de validacion
 		$this->load->model("validaNuevoRegistro_model");
 		//cargamos el modelo para realizar consultas basicas
 		$this->load->model("consultas_model");
-
-		$this->permisos = array(
-				"empresas"	=>	4400
-			);
 	}
 
 	function empresas()
@@ -40,15 +39,8 @@ class Empresas extends CI_Controller {
 
 		$this->load->view("header.php",$data);
 
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["empresas"], $this->permisosUsuario)) {
-
-			$data["empresas"] = $this->consultas_model->traerTodo("t_empresa");
-
-			$this->load->view("empresa/empresas",$data);
-
-		}
-
+		$data["empresas"] = $this->consultas_model->traerTodo("t_empresa");
+		$this->load->view("empresa/empresas",$data);
 		$this->load->view("footer.php");
 	}
 

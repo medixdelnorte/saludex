@@ -21,8 +21,12 @@ class Usuarios extends CI_Controller {
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
+		//establecemos los permisos del modulo
+		$this->permisos = array("usuarios"	=>	4100);
 		//asignamos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["usuarios"], $this->permisosUsuario) ? redirect(base_url("login"),"refresh") : "";
 		//cargamos el modelo para validar si existe un cliente
 		$this->load->model("validaNuevoRegistro_model");
 		//cargamos el modelo de usuario
@@ -32,10 +36,6 @@ class Usuarios extends CI_Controller {
 
 		$this->salt1 = md5("Lokdi09//_rf@67cwoiwmMoidwe[");
 		$this->salt2 = md5("P0dw098jdwomJ__Uude/,sdib(few._dwe[}");
-
-		$this->permisos = array(
-				"usuarios"	=>	4200
-			);
 	}
 
 	function cambiaPwd()
@@ -163,14 +163,10 @@ class Usuarios extends CI_Controller {
 
 		$this->load->view("header",$data);
 
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["usuarios"], $this->permisosUsuario)) {
 
-			$data["usuarios"] = $this->usuarios_model->getUsuarios();
+		$data["usuarios"] = $this->usuarios_model->getUsuarios();
 
-			$this->load->view("usuarios/usuarios",$data);
-
-		}
+		$this->load->view("usuarios/usuarios",$data);
 
 		$this->load->view("footer");
 	}

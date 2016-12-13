@@ -19,8 +19,12 @@ class Sucursales extends CI_Controller {
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
+		//establecemos los permisos del modulo
+		$this->permisos = array("sucursales" => 4500);
 		//asignamos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["sucursales"], $this->permisosUsuario) ? redirect(base_url("login"),"refresh") : "";
 		//cargamos el modelo de sucursales
 		$this->load->model("sucursales_model");
 		//cargamos el modelo de empresas
@@ -30,9 +34,6 @@ class Sucursales extends CI_Controller {
 		//cargamos el modelo para realizar consultas basicas
 		$this->load->model("consultas_model");
 
-		$this->permisos = array(
-				"sucursales"	=>	4500
-			);
 	}
 
 	function crearSucursal()
@@ -124,16 +125,10 @@ class Sucursales extends CI_Controller {
 
 		//cargamos header
 		$this->load->view("header",$data);
+		//traemos los clientes del a base de datos
+		$data["sucursales"] = $this->sucursales_model->getSucursales();
 
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["sucursales"], $this->permisosUsuario)) {
-
-			//traemos los clientes del a base de datos
-			$data["sucursales"] = $this->sucursales_model->getSucursales();
-
-			$this->load->view("sucursales/sucursales",$data);
-
-		}
+		$this->load->view("sucursales/sucursales",$data);
 		
 		//cargamos el footer
 		$this->load->view("footer");

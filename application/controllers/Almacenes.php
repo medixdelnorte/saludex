@@ -15,12 +15,16 @@ class Almacenes extends CI_Controller
 
 		//validamos si existe sesion iniciada, de lo contrario se redirige a login
 		if (!$this->session->userdata("login")) { redirect(base_url("login"),"refresh"); }
+		//establecemos los permisos del modulo
+		$this->permisos = array("almacenes"	=>	4600);
+		//obtenemos los permisos del usuario
+		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["almacenes"], $this->permisosUsuario)? redirect(base_url("home"),"refresh") : "";
 
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
-		//obtenemos los permisos del usuario
-		$this->permisosUsuario = $this->session->userdata("permisos");
 		//cargamos el modelo de almacenes
 		$this->load->model("almacenes_model");
 		//cargamos el modelo para validar que no existe el almacen
@@ -30,26 +34,15 @@ class Almacenes extends CI_Controller
 		//cargamos el modelo para realizar consultas basicas
 		$this->load->model("consultas_model");
 
-		$this->permisos = array(
-				"almacenes"	=>	4600
-			);
 	}
 
 	function almacenes()
 	{
 		$data["menu"] = $this->menu;
 
-		$this->load->view("header",$data);
-
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["almacenes"], $this->permisosUsuario)) {
-
-			$data["almacenes"] = $this->almacenes_model->getAlmacenes();
-
-			$this->load->view("almacenes/almacenes",$data);
-
-		}
-		
+		$this->load->view("header",$data);		
+		$data["almacenes"] = $this->almacenes_model->getAlmacenes();
+		$this->load->view("almacenes/almacenes",$data);	
 		$this->load->view("footer");
 	}
 

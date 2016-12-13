@@ -19,19 +19,18 @@ class Productos extends CI_Controller {
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
+		//establecemos los permisos del modulo
+		$this->permisos = array("productos"	=>	2100);
 		//asignamos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["productos"], $this->permisosUsuario) ? redirect(base_url("login"),"refresh") : "";
 		//cargamos el modelo de productos
 		$this->load->model("productos_model");
 		//cargamos la libreria para validar la existencia de un producto
 		$this->load->model("validaNuevoRegistro_model");
 		//cargamos el modelo para realizar consultas basicas
-		$this->load->model("consultas_model");
-
-		$this->permisos = array(
-				"productos"	=>	2100
-			);
-
+		$this->load->model("consultas_model");		
 	}
 
 	function crearProducto()
@@ -81,15 +80,9 @@ class Productos extends CI_Controller {
 
 		//cargamos header
 		$this->load->view("header",$data);
+		$data["productos"] = $this->productos_model->getProductos();
 
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["productos"], $this->permisosUsuario)) {
-
-			$data["productos"] = $this->productos_model->getProductos();
-
-			$this->load->view("productos/controlProductos",$data);
-
-		}
+		$this->load->view("productos/controlProductos",$data);
 		
 		//cargamos el footer
 		$this->load->view("footer");

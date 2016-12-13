@@ -17,6 +17,8 @@ class Login extends CI_Controller {
 		$this->load->model("login_model");
 		//cargamos el modelo de perfiles, para cargar el perfil del usuario una vez que inicia sesion
 		$this->load->model("perfiles_model");
+		//cargamos modelo para consultas generales
+		$this->load->model("consultas_model");
 	}
 
 	function index()
@@ -62,7 +64,8 @@ class Login extends CI_Controller {
 				//validamos la contraseña
 				if ($pwd == $credenciales->usuario_pwd) {
 
-					$permisosUsuario = $this->perfiles_model->getInfoPerfil($credenciales->usuario_perfil_id);
+					$paramWhere = array("usuario_perfil_id" => $credenciales->usuario_perfil_id);
+					$permisosUsuario = $this->consultas_model->traerRow("t_usuario_perfil",$paramWhere);
 					$permisosUsuario = explode("||", $permisosUsuario->usuario_perfil_permisos);
 
 					$data = array(

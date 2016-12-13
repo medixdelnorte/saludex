@@ -19,8 +19,12 @@ class Perfiles extends CI_Controller {
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
+		//establecemos los permisos del modulo
+		$this->permisos = array("perfiles"	=>	4200);
 		//asignamos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["perfiles"], $this->permisosUsuario) ? redirect(base_url("home"),"refresh") : "";
 		//cargamos la libreria de perfiles
 		$this->load->model("perfiles_model");
 		//cargamos el modelo para validar la existencia de un producto
@@ -28,11 +32,6 @@ class Perfiles extends CI_Controller {
 		//cargamos el modelo de consultas general
 		$this->load->model("consultas_model");
 		
-
-		$this->permisos = array(
-				"perfiles"	=>	4200
-			);
-
 	}
 
 
@@ -79,13 +78,8 @@ class Perfiles extends CI_Controller {
 		//cargamos header
 		$this->load->view("header",$data);
 
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["perfiles"], $this->permisosUsuario)) {
-
-			$data["perfiles"] = $this->consultas_model->traerTodo("t_usuario_perfil");
-			$this->load->view("perfiles/perfiles",$data);
-
-		}
+		$data["perfiles"] = $this->consultas_model->traerTodo("t_usuario_perfil");
+		$this->load->view("perfiles/perfiles",$data);
 
 		//cargamos el footer
 		$this->load->view("footer");
@@ -112,7 +106,8 @@ class Perfiles extends CI_Controller {
 		$valorPermiso = $datos[1];
 
 		//obtenemos los permios del perfil
-		$permisosPerfil = $this->perfiles_model->getInfoPerfil($perfilID);
+		$paramWhere = array("usuario_perfil_id" => $perfilID);
+		$permisosPerfil = $this->consultas_model->traerRow("t_usuario_perfil",$paramWhere);
 		//creamos un arreglo para validar si existe el permiso en el perfil
 		$permisosPerfil = explode("||", $permisosPerfil->usuario_perfil_permisos);
 

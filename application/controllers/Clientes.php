@@ -14,13 +14,17 @@ class Clientes extends CI_Controller {
 
 		//validamos si existe sesion iniciada, de lo contrario se redirige a login
 		if (!$this->session->userdata("login")) { redirect(base_url("login"),"refresh"); }
+		//establecemos los permisos del modulo
+		$this->permisos = array("clientes"	=>	1100);
+		//obtenemos los permisos del usuario
+		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["clientes"], $this->permisosUsuario)? redirect(base_url("home"),"refresh"): "";
 		
 		//tomamos el primer segmento de la url para saber que modulo se posiciona en activo
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
-		//obtenemos los permisos del usuario
-		$this->permisosUsuario = $this->session->userdata("permisos");
 		//cargamos el modelo de clientes
 		$this->load->model("clientes_model");
 		//cargamos el modelo para validar si existe un cliente
@@ -28,9 +32,7 @@ class Clientes extends CI_Controller {
 		//cargamos el modelo para realizar consultas basicas
 		$this->load->model("consultas_model");
 
-		$this->permisos = array(
-				"clientes"	=>	1100
-			);
+		
 	}
 
 	function controlClientes()
@@ -40,15 +42,10 @@ class Clientes extends CI_Controller {
 		//cargamos header
 		$this->load->view("header",$data);
 
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["clientes"], $this->permisosUsuario)) {
+		//traemos los clientes del a base de datos
+		$data["clientes"] = $this->consultas_model->traerTodo("t_cliente");
 
-			//traemos los clientes del a base de datos
-			$data["clientes"] = $this->consultas_model->traerTodo("t_cliente");
-
-			$this->load->view("clientes/controlClientes",$data);
-
-		}
+		$this->load->view("clientes/controlClientes",$data);
 
 		//cargamos el footer
 		$this->load->view("footer");

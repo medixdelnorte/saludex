@@ -19,8 +19,12 @@ class Proveedores extends CI_Controller {
 		$this->menu = $this->uri->segment(1);
 		//asignamos el id de usuario con la variable session
 		$this->usuarioID = $this->session->userdata("id");
+		//establecemos los permisos del modulo
+		$this->permisos = array("proveedores"	=>	5100);
 		//obtenemos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
+		//validamos si el usuario tiene permiso para acceder al modulo
+		!in_array($this->permisos["proveedores"], $this->permisosUsuario) ? redirect(base_url("login"),"refresh") : "";
 		//cargamos modelo de proveedores
 		$this->load->model("proveedores_model");
 		//cargamos el modelo para validar si existe un proveedor
@@ -28,9 +32,6 @@ class Proveedores extends CI_Controller {
 		//cargamos el modelo para realizar consultas basicas
 		$this->load->model("consultas_model");
 
-		$this->permisos = array(
-				"proveedores"	=>	5100
-			);
 	}
 
 	function crearProveedor()
@@ -121,15 +122,10 @@ class Proveedores extends CI_Controller {
 		//cargamos header
 		$this->load->view("header",$data);
 
-		//validamos si el usuario tiene permiso para acceder al modulo
-		if (in_array($this->permisos["proveedores"], $this->permisosUsuario)) {
+		//traemos los proveedors del a base de datos
+		$data["proveedores"] = $this->consultas_model->traerTodo("t_proveedor");
 
-			//traemos los proveedors del a base de datos
-			$data["proveedores"] = $this->consultas_model->traerTodo("t_proveedor");
-
-			$this->load->view("proveedores/proveedores",$data);
-
-		}
+		$this->load->view("proveedores/proveedores",$data);
 
 		//cargamos el footer
 		$this->load->view("footer");
