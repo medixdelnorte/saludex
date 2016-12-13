@@ -54,20 +54,35 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         <form class="form-horizontal" role="form">
 
                             <div class="row">
-                                <?php 
-                                    if ($permisos != false):
-                                        foreach ($permisos as $key => $permiso):
-                                 ?>
-                                <div class="col-md-12 margin-top-5">
-                                    <label class="switch-input success">
-                                        <input class="check-permiso" action="<?php echo base_url("permisoPerfil") ?>" p="<?php echo $perfilID; ?>" type="checkbox" name="switch-checkbox" <?php echo (in_array($permiso->permiso_valor, $permisosPerfil))?" checked ":"" ?> valor="<?php echo $permiso->permiso_valor; ?>">
-                                        <i data-on="ON" data-off="OFF"></i> <?php echo $permiso->permiso_descripcion ?>
-                                    </label>
+                                <div class="col-sm-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Modulo</th>
+                                                <th>Descripcion del Permiso</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                                if ($permisos != false):
+                                                    foreach ($permisos as $key => $permiso):
+                                             ?>
+                                             <tr>
+                                                <td><?php echo $permiso->permiso_modulo ?></td>
+                                                <td>
+                                                    <label class="switch-input success">
+                                                        <input class="check-permiso" action="<?php echo base_url("permisoPerfil") ?>" p="<?php echo $perfilID; ?>" type="checkbox" name="switch-checkbox" <?php echo (in_array($permiso->permiso_valor, $permisosPerfil))?" checked ":"" ?> valor="<?php echo $permiso->permiso_valor; ?>">
+                                                        <i data-on="ON" data-off="OFF"></i> <?php echo $permiso->permiso_descripcion ?>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <?php 
+                                                    endforeach;
+                                                endif;                                            
+                                             ?>                                            
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <?php 
-                                        endforeach;
-                                    endif;
-                                 ?>
                             </div>
 
                         </form>
