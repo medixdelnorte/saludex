@@ -30,6 +30,22 @@ class Empresas_model extends CI_Model
 		$this->db->set("empresa_fecha_alta","NOW()",FALSE);
 		$this->db->insert("t_empresa",$campos);
 	}
+
+	function traerSucursalesEmpresa($empresaID)
+	{
+		$paramWhere = array("empresa_id" => $empresaID);
+		$sucursales = $this->db->get_where("t_sucursal",$paramWhere);
+
+		if ($sucursales->num_rows() > 0) {
+			
+			return $sucursales->result();
+
+		}else{
+
+			return false;
+
+		}
+	}
 }
 
 

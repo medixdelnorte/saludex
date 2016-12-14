@@ -230,6 +230,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
     <script src="<?php echo base_url("assets/js/modulos/clientesJs.js") ?>"></script>
     <script src="<?php echo base_url("assets/js/modulos/usuariosJs.js") ?>"></script>
     <script src="<?php echo base_url("assets/js/modulos/perfilesJs.js") ?>"></script>
+    <script src="<?php echo base_url("assets/js/modulos/ventasJs.js") ?>"></script>
 
 
 

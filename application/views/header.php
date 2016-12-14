@@ -331,9 +331,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
                         <li class=''><a href="<?php echo base_url("proveedores/proveedores"); ?>" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "proveedores")?"active":"" ?>"><span class='icon-sidebar pe-7s-id fa-2x'></span><span>Proveedores</span></a></li>
 
-                        <li class='sub-menu '><a href="#" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "ventas")?"active":"" ?>"><span class='icon-sidebar fa fa-usd fa-2x'></span><span>Ventas</span></a>
+                        <li class='sub-menu '><a href="#" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "controlpedidos")?"active":"" ?>"><span class='icon-sidebar fa fa-usd fa-2x'></span><span>Ventas</span></a>
                             <ul class='sub'>
-                                <li><a href="<?php echo base_url("ventas/controlPedidos"); ?>">Control de Pedidos</a>
+                                <li><a href="<?php echo base_url("controlpedidos/pedidos"); ?>">Control de Pedidos</a>
                                 </li>
                             </ul>
                         </li>

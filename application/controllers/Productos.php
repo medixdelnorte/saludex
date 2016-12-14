@@ -76,14 +76,12 @@ class Productos extends CI_Controller {
 
 	function controlProductos()
 	{
-		$data["menu"] = $this->menu;		
+		$data["menu"] = $this->menu;
+		$data["productos"] = $this->productos_model->getProductos();	
 
 		//cargamos header
-		$this->load->view("header",$data);
-		$data["productos"] = $this->productos_model->getProductos();
-
-		$this->load->view("productos/controlProductos",$data);
-		
+		$this->load->view("header",$data);		
+		$this->load->view("productos/controlProductos");		
 		//cargamos el footer
 		$this->load->view("footer");
 	}

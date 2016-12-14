@@ -36,11 +36,10 @@ class Empresas extends CI_Controller {
 	function empresas()
 	{
 		$data["menu"] = $this->menu;
-
-		$this->load->view("header.php",$data);
-
 		$data["empresas"] = $this->consultas_model->traerTodo("t_empresa");
-		$this->load->view("empresa/empresas",$data);
+
+		$this->load->view("header.php",$data);		
+		$this->load->view("empresa/empresas");
 		$this->load->view("footer.php");
 	}
 

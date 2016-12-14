@@ -73,7 +73,6 @@ class Departamentos extends CI_Controller {
 	function departamentos()
 	{
 		$data["menu"] = $this->menu;
-
 		$data["departamentos"] = $this->consultas_model->traerTodo("t_usuario_departamento");
 
 		$this->load->view("header",$data);

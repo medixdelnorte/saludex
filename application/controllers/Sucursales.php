@@ -122,14 +122,12 @@ class Sucursales extends CI_Controller {
 	function sucursales()
 	{
 		$data["menu"] = $this->menu;
-
-		//cargamos header
-		$this->load->view("header",$data);
 		//traemos los clientes del a base de datos
 		$data["sucursales"] = $this->sucursales_model->getSucursales();
 
-		$this->load->view("sucursales/sucursales",$data);
-		
+		//cargamos header
+		$this->load->view("header",$data);
+		$this->load->view("sucursales/sucursales",$data);		
 		//cargamos el footer
 		$this->load->view("footer");
 	}

@@ -74,13 +74,11 @@ class Perfiles extends CI_Controller {
 	function perfiles()
 	{
 		$data["menu"] = $this->menu;		
+		$data["perfiles"] = $this->consultas_model->traerTodo("t_usuario_perfil");
 		
 		//cargamos header
 		$this->load->view("header",$data);
-
-		$data["perfiles"] = $this->consultas_model->traerTodo("t_usuario_perfil");
-		$this->load->view("perfiles/perfiles",$data);
-
+		$this->load->view("perfiles/perfiles");
 		//cargamos el footer
 		$this->load->view("footer");
 	}

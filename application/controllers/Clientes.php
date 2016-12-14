@@ -38,14 +38,12 @@ class Clientes extends CI_Controller {
 	function controlClientes()
 	{
 		$data["menu"] = $this->menu;
-
-		//cargamos header
-		$this->load->view("header",$data);
-
 		//traemos los clientes del a base de datos
 		$data["clientes"] = $this->consultas_model->traerTodo("t_cliente");
 
-		$this->load->view("clientes/controlClientes",$data);
+		//cargamos header
+		$this->load->view("header",$data);
+		$this->load->view("clientes/controlClientes");
 
 		//cargamos el footer
 		$this->load->view("footer");

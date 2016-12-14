@@ -160,14 +160,10 @@ class Usuarios extends CI_Controller {
 	function usuarios()
 	{
 		$data["menu"] = $this->menu;
-
-		$this->load->view("header",$data);
-
-
 		$data["usuarios"] = $this->usuarios_model->getUsuarios();
 
+		$this->load->view("header",$data);
 		$this->load->view("usuarios/usuarios",$data);
-
 		$this->load->view("footer");
 	}
 

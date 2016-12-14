@@ -39,10 +39,10 @@ class Almacenes extends CI_Controller
 	function almacenes()
 	{
 		$data["menu"] = $this->menu;
-
-		$this->load->view("header",$data);		
 		$data["almacenes"] = $this->almacenes_model->getAlmacenes();
-		$this->load->view("almacenes/almacenes",$data);	
+
+		$this->load->view("header",$data);				
+		$this->load->view("almacenes/almacenes");	
 		$this->load->view("footer");
 	}
 

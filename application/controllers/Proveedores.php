@@ -118,15 +118,12 @@ class Proveedores extends CI_Controller {
 	function proveedores()
 	{
 		$data["menu"] = $this->menu;
-
-		//cargamos header
-		$this->load->view("header",$data);
-
 		//traemos los proveedors del a base de datos
 		$data["proveedores"] = $this->consultas_model->traerTodo("t_proveedor");
 
+		//cargamos header
+		$this->load->view("header",$data);
 		$this->load->view("proveedores/proveedores",$data);
-
 		//cargamos el footer
 		$this->load->view("footer");
 	}

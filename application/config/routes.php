@@ -98,3 +98,8 @@ $route["crearDepartamento"] = "departamentos/crearDepartamento";
 // ==== rutas modulo Proveedores ===
 $route["crearProveedor"] = "proveedores/crearProveedor";
 $route["editarProveedor/(:num)"] = "proveedores/editarProveedor/$1";
+
+
+// == rutas funciones == //
+$route["traerSucursalesVenta/(:num)"] = "controlpedidos/traerSucursalesVenta/$1";
+$route["cambiaSucursalVenta/(:num)"] = "controlpedidos/cambiaSucursalVenta/$1";

@@ -129,3 +129,4 @@ function cerrarModal()
 {
 	$("#btn-dismiss-modal").click();
 }
+
