@@ -1,4 +1,13 @@
 
+/* =================== VARIABLES GLOABLES =================== */
+
+baseUrl = "http://localhost/saludex/";
+
+/* ========================================================== */
+
+
+
+
 function mensajeSuccess(titulo,mensaje)
 {
 	swal(titulo, mensaje, "success");

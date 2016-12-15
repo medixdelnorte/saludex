@@ -19,7 +19,7 @@ class ControlPedidos extends CI_Controller {
 		//obtenemos los permisos del usuario
 		$this->permisosUsuario = $this->session->userdata("permisos");
 		//validamos si el usuario tiene permiso para acceder al modulo
-		!in_array($this->permisos["controlpedidos"], $this->permisosUsuario)? redirect(base_url("home"),"refresh"): "";
+		!in_array($this->permisos["controlpedidos"], $this->permisosUsuario) ? redirect(base_url("home"),"refresh") : "";
 		
 		//tomamos el primer segmento de la url para saber que modulo se posiciona en activo
 		$this->menu = $this->uri->segment(1);
@@ -59,6 +59,19 @@ class ControlPedidos extends CI_Controller {
 		$this->load->view("header",$data);
 		$this->load->view("controlpedidos/pedidos");
 		$this->load->view("footer");
+	}
+
+	function setClienteVenta()
+	{
+		$datos = $this->input->post("datos");
+
+		$clienteID = $datos["clienteID"];
+		$ventaID = $datos["ventaID"];
+
+		$campos = array("cliente_id" => $clienteID);
+		$paramWhere =array('venta_id' => $ventaID);
+
+		$this->consultas_model->actualizar("t_venta",$campos,$paramWhere);
 	}
 
 	function traerSucursalesVenta()
@@ -104,15 +117,7 @@ class ControlPedidos extends CI_Controller {
 		//obtenemos la lista de empresas
 		$data["empresas"] = $this->empresas_model->getListaEmpresas();
 
-		if ($data["infoVenta"]->sucursalID != NULL) {
-			
-			$data["sucursales"] = $this->empresas_model->traerSucursalesEmpresa($data["infoVenta"]->empresaID);
-
-		}else{
-
-			$data["sucursales"] = FALSE;
-
-		}
+		$data["infoVenta"]->sucursalID != NULL ? $data["sucursales"] = $this->empresas_model->traerSucursalesEmpresa($data["infoVenta"]->empresaID) : $data["sucursales"] = FALSE;
 
 		if ($data["infoVenta"] != false) {
 			

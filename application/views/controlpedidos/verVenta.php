@@ -147,7 +147,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <span class="input-group-btn" data-toggle="tooltip" title="Buscar Cliente">
                                         <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-pull-top"><i class="fa fa-search"></i></button>
                                     </span>
-                                    <input type="text" class="form-control" disabled placeholder="Buscar Cliente">
+                                    <input type="text" class="form-control" disabled placeholder="Buscar Cliente" id="buscar-cliente-venta">
                                 </div>
                             </div>
                         </div>
@@ -169,7 +169,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
         <div class="c_panel c_panel_info">
 
             <div class="c_title">
-                <h2>Informacion de los Productos</h2>
+                <h2>Partidas</h2>
                 <ul class="nav navbar-right panel_options">
                     <li>
                         <a class="collapse-link">
@@ -181,6 +181,41 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
             </div><!--/.c_title-->
 
             <div class="c_content">
+
+                <div class="row">
+                    
+                    <div class="col-sm-12 margin-bottom-20">
+                        
+                        <div class="btn-group">
+                          <button class="btn btn-sm btn-success btn-raised rippler rippler-inverse"><i class="fa fa-plus"></i> Agregar Producto</button>
+                        </div>                      
+
+                    </div>
+
+                </div>
+
+                <small><b>Lista de Productos</b></small>
+                <hr style="margin-top:1px"><!-- /separador -->
+
+                <div class="row">
+                    
+                <div class="col-sm-12">
+
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>
+                            <th>Precio U.</th>
+                            <th>Descuento</th>
+                            <th>I.V.A.</th>
+                            <th>Importe</th>
+                        </thead>                        
+                    </table>
+                    
+                </div>
+
+                </div>
                 
             </div><!--/.c_content-->
         </div><!--/.c_panels-->
@@ -202,19 +237,43 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
             <div class="row">
                 
                 <div class="col-sm-12">
-                    <div class="input-group margin-bottom-15">
-                        <span class="input-group-btn" data-toggle="tooltip" title="Buscar Cliente">
-                            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-pull-top"><i class="fa fa-search"></i></button>
-                        </span>
-                        <input type="text" class="form-control" disabled placeholder="Buscar Cliente">
-                    </div>
+                    <form class="form-horizontal bClienteVenta" action="<?php echo base_url("buscar"); ?>" target="cliente" buscar="razon|rfc" ref="<?php echo $ventaID ?>">
+                        <div class="input-group margin-bottom-15">
+                            <input type="text" class="form-control" id="caja-buscar" placeholder="Buscar Cliente" required>
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i> Buscar</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+
+            </div><!-- /.row -->
+
+            <div class="row">
+                
+                <div class="col-sm-12">
+
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Razon Social</th>
+                                <th>R.F.C.</th>
+                                <th>Numero Cliente</th>
+                                <th>Telefono</th>
+                                <th>Direccion</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultado-buscar-cliente">
+                        </tbody>
+                    </table>
+                    
                 </div>
 
             </div><!-- /.row -->
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-raised rippler rippler-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default btn-raised rippler rippler-default" id="btn-dismiss-modal" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

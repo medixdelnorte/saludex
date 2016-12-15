@@ -100,6 +100,11 @@ $route["crearProveedor"] = "proveedores/crearProveedor";
 $route["editarProveedor/(:num)"] = "proveedores/editarProveedor/$1";
 
 
-// == rutas funciones == //
+// == rutas modulo ventas == //
 $route["traerSucursalesVenta/(:num)"] = "controlpedidos/traerSucursalesVenta/$1";
 $route["cambiaSucursalVenta/(:num)"] = "controlpedidos/cambiaSucursalVenta/$1";
+$route["setClienteVenta"] = "controlpedidos/setClienteVenta";
+
+
+// == rutas para realizar busquedas == //
+$route["buscar"] = "buscar/ejecutarBusqueda";
