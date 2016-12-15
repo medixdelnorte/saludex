@@ -217,7 +217,6 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
 
     <!-- For this page only --><!-- esto es para cargar tablas -->
-    <script src="<?php echo base_url("assets/js/tables.js") ?>"></script>
     <script src="<?php echo base_url("assets/js/table_editable.js"); ?>"></script>
 
 

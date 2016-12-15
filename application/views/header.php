@@ -21,23 +21,8 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
     <!-- Start Global plugin css -->
     <link href="<?php echo base_url("assets/css/global-plugins.css"); ?>" rel="stylesheet">
     <link href="<?php echo base_url("assets/vendors/jquery-icheck/skins/all.css"); ?>" rel="stylesheet" />
-    <!-- <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="assets/css/bootstrap-reset.css" rel="stylesheet"> -->
     <link href="assets/vendors/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <!-- <link href="assets/vendors/pe-icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet" /> -->
-    <!-- <link href="assets/vendors/pe-icon-7-stroke/css/helper.css" rel="stylesheet"/> -->
-    <!-- <link href="assets/vendors/jquery-notific8/jquery.notific8.css" rel="stylesheet"> -->
-    <!-- <link href="assets/vendors/line-icons/line-icons.css" rel="stylesheet" /> -->
-    <!-- <link href="assets/vendors/jquery-ui/jquery-ui.min.css" rel="stylesheet"> -->
-    <!-- <link href="assets/vendors/dropdowns-enhancement/css/dropdowns-enhancement.css" rel="stylesheet"> -->
-    <!-- <link href="assets/vendors/hover/hover.css" rel="stylesheet"> -->
-    <!-- <link href="assets/vendors/animate/animate.css" rel="stylesheet"> -->
-    <!-- <link href="assets/vendors/tooltipster/css/tooltipster.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="assets/vendors/tooltipster/css/themes/tooltipster-light.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="assets/vendors/tooltipster/css/themes/tooltipster-noir.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="assets/vendors/tooltipster/css/themes/tooltipster-punk.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="assets/vendors/tooltipster/css/themes/tooltipster-shadow.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet" /> -->
+
     <!-- End Global plugin css -->
 
     <!-- IOS SWITCH -->

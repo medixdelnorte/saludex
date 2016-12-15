@@ -6,6 +6,15 @@ baseUrl = "http://localhost/saludex/";
 /* ========================================================== */
 
 
+$(document).ready(function(){
+
+	$("#tablaBoot").dataTable({
+		"lengthMenu": [[50,100,200,-1],[50,100,200,"TODOS"]]
+	});
+
+});
+
+
 
 
 function mensajeSuccess(titulo,mensaje)

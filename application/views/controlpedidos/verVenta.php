@@ -203,14 +203,29 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
                     <table class="table table-striped table-hover">
                         <thead>
-                            <th>Codigo</th>
-                            <th>Descripcion</th>
-                            <th>Cantidad</th>
-                            <th>Precio U.</th>
-                            <th>Descuento</th>
-                            <th>I.V.A.</th>
-                            <th>Importe</th>
-                        </thead>                        
+                            <tr>
+                                <th></th>
+                                <th>Codigo</th>
+                                <th>Descripcion</th>
+                                <th>Cantidad</th>
+                                <th>Precio U.</th>
+                                <th>Descuento</th>
+                                <th>I.V.A.</th>
+                                <th>Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center"><img src="<?php echo base_url("/assets/images/details_open.png") ?>"></td>
+                                <td>Codigo</td>
+                                <td>Descripcion</td>
+                                <td>Cantidad</td>
+                                <td>Precio U.</td>
+                                <td>Descuento</td>
+                                <td>I.V.A.</td>
+                                <td>Importe</td>
+                            </tr>
+                        </tbody>                      
                     </table>
                     
                 </div>

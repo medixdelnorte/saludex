@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                 
                 <section id="flip-scroll">
 
-                <table id="example2" class="table table-bordered table-striped table-condensed cf" style="border-spacing:0px; width:100%">
+                <table id="tablaBoot" class="table table-bordered table-striped table-condensed cf" style="border-spacing:0px; width:100%">
                     <thead>                    
                         <tr>
                             <th>Razon</th>
