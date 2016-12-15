@@ -51,16 +51,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
     <link href="<?php echo base_url("assets/css/class-helpers.css"); ?>" rel="stylesheet"/>
 
     <!--Color schemes-->
-    <!--<link href="<?php echo base_url("assets/css/colors/green.css"); ?>" rel="stylesheet">-->
-    <!--<link href="<?php echo base_url("assets/css/colors/turquoise.css"); ?>" rel="stylesheet">-->
+
     <link href="<?php echo base_url("assets/css/colors/blue.css"); ?>" rel="stylesheet">
-    <!--<link href="<?php echo base_url("assets/css/colors/amethyst.css"); ?>" rel="stylesheet">-->
-    <!--<link href="<?php echo base_url("assets/css/colors/cloud.css"); ?>" rel="stylesheet">-->
-    <!--<link href="<?php echo base_url("assets/css/colors/sun-flower.css"); ?>" rel="stylesheet">-->
-    <!--<link href="<?php echo base_url("assets/css/colors/carrot.css"); ?>" rel="stylesheet">-->
-    <!--<link href="<?php echo base_url("assets/css/colors/alizarin.css"); ?>" rel="stylesheet">-->
-    <!--<link href="<?php echo base_url("assets/css/colors/concrete.css"); ?>" rel="stylesheet">-->
-    <!--<link href="<?php echo base_url("assets/css/colors/wet-asphalt.css"); ?>" rel="stylesheet">-->
+
 
     <!--Fonts-->
     <link href="<?php echo base_url("assets/fonts/Indie-Flower/indie-flower.css"); ?>" rel="stylesheet" />
@@ -309,7 +302,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             </div>
                             
                         </li>
-                        <li class=''><a href="<?php echo base_url("dashboard"); ?>" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "dashboard")?"active":"" ?>"><span class='icon-sidebar icon-home fa-2x'></span><span>Dashboard</span></a>
+                        <li class=''><a href="<?php echo base_url("dashboard"); ?>" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "dashboard")?"active":"" ?>"><span class='icon-sidebar fa fa-home fa-2x'></span><span>Dashboard</span></a>
                         </li>
 
                         <li class=''><a href="<?php echo base_url("clientes/controlClientes"); ?>" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "clientes")?"active":"" ?>"><span class='icon-sidebar fa fa-briefcase fa-2x'></span><span>Clientes</span></a></li>

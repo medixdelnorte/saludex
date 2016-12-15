@@ -143,10 +143,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
     <script src="<?php echo base_url("assets/vendors/maps/js/gdp-data.js"); ?>" type="text/javascript"></script>
     <script src="<?php echo base_url("assets/vendors/maps/js/jquery-jvectormap-world-mill-en.js"); ?>" type="text/javascript" ></script>
     <script src="<?php echo base_url("assets/vendors/maps/js/jquery-jvectormap-us-aea-en.js"); ?>" type="text/javascript" ></script>
-    <script src="<?php echo base_url("assets/vendors/video-js/video.js"); ?>"></script>
-    <script>
-        videojs.options.flash.swf = "<?php echo base_url("assets/vendors/video-js/video-js.swf"); ?>";
-    </script>
+
 
 
     <!--##################################################################################
@@ -159,10 +156,6 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
     <!-- For the page has tooltipslter only -->
     <script src="<?php echo base_url("assets/js/tooltipster.js") ?>" type="text/javascript" ></script>    
-
-
-    <!-- For this page only --><!-- esto es para cargar tablas -->
-    <script src="<?php echo base_url("assets/js/table_editable.js"); ?>"></script>
 
 
     <!--sweet alerts-->
@@ -206,16 +199,6 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
             App.initOwlCarousel();
             App.initSkyCons();
             App.initWidgets();
-
-            DashboardGreen.initRickShawGraph();
-            DashboardGreen.initFlotGraph();
-            DashboardGreen.initChartGraph();
-            DashboardGreen.initSparklineGraph();
-            DashboardGreen.initDateRange();
-            DashboardGreen.initWorldMap();
-            DashboardGreen.initEasyPieChart();
-            DashboardGreen.initMorrisChart();
-            DashboardGreen.initTodoList();
 
         });
     </script>
