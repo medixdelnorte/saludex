@@ -76,5 +76,57 @@ class ControlPedidos_model extends CI_Model
 
 		}
 	}
+
+	function insertaPartidaVt($productoID,$ventaID,$usuarioID)
+	{
+		// == traemos los datos del productos insertado == //
+		$paramWhere = array("producto_id" => $productoID);
+		$producto = $this->db->get_where("t_producto",$paramWhere);
+		// =============================================== //
+		if ($producto->num_rows() > 0) {
+
+			$infoProducto = $producto->row();
+			
+			//iniciamos transaccion
+			$this->db->trans_begin();
+
+				$camposInsertar = array(
+						"producto_id" 		=>	$productoID,
+						"partidavt_precio"	=>	$infoProducto->producto_pref,
+						"partidavt_iva"		=>	$infoProducto->producto_iva,
+						"partidavt_pref"	=>	$infoProducto->producto_pref,
+						"usuario_id"		=>	$usuarioID,
+						"venta_id"			=>	$ventaID
+					);
+				$this->db->set("partidavt_fecha","NOW()", FALSE);
+				$this->db->insert("t_partidavt",$camposInsertar);
+				//tomamos el id de la partida insertada
+				$partidaID = $this->db->insert_id();
+
+				//traemos la informacion de la partida para mostrarla al usuario
+				$paramWhere = array("partidavt_id" => $partidaID);
+				$this->db->select("pro.producto_codigob AS codigo, pro.producto_descripcion AS descripcion, pvt.partidavt_id AS partidaID, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva");
+				$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
+				$partidavt = $this->db->get_where("t_partidavt pvt",$paramWhere);				
+			//si alguna consulta fallo, se realiza rollback y se retorna false
+			if ($this->db->trans_status() === FALSE) {
+				
+				$this->db->trans_rollback();
+
+				return false;
+
+			}else{
+			//terminamos la transaccion y realizamos los cambios en bd retornamos la informacion de la partidavt insertada
+				$this->db->trans_commit();
+				return $partidavt->row();
+
+			}			
+
+		}else{
+
+			return false;
+
+		}
+	}
 	
 }

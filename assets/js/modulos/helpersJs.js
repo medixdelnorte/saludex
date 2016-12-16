@@ -13,12 +13,6 @@ $(document).ready(function(){
 		"lengthMenu": [[50,100,300,1000,-1],[50,100,300,1000,"TODOS"]]
 	});
 
-	//datatable para las partidas de una venta
-	$("#tablaPartidasVt").dataTable({
-		"paging":false,
-		"order":[[1,"desc"]]
-	});
-
 });
 
 

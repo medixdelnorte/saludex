@@ -203,9 +203,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                     
                 <div class="col-sm-12">
 
-                    <section id="flip-scroll">
+                   <!-- <section id="flip-scroll">-->
 
-                    <table id="tablaPartidasVt"  class="table table-bordered table-striped table-condensed cf" style="border-spacing:0px; width:100%">
+                    <table class="table table-bordered table-striped table-condensed cf" style="border-spacing:0px; width:100%">
                         <thead>
                             <tr>
                                 <th class="text-center">&nbsp;</th>
@@ -219,7 +219,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                 <th class="text-center">Opciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="partidas-venta">
                             <?php 
                                 if ($partidas != false):
                                     foreach ($partidas as $key => $partida):
@@ -238,7 +238,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <input type="text" class="caja text-center" size="8" value="<?php echo $partida->descuento ?>">
                                 </td>
                                 <td class="text-center"><?php echo $partida->iva ?></td>
-                                <td class="text-center"></td>
+                                <td class="text-center">0</td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>
@@ -255,7 +255,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         </tbody>                      
                     </table>
 
-                    </section>
+                    <!--</section>-->
                     
                 </div>
 

@@ -56,8 +56,23 @@ class ControlPedidos extends CI_Controller {
 
 		$productoID = $datos["productoID"];
 		$ventaID = $datos["ventaID"];
+		$usuarioID = $this->usuarioID;
 
-		print_r($datos);
+		$insertaPartida = $this->controlPedidos_model->insertaPartidaVt($productoID,$ventaID,$usuarioID);
+
+		if ($insertaPartida != false) {
+			
+			//codificamos a json
+			$insertaPartida = json_encode($insertaPartida);
+
+			echo $insertaPartida;
+
+		}else{
+
+			echo false;
+
+		}
+
 	}
 
 	function pedidos()

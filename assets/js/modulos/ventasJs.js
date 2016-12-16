@@ -114,7 +114,7 @@ function seleccionaClienteVenta(elementoTr,ventaID)
 {
 	var objeto = $(elementoTr);
 
-	var ruta = baseUrl + "/setClienteVenta"
+	var ruta = baseUrl + "setClienteVenta"
 
 	var clienteRazon = objeto.attr("cliente");
 
@@ -196,7 +196,7 @@ function insertaProductoVenta(elementoTr,ventaID)
 
 	var info = new Object();
 
-	var ruta = baseUrl + "/insertaPartidavt";
+	var ruta = baseUrl + "insertaPartidavt";
 
 	info.productoID = objeto.attr("val");
 	info.ventaID = ventaID;
@@ -207,7 +207,34 @@ function insertaProductoVenta(elementoTr,ventaID)
 
 function contruyePartidaVt(paramCallback,respuesta)
 {
-	console.log(respuesta);
+	var contenedor = $("#partidas-venta");
+	var partida = JSON.parse(respuesta);
+
+	var tabla = '';	
+
+	//creamos el codigo html
+	tabla = tabla + '<tr>';
+		tabla = tabla + '<td class="text-center"><img src="' + baseUrl + '/assets/images/details_open.png" data-toggle="tooltip" title="Mas Informacion"></td>';
+		tabla = tabla + '<td class="text-center">' + partida.codigo + '</td>';
+		tabla = tabla + '<td class="text-center">' + partida.descripcion + '</td>';
+		tabla = tabla + '<td class="text-center">' + partida.cantidad + '</td>';
+		tabla = tabla + '<td class="text-center">' + partida.precio + '</td>';
+		tabla = tabla + '<td class="text-center">' + partida.descuento + '</td>';
+		tabla = tabla + '<td class="text-center">' + partida.iva + '</td>';
+		tabla = tabla + '<td class="text-center"></td>';
+		tabla = tabla + '<td class="text-center">';
+			tabla = tabla + '<div class="btn-group">';
+				tabla = tabla + '<button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>';
+			tabla = tabla + '</div>';
+			tabla = tabla + ' <div class="btn-group">';
+				tabla = tabla + '<button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida"><i class="fa fa-minus"></i></button>';
+			tabla = tabla + '</div>';
+		tabla = tabla + '</td>';
+	tabla = tabla + '</tr>';
+
+	//insertamos al final el row en la tabla
+	contenedor.prepend(tabla);
+
 }
 
 
