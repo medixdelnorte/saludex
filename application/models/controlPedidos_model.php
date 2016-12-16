@@ -54,5 +54,27 @@ class ControlPedidos_model extends CI_Model
 		}
 
 	}
+
+	function getPartidas($ventaID)
+	{
+		//establecemos la condicion where
+		$paramWhere = array("venta_id" => $ventaID);
+		//establecemos el select
+		$this->db->select("pro.producto_codigob AS codigob, pro.producto_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva");
+		//realizamos los join necesarios
+		$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
+		//realizamos el get
+		$partidas = $this->db->get_where("t_partidavt pvt",$paramWhere);
+
+		if ($partidas->num_rows() > 0) {
+			
+			return $partidas->result();
+
+		}else{
+
+			return false;
+
+		}
+	}
 	
 }

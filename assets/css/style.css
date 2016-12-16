@@ -1,0 +1,9 @@
+
+.caja{
+	border:1px solid #DDD;
+	border-radius:3px;
+	box-shadow:0 0 5px #DDD inset;
+	padding:5px;
+	outline:none;
+	text-transform:uppercase; 
+}

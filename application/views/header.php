@@ -20,6 +20,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
     <!-- Start Global plugin css -->
     <link href="<?php echo base_url("assets/css/global-plugins.css"); ?>" rel="stylesheet">
+    <link href="<?php echo base_url("assets/css/style.css"); ?>" rel="stylesheet">
     <link href="<?php echo base_url("assets/vendors/jquery-icheck/skins/all.css"); ?>" rel="stylesheet" />
     <link href="assets/vendors/font-awesome/css/font-awesome.css" rel="stylesheet">
 

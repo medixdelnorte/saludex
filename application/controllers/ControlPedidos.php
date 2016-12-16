@@ -50,6 +50,16 @@ class ControlPedidos extends CI_Controller {
 		$this->consultas_model->actualizar("t_venta",$campos,$paramWhere);
 	}
 
+	function insertaPartidavt()
+	{
+		$datos = $this->input->post("datos");
+
+		$productoID = $datos["productoID"];
+		$ventaID = $datos["ventaID"];
+
+		print_r($datos);
+	}
+
 	function pedidos()
 	{
 		$data["menu"] = $this->menu;
@@ -116,8 +126,11 @@ class ControlPedidos extends CI_Controller {
 		$data["infoVenta"] = $this->controlPedidos_model->getInfoVenta($ventaID);
 		//obtenemos la lista de empresas
 		$data["empresas"] = $this->empresas_model->getListaEmpresas();
-
+		//si se tiene seleccionada una sucursal se traen las sucursales de la empresa a la cual pertenece la sucursal
 		$data["infoVenta"]->sucursalID != NULL ? $data["sucursales"] = $this->empresas_model->traerSucursalesEmpresa($data["infoVenta"]->empresaID) : $data["sucursales"] = FALSE;
+
+		//traemos las partidas de la venta
+		$data["partidas"] = $this->controlPedidos_model->getPartidas($ventaID);
 
 		if ($data["infoVenta"] != false) {
 			

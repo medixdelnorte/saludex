@@ -71,7 +71,7 @@ $(".bClienteVenta").on("submit",function(form){
 
 	info.tabla = objeto.attr("target");
 	info.campos = objeto.attr("buscar");
-	info.buscar = $("#caja-buscar").val();
+	info.buscar = $("#caja-buscar-c").val();
 
 	var ventaID = objeto.attr("ref");
 	var ruta = objeto.attr("action");
@@ -106,9 +106,10 @@ function rBuscaClienteVenta(paramCallback,respuesta)
 
 	}
 }
-// /buscar cliente
+// == /buscar cliente
 
 
+// == funcion para seleccionar un cliente para la venta posterior a la busqueda realizada
 function seleccionaClienteVenta(elementoTr,ventaID)
 {
 	var objeto = $(elementoTr);
@@ -126,7 +127,7 @@ function seleccionaClienteVenta(elementoTr,ventaID)
 	ejecutaProceso(ruta,datos,"",asignaClienteVenta,clienteRazon);
 
 }
-
+//retorna la razon social del cliente al input principal
 function asignaClienteVenta(paramCallback,respuesta)
 {
 	//pasamos la razon social del cliente al input de buscar cliente
@@ -134,4 +135,80 @@ function asignaClienteVenta(paramCallback,respuesta)
 	//cerramos modal
 	cerrarModal();
 }
+
+
+
+// == funcion para buscar producto [esta funcionara para muchos modulos solo hayq ue buscar como hacer callback desde aqui]
+$(".bProductoVenta").on("submit",function(form){
+
+	form.preventDefault();
+
+	var objeto = $(this);
+
+	var info = new Object();
+
+	info.tabla = objeto.attr("target");
+	info.campos = objeto.attr("buscar");
+	info.buscar = $("#caja-buscar-p").val();
+
+	var ventaID = objeto.attr("ref");
+	var ruta = objeto.attr("action");
+
+	ejecutaProceso(ruta,info,"",rBuscaProductoVenta,ventaID);
+
+});
+
+
+function rBuscaProductoVenta(paramCallback,respuesta)
+{
+	if (respuesta != false) {
+
+		var ventaID = paramCallback;
+		var contenedor = $("#resultado-buscar-producto");
+		var tabla = '';
+		var datos = JSON.parse(respuesta);
+
+		$.each(datos,function(key,val){
+
+			tabla = tabla + '<tr onClick="insertaProductoVenta(this,' + ventaID + ')" val="' + val.producto_id + '">';
+			tabla = tabla + '<td>' + val.producto_codigob + '</td>';
+			tabla = tabla + '<td>' + val.producto_descripcion + '</td>';
+			tabla = tabla + '<td>' + val.producto_sustancia + '</td>';
+			tabla = tabla + '<td>$ ' + parseFloat(val.producto_ppublico).toFixed(2) + '</td>';
+			tabla = tabla + '<td>$ ' + parseFloat(val.producto_pfarm).toFixed(2) + '</td>';
+			tabla = tabla + '<td>$ ' + parseFloat(val.producto_pref).toFixed(2) + '</td>';
+			tabla = tabla + '<td>' + val.producto_limitado + '</td>';
+			tabla = tabla + '</tr>';
+
+		});
+
+		contenedor.html(tabla);
+
+	}
+}
+// == /buscar producto
+
+
+// funcion para seleccionar el producto para insertarlo en la venta
+function insertaProductoVenta(elementoTr,ventaID)
+{
+	var objeto = $(elementoTr);
+
+	var info = new Object();
+
+	var ruta = baseUrl + "/insertaPartidavt";
+
+	info.productoID = objeto.attr("val");
+	info.ventaID = ventaID;
+
+	ejecutaProceso(ruta,info,"",contruyePartidaVt,"");
+
+}
+
+function contruyePartidaVt(paramCallback,respuesta)
+{
+	console.log(respuesta);
+}
+
+
 
