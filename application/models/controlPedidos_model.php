@@ -9,6 +9,28 @@ class ControlPedidos_model extends CI_Model
 		parent::__construct();
 	}
 
+	function eliminaPartida($partidaID)
+	{
+		$this->db->trans_begin();
+
+			$this->db->where("partidavt_id",$partidaID);
+			$this->db->delete("t_partidavt");
+
+		if ($this->db->trans_status() === FALSE) {
+			
+			$this->db->trans_rollback();
+
+			return false;
+
+		}else{
+
+			$this->db->trans_commit();
+
+			return true;
+
+		}
+	}
+
 	function getVentas()
 	{
 		$this->db->select("vta.venta_id AS op, emp.empresa_nombre_comercial AS empresa, vta.venta_status_id AS statusVenta, vta.venta_fecha AS fechaOp, vta.pedido_id AS numPedido, ped.pedido_fecha AS fechaPedido, vta.venta_total AS importe, cli.cliente_razon AS cliente, us.usuario_user AS usuario");
@@ -60,7 +82,7 @@ class ControlPedidos_model extends CI_Model
 		//establecemos la condicion where
 		$paramWhere = array("venta_id" => $ventaID);
 		//establecemos el select
-		$this->db->select("pro.producto_codigob AS codigob, pro.producto_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva");
+		$this->db->select("pro.producto_codigob AS codigob, pro.producto_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva, pvt.partidavt_id AS partidaID");
 		//realizamos los join necesarios
 		$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
 		//realizamos el get
@@ -105,7 +127,7 @@ class ControlPedidos_model extends CI_Model
 
 				//traemos la informacion de la partida para mostrarla al usuario
 				$paramWhere = array("partidavt_id" => $partidaID);
-				$this->db->select("pro.producto_codigob AS codigo, pro.producto_descripcion AS descripcion, pvt.partidavt_id AS partidaID, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva");
+				$this->db->select("pro.producto_codigob AS codigo, pro.producto_descripcion AS descripcion, pvt.partidavt_id AS partidaID, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva, pvt.partidavt_id AS partidaID");
 				$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
 				$partidavt = $this->db->get_where("t_partidavt pvt",$paramWhere);				
 			//si alguna consulta fallo, se realiza rollback y se retorna false
@@ -118,6 +140,7 @@ class ControlPedidos_model extends CI_Model
 			}else{
 			//terminamos la transaccion y realizamos los cambios en bd retornamos la informacion de la partidavt insertada
 				$this->db->trans_commit();
+				
 				return $partidavt->row();
 
 			}			

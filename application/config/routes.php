@@ -105,6 +105,8 @@ $route["traerSucursalesVenta/(:num)"] = "controlpedidos/traerSucursalesVenta/$1"
 $route["cambiaSucursalVenta/(:num)"] = "controlpedidos/cambiaSucursalVenta/$1";
 $route["setClienteVenta"] = "controlpedidos/setClienteVenta";
 $route["insertaPartidavt"] = "controlpedidos/insertaPartidavt";
+$route["quitarPartidaVt"] = "controlpedidos/quitarPartidaVt";
+$route["actualizaPartidaVenta/(:num)"] = "controlpedidos/actualizaPartidaVenta/$1";
 
 
 // == rutas para realizar busquedas == //

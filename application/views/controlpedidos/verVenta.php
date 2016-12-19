@@ -229,22 +229,22 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                 <td class="text-center"><?php echo $partida->codigob ?></td>
                                 <td class="text-center"><?php echo $partida->descripcion ?></td>
                                 <td class="text-center">
-                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->cantidad ?>">
+                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->cantidad ?>" id="cantidadPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID ?>)">
                                 </td>
                                 <td class="text-center">
-                                    <input type="text" class="caja text-center" size="8" value="<?php echo number_format($partida->precio,2) ?>">
+                                    <input type="text" class="caja text-center" size="8" value="<?php echo number_format($partida->precio,2) ?>" id="precioPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID ?>)">
                                 </td>
                                 <td class="text-center">
-                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->descuento ?>">
+                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->descuento ?>" id="descuentoPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID ?>)">
                                 </td>
                                 <td class="text-center"><?php echo $partida->iva ?></td>
-                                <td class="text-center">0</td>
+                                <td class="text-center" id="importePartida<?php echo $partida->partidaID ?>">0</td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>
                                     </div>
                                     <div class="btn-group">
-                                        <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida"><i class="fa fa-minus"></i></button>
+                                        <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida" onClick="eliminaPartidaVenta(this,<?php echo $partida->partidaID ?>)"><i class="fa fa-minus"></i></button>
                                     </div>
                                 </td>
                             </tr>

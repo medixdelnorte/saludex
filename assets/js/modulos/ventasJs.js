@@ -1,7 +1,5 @@
 
 
-
-
 // === funcion para traer las sucursales de una empresa 
 $(".traerSucursalesVenta").on("change",function(){
 	
@@ -201,11 +199,11 @@ function insertaProductoVenta(elementoTr,ventaID)
 	info.productoID = objeto.attr("val");
 	info.ventaID = ventaID;
 
-	ejecutaProceso(ruta,info,"",contruyePartidaVt,"");
+	ejecutaProceso(ruta,info,"",construyePartidaVt,"");
 
 }
 
-function contruyePartidaVt(paramCallback,respuesta)
+function construyePartidaVt(paramCallback,respuesta)
 {
 	var contenedor = $("#partidas-venta");
 	var partida = JSON.parse(respuesta);
@@ -217,20 +215,27 @@ function contruyePartidaVt(paramCallback,respuesta)
 		tabla = tabla + '<td class="text-center"><img src="' + baseUrl + '/assets/images/details_open.png" data-toggle="tooltip" title="Mas Informacion"></td>';
 		tabla = tabla + '<td class="text-center">' + partida.codigo + '</td>';
 		tabla = tabla + '<td class="text-center">' + partida.descripcion + '</td>';
-		tabla = tabla + '<td class="text-center">' + partida.cantidad + '</td>';
-		tabla = tabla + '<td class="text-center">' + partida.precio + '</td>';
-		tabla = tabla + '<td class="text-center">' + partida.descuento + '</td>';
+		tabla = tabla + '<td class="text-center">';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.cantidad + '" id="cantidadPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')">';
+		tabla = tabla + '</td>';
+		tabla = tabla + '<td class="text-center">';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + parseFloat(partida.precio).toFixed(2) + '" id="precioPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')>';
+		tabla = tabla + '</td>';
+		tabla = tabla + '<td class="text-center">';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.descuento + '" id="descuento' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')>';
+		tabla = tabla + '</td>';
 		tabla = tabla + '<td class="text-center">' + partida.iva + '</td>';
-		tabla = tabla + '<td class="text-center"></td>';
+		tabla = tabla + '<td class="text-center" id="importePartida' + partida.partidaID + '">0</td>';
 		tabla = tabla + '<td class="text-center">';
 			tabla = tabla + '<div class="btn-group">';
 				tabla = tabla + '<button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>';
 			tabla = tabla + '</div>';
 			tabla = tabla + ' <div class="btn-group">';
-				tabla = tabla + '<button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida"><i class="fa fa-minus"></i></button>';
+				tabla = tabla + '<button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida" onClick="eliminaPartidaVenta(this,' + partida.partidaID + ')"><i class="fa fa-minus"></i></button>';
 			tabla = tabla + '</div>';
 		tabla = tabla + '</td>';
 	tabla = tabla + '</tr>';
+
 
 	//insertamos al final el row en la tabla
 	contenedor.prepend(tabla);
@@ -238,4 +243,66 @@ function contruyePartidaVt(paramCallback,respuesta)
 }
 
 
+
+// === funcion para borrar partida de venta ===
+
+function eliminaPartidaVenta(eTr,partida)
+{
+	var ruta = baseUrl + "quitarPartidaVt";
+	var info = new Object();
+
+	info.partidaID = partida;
+
+	ejecutaProceso(ruta,info,"",quitarPartidaVt,eTr);	
+}
+
+function quitarPartidaVt(paramCallback,respuesta)
+{
+	if (respuesta == 1) {
+
+		var objeto = $(paramCallback);
+
+		eliminarTrPadre(objeto);
+
+	}
+}
+
+// === /eliminaPartidaVenta
+
+
+
+// == funcion para actualizar partida de venta
+function actualizaPartidaVenta(partida)
+{
+	//obtenemos los valores de la partida de venta
+	var cantidadPartida = parseFloat($("#cantidadPartida" + partida).val());
+
+	var precioPartida = $("#precioPartida" + partida).val().replace(",","");
+	precioPartida = parseFloat(precioPartida);
+
+	var descuentoPartida = parseFloat($("#descuentoPartida" + partida)	.val());
+	var importePartida = $("#importePartida" + partida);
+
+	//calculamos el importe para mostrarlo en la IU
+	var importe = (cantidadPartida * precioPartida) - ( (cantidadPartida * precioPartida) * (descuentoPartida/100) );
+	//escribir el importe en la tabla
+	importePartida.html("$ " + importe.toFixed(2));
+
+	var ruta = baseUrl + "actualizaPartidaVenta/" + partida;
+
+	var info = new Object();
+
+	info.cantidad = cantidadPartida;
+	info.precio = precioPartida;
+	info.descuento = descuentoPartida;
+
+	ejecutaProceso(ruta,info,"",actualizaTotalesVenta,"");
+}
+// == /actualizaPartidaVenta
+
+
+function actualizaTotalesVenta(paramCallback,respuesta)
+{
+	console.log(respuesta);
+}
 

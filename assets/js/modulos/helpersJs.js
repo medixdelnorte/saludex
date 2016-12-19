@@ -28,6 +28,12 @@ function mensajeWarning(titulo,mensaje)
 	swal(titulo, mensaje, "warning");
 }
 
+//funcion para eliminar un tr padre
+function eliminarTrPadre(elemento)
+{
+	$(elemento).parents("tr").remove();	
+}
+
 
 //funcion para enviar los datos de un formulario insert o update
 $(".formularios").on("submit", function(form){

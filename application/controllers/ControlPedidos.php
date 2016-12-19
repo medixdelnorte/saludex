@@ -35,6 +35,22 @@ class ControlPedidos extends CI_Controller {
 		
 	}
 
+	function actualizaPartidaVenta()
+	{
+		$partidaID = $this->uri->segment(2);
+		$datos = $this->input->post("datos");
+
+		foreach ($datos as $key => $value) {
+
+			$campos["partidavt_".$key] = $value;
+
+		}
+
+		$paramWhere = array("partidavt_id" => $partidaID);
+
+		$this->consultas_model->actualizar("t_partidavt",$campos,$paramWhere);
+	}
+
 	function cambiaSucursalVenta()
 	{
 		$ventaID = $this->uri->segment(2);
@@ -73,6 +89,17 @@ class ControlPedidos extends CI_Controller {
 
 		}
 
+	}
+
+	function quitarPartidaVt()
+	{
+		$datos = $this->input->post("datos");
+
+		$partidaID = $datos["partidaID"];
+
+		$eliminaPartida = $this->controlPedidos_model->eliminaPartida($partidaID);
+
+		echo $eliminaPartida;
 	}
 
 	function pedidos()
