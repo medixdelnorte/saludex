@@ -79,6 +79,27 @@ $(".bClienteVenta").on("submit",function(form){
 });
 
 
+//funcion para mostrar informacion avanzada de la partida de venta
+$(".advance-partidav").on("click",function(){
+
+	var objeto = $(this);
+	var valor = objeto.attr("val");
+
+	if (valor == 0) {
+
+		objeto.attr("src",baseUrl + 'assets/images/details_close.png');
+		objeto.attr("val",1);
+
+	}else{
+
+		objeto.attr("src",baseUrl + 'assets/images/details_open.png');		
+		objeto.attr("val",0);
+
+	}
+
+});
+
+
 function rBuscaClienteVenta(paramCallback,respuesta)
 {
 	if (respuesta != false) {
@@ -199,7 +220,7 @@ function insertaProductoVenta(elementoTr,ventaID)
 	info.productoID = objeto.attr("val");
 	info.ventaID = ventaID;
 
-	ejecutaProceso(ruta,info,"",construyePartidaVt,"");
+	ejecutaProceso(ruta,info,"",construyePartidaVt,ventaID);
 
 }
 
@@ -207,6 +228,7 @@ function construyePartidaVt(paramCallback,respuesta)
 {
 	var contenedor = $("#partidas-venta");
 	var partida = JSON.parse(respuesta);
+	var ventaID = paramCallback;
 
 	var tabla = '';	
 
@@ -216,16 +238,16 @@ function construyePartidaVt(paramCallback,respuesta)
 		tabla = tabla + '<td class="text-center">' + partida.codigo + '</td>';
 		tabla = tabla + '<td class="text-center">' + partida.descripcion + '</td>';
 		tabla = tabla + '<td class="text-center">';
-			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.cantidad + '" id="cantidadPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')">';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.cantidad + '" id="cantidadPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ',' + ventaID + ')">';
 		tabla = tabla + '</td>';
 		tabla = tabla + '<td class="text-center">';
-			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + parseFloat(partida.precio).toFixed(2) + '" id="precioPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')">';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + parseFloat(partida.precio).toFixed(2) + '" id="precioPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ',' + ventaID + ')">';
 		tabla = tabla + '</td>';
 		tabla = tabla + '<td class="text-center">';
-			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.descuento + '" id="descuentoPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')">';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.descuento + '" id="descuentoPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ',' + ventaID + ')">';
 		tabla = tabla + '</td>';
 		tabla = tabla + '<td class="text-center">' + partida.iva + '</td>';
-		tabla = tabla + '<td class="text-center" id="importePartida' + partida.partidaID + '">0</td>';
+		tabla = tabla + '<td class="text-center" id="importePartida' + partida.partidaID + '">$ ' + parseFloat(partida.importe).toFixed(2) + '</td>';
 		tabla = tabla + '<td class="text-center">';
 			tabla = tabla + '<div class="btn-group">';
 				tabla = tabla + '<button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>';
@@ -239,6 +261,8 @@ function construyePartidaVt(paramCallback,respuesta)
 
 	//insertamos al final el row en la tabla
 	contenedor.prepend(tabla);
+
+	actualizaTotalesVenta(ventaID,"");
 
 }
 
@@ -264,6 +288,10 @@ function quitarPartidaVt(paramCallback,respuesta)
 
 		eliminarTrPadre(objeto);
 
+		var ventaID = $("#op").val();
+
+		actualizaTotalesVenta(ventaID,"");
+
 	}
 }
 
@@ -272,7 +300,7 @@ function quitarPartidaVt(paramCallback,respuesta)
 
 
 // == funcion para actualizar partida de venta
-function actualizaPartidaVenta(partida)
+function actualizaPartidaVenta(partida,ventaID)
 {
 	//obtenemos los valores de la partida de venta
 	var cantidadPartida = parseFloat($("#cantidadPartida" + partida).val());
@@ -296,13 +324,36 @@ function actualizaPartidaVenta(partida)
 	info.precio = precioPartida;
 	info.descuento = descuentoPartida;
 
-	ejecutaProceso(ruta,info,"",actualizaTotalesVenta,"");
+	ejecutaProceso(ruta,info,"",actualizaTotalesVenta,ventaID);
 }
 // == /actualizaPartidaVenta
 
 
+// ejecutarla cuando se realice algun cambio en las partidas de venta que influya el cambio del subtota, iva y total de la venta
 function actualizaTotalesVenta(paramCallback,respuesta)
 {
-	
+	var ruta = baseUrl + "actualizarTotalesVenta";
+
+	var info = new Object();
+
+	info.ventaID = paramCallback;
+
+	ejecutaProceso(ruta,info,"",escribeTotales,"");
 }
 
+
+//muestra en la IU el cambio del subtotal, iva y el total de la venta
+function escribeTotales(paramCallback,respuesta)
+{
+	console.log(respuesta);
+	if (respuesta != 0) {
+
+		//obetenemos los datos del controlador en formato json
+		var datos = JSON.parse(respuesta);
+
+		$("#ventaSubtotal").html('<b>$ ' + parseFloat(datos.ventaSubtotal).toFixed(2) + '</b>');
+		$("#ventaIVA").html('<b>$ ' + parseFloat(datos.ventaIVA).toFixed(2) + '</b>');
+		$("#ventaTotal").html('<b>$ ' + parseFloat(datos.ventaTotal).toFixed(2) + '</b>');
+
+	}
+}

@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Op#</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" disabled value="<?php echo $infoVenta->op ?>">
+                                    <input type="text" class="form-control" disabled value="<?php echo $infoVenta->op ?>" id="op">
                                 </div>
                             </div>              
                         </div>
@@ -225,20 +225,22 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     foreach ($partidas as $key => $partida):
                              ?>
                             <tr>
-                                <td class="text-center"><img src="<?php echo base_url("/assets/images/details_open.png") ?>"  data-toggle="tooltip" title="Mas Informacion"></td>
+                                <td class="text-center">
+                                    <img class="advance-partidav" src="<?php echo base_url("/assets/images/details_open.png") ?>" val="0" data-toggle="tooltip" title="Mas Informacion">
+                                </td>
                                 <td class="text-center"><?php echo $partida->codigob ?></td>
                                 <td class="text-center"><?php echo $partida->descripcion ?></td>
                                 <td class="text-center">
-                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->cantidad ?>" id="cantidadPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID ?>)">
+                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->cantidad ?>" id="cantidadPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID.",".$ventaID ?>)">
                                 </td>
                                 <td class="text-center">
-                                    <input type="text" class="caja text-center" size="8" value="<?php echo number_format($partida->precio,2) ?>" id="precioPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID ?>)">
+                                    <input type="text" class="caja text-center" size="8" value="<?php echo number_format($partida->precio,2) ?>" id="precioPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID.",".$ventaID ?>)">
                                 </td>
                                 <td class="text-center">
-                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->descuento ?>" id="descuentoPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID ?>)">
+                                    <input type="text" class="caja text-center" size="8" value="<?php echo $partida->descuento ?>" id="descuentoPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID.",".$ventaID ?>)">
                                 </td>
                                 <td class="text-center"><?php echo $partida->iva ?></td>
-                                <td class="text-center" id="importePartida<?php echo $partida->partidaID ?>">0</td>
+                                <td class="text-center" id="importePartida<?php echo $partida->partidaID ?>">$ <?php echo number_format($partida->importe,2); ?></td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>
@@ -252,6 +254,24 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     endforeach;
                                 endif;
                              ?>
+                             <tr>
+                                 <td colspan="6"></td>
+                                 <td class="text-center">Subtotal</td>
+                                 <td class="text-center" id="ventaSubtotal"><b>$ <?php echo number_format($infoVenta->ventaSubtotal,2) ?></b></td>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <td colspan="6"></td>
+                                 <td class="text-center">I.V.A.</td>
+                                 <td class="text-center" id="ventaIVA"><b>$ <?php echo number_format($infoVenta->ventaIVA,2) ?></b></td>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <td colspan="6"></td>
+                                 <td class="text-center">Total</td>
+                                 <td class="text-center" id="ventaTotal"><b>$ <?php echo number_format($infoVenta->ventaTotal,2) ?></b></td>
+                                 <td></td>
+                             </tr>
                         </tbody>                      
                     </table>
 

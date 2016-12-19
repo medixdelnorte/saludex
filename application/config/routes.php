@@ -107,6 +107,7 @@ $route["setClienteVenta"] = "controlpedidos/setClienteVenta";
 $route["insertaPartidavt"] = "controlpedidos/insertaPartidavt";
 $route["quitarPartidaVt"] = "controlpedidos/quitarPartidaVt";
 $route["actualizaPartidaVenta/(:num)"] = "controlpedidos/actualizaPartidaVenta/$1";
+$route["actualizarTotalesVenta"] = "controlpedidos/actualizarTotalesVenta";
 
 
 // == rutas para realizar busquedas == //

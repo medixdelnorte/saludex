@@ -51,6 +51,17 @@ class ControlPedidos extends CI_Controller {
 		$this->consultas_model->actualizar("t_partidavt",$campos,$paramWhere);
 	}
 
+	function actualizarTotalesVenta()
+	{
+		$datos = $this->input->post("datos");
+
+		$ventaID = $datos["ventaID"];
+
+		$actualizar = $this->controlPedidos_model->actualizarTotalesVenta($ventaID);
+
+		echo ($actualizar != false) ? json_encode($actualizar) : 0;
+	}
+
 	function cambiaSucursalVenta()
 	{
 		$ventaID = $this->uri->segment(2);

@@ -82,7 +82,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <td><?php echo $venta->fechaOp ?></td>
                             <td><?php echo $venta->numPedido ?></td>
                             <td><?php echo $venta->fechaPedido ?></td>
-                            <td><?php echo $venta->importe ?></td>
+                            <td>$ <?php echo number_format($venta->importe,2) ?></td>
                             <td><?php echo $venta->cliente ?></td>
                             <td><?php echo $venta->usuario ?></td>
                             <td class="text-center">
