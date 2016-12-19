@@ -219,10 +219,10 @@ function construyePartidaVt(paramCallback,respuesta)
 			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.cantidad + '" id="cantidadPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')">';
 		tabla = tabla + '</td>';
 		tabla = tabla + '<td class="text-center">';
-			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + parseFloat(partida.precio).toFixed(2) + '" id="precioPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')>';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + parseFloat(partida.precio).toFixed(2) + '" id="precioPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')">';
 		tabla = tabla + '</td>';
 		tabla = tabla + '<td class="text-center">';
-			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.descuento + '" id="descuento' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')>';
+			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.descuento + '" id="descuentoPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ')">';
 		tabla = tabla + '</td>';
 		tabla = tabla + '<td class="text-center">' + partida.iva + '</td>';
 		tabla = tabla + '<td class="text-center" id="importePartida' + partida.partidaID + '">0</td>';
@@ -303,6 +303,6 @@ function actualizaPartidaVenta(partida)
 
 function actualizaTotalesVenta(paramCallback,respuesta)
 {
-	console.log(respuesta);
+	
 }
 
