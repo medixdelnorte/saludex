@@ -80,24 +80,41 @@ $(".bClienteVenta").on("submit",function(form){
 
 
 //funcion para mostrar informacion avanzada de la partida de venta
-$(".advance-partidav").on("click",function(){
-
-	var objeto = $(this);
+function infoAdvancePvta(boton)
+{
+	var objeto = $(boton);
 	var valor = objeto.attr("val");
+	var partida = objeto.attr("p");
+
+	var trAdvance = $("#advance_" + partida);
 
 	if (valor == 0) {
 
 		objeto.attr("src",baseUrl + 'assets/images/details_close.png');
 		objeto.attr("val",1);
+		trAdvance.show();
+
+		var ruta =  baseUrl + "infoAdvancePvta/" + partida;
+
+		ejecutaProceso(ruta,"","",muestraAdvance,trAdvance);
 
 	}else{
 
 		objeto.attr("src",baseUrl + 'assets/images/details_open.png');		
 		objeto.attr("val",0);
+		trAdvance.hide();
 
 	}
+}
 
-});
+
+function muestraAdvance(paramCallback,respuesta)
+{
+	var contenedor = paramCallback;
+
+	contenedor.html(respuesta);
+}
+
 
 
 function rBuscaClienteVenta(paramCallback,respuesta)
@@ -118,7 +135,6 @@ function rBuscaClienteVenta(paramCallback,respuesta)
 			tabla = tabla + '<td>' + val.cliente_telefono + '</td>';
 			tabla = tabla + '<td>' + val.cliente_direccion + '</td>';
 			tabla = tabla + '</tr>';
-
 		});
 
 		contenedor.html(tabla);
@@ -234,7 +250,7 @@ function construyePartidaVt(paramCallback,respuesta)
 
 	//creamos el codigo html
 	tabla = tabla + '<tr>';
-		tabla = tabla + '<td class="text-center"><img src="' + baseUrl + '/assets/images/details_open.png" data-toggle="tooltip" title="Mas Informacion"></td>';
+		tabla = tabla + '<td class="text-center"><img src="' + baseUrl + '/assets/images/details_open.png" data-toggle="tooltip"  onclick="infoAdvancePvta(this)" val="0"  p="' + partida.partidaID + '" title="Mas Informacion"></td>';
 		tabla = tabla + '<td class="text-center">' + partida.codigo + '</td>';
 		tabla = tabla + '<td class="text-center">' + partida.descripcion + '</td>';
 		tabla = tabla + '<td class="text-center">';
@@ -257,6 +273,7 @@ function construyePartidaVt(paramCallback,respuesta)
 			tabla = tabla + '</div>';
 		tabla = tabla + '</td>';
 	tabla = tabla + '</tr>';
+	tabla = tabla + '<tr><td colspan="9" style="display: none" id="advance_' + partida.partidaID + '"></td></tr>';
 
 
 	//insertamos al final el row en la tabla

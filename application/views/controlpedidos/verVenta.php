@@ -226,7 +226,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                              ?>
                             <tr>
                                 <td class="text-center">
-                                    <img class="advance-partidav" src="<?php echo base_url("/assets/images/details_open.png") ?>" val="0" data-toggle="tooltip" title="Mas Informacion">
+                                    <img onclick="infoAdvancePvta(this)" src="<?php echo base_url("/assets/images/details_open.png") ?>" val="0" data-toggle="tooltip" title="Mas Informacion" p="<?php echo $partida->partidaID ?>">
                                 </td>
                                 <td class="text-center"><?php echo $partida->codigob ?></td>
                                 <td class="text-center"><?php echo $partida->descripcion ?></td>
@@ -249,6 +249,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                         <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida" onClick="eliminaPartidaVenta(this,<?php echo $partida->partidaID ?>)"><i class="fa fa-minus"></i></button>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="display: none" id="advance_<?php echo $partida->partidaID ?>"></td>
                             </tr>
                             <?php 
                                     endforeach;

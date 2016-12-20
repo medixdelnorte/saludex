@@ -133,6 +133,16 @@ class ControlPedidos_model extends CI_Model
 		}
 	}
 
+	function infoAdvance($partidaID)
+	{
+		$this->db->select("us.usuario_user AS usuario, pvt.partidavt_fecha AS fecha");
+		$this->db->join("t_usuario us","us.usuario_id = pvt.usuario_id");
+		$this->db->where("pvt.partidavt_id",$partidaID);
+		$informacion = $this->db->get("t_partidavt pvt");
+
+		return ($informacion->num_rows() > 0) ? $informacion->row() : false;
+	}
+
 	function insertaPartidaVt($productoID,$ventaID,$usuarioID)
 	{
 		// == traemos los datos del productos insertado == //

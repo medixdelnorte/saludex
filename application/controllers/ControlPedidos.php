@@ -77,6 +77,15 @@ class ControlPedidos extends CI_Controller {
 		$this->consultas_model->actualizar("t_venta",$campos,$paramWhere);
 	}
 
+	function infoAdvancePvta()
+	{
+		$partidaID = $this->uri->segment(2);
+
+		$data["advance"] = $this->controlPedidos_model->infoAdvance($partidaID);
+
+		$this->load->view("controlpedidos/infoAdvance",$data);
+	}
+
 	function insertaPartidavt()
 	{
 		$datos = $this->input->post("datos");
