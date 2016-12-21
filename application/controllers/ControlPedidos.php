@@ -62,6 +62,17 @@ class ControlPedidos extends CI_Controller {
 		echo ($actualizar != false) ? json_encode($actualizar) : 0;
 	}
 
+	function cambiaStatusVenta()
+	{
+		$datos = $this->input->post("datos");
+
+		$ventaID = $datos["ventaID"];
+		$statusNuevo = $datos["statusNuevo"];
+		$usuarioID = $this->usuarioID;
+
+		$actualiza = $this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
+	}
+
 	function cambiaSucursalVenta()
 	{
 		$ventaID = $this->uri->segment(2);

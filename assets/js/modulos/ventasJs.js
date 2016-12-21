@@ -1,4 +1,23 @@
 
+//cuando carga el documento modificamos los controles de acuerdo al status de la venta
+$(document).ready(function(){
+
+	var botonPrimario = $("#boton-primario-venta");
+	var botonCancelar = $("#boton-cancelar-venta");
+
+	if (statusVenta == "COTIZACION") {
+
+		botonPrimario.attr("data-target","#cerrar-cot");
+		botonPrimario.html("Cerrar Cotizacion");
+		
+	}else if(statusVenta == "COTIZACION CERRADA")
+	{
+		botonPrimario.attr("data-target","#genera-pedido");
+		botonPrimario.html("Generar Pedido");
+	}
+
+});
+
 
 // === funcion para traer las sucursales de una empresa 
 $(".traerSucursalesVenta").on("change",function(){
@@ -246,7 +265,7 @@ function construyePartidaVt(paramCallback,respuesta)
 	var partida = JSON.parse(respuesta);
 	var ventaID = paramCallback;
 
-	var tabla = '';	
+	var tabla = '';
 
 	//creamos el codigo html
 	tabla = tabla + '<tr>';
@@ -262,7 +281,7 @@ function construyePartidaVt(paramCallback,respuesta)
 		tabla = tabla + '<td class="text-center">';
 			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.descuento + '" id="descuentoPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ',' + ventaID + ')">';
 		tabla = tabla + '</td>';
-		tabla = tabla + '<td class="text-center">' + partida.iva + '</td>';
+		tabla = tabla + '<td class="text-center">$ ' + parseFloat(partida.iva).toFixed(2) + '</td>';
 		tabla = tabla + '<td class="text-center" id="importePartida' + partida.partidaID + '">$ ' + parseFloat(partida.importe).toFixed(2) + '</td>';
 		tabla = tabla + '<td class="text-center">';
 			tabla = tabla + '<div class="btn-group">';
@@ -362,7 +381,6 @@ function actualizaTotalesVenta(paramCallback,respuesta)
 //muestra en la IU el cambio del subtotal, iva y el total de la venta
 function escribeTotales(paramCallback,respuesta)
 {
-	console.log(respuesta);
 	if (respuesta != 0) {
 
 		//obetenemos los datos del controlador en formato json
@@ -373,4 +391,18 @@ function escribeTotales(paramCallback,respuesta)
 		$("#ventaTotal").html('<b>$ ' + parseFloat(datos.ventaTotal).toFixed(2) + '</b>');
 
 	}
+}
+
+//funcion para cambiar los status de las ventas
+function cambiaStatusVenta(ventaID,statusNuevo)
+{
+	var ruta = baseUrl + "cambiaStatusVenta";
+	var modulo = baseUrl + "controlpedidos/verventa/" + ventaID;
+
+	var info = new Object();
+
+	info.ventaID = ventaID;
+	info.statusNuevo = statusNuevo;
+
+	ejecutaProceso(ruta,info,"",recargaModulo,modulo);
 }

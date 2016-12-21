@@ -1,5 +1,6 @@
-
-
+<?php
+defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
+?>
 
 <table border="0">
 	<tbody>

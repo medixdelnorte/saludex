@@ -149,9 +149,18 @@ $(".btnPasaValor").click(function(){
 
 });
 
+
 //funcion para cerrar las ventanas modales
 function cerrarModal()
 {
 	$("#btn-dismiss-modal").click();
 }
 
+
+//funcion para recargar un modulo
+function recargaModulo(paramCallback,respuesta)
+{
+	var ruta = paramCallback;
+
+	window.location.href = ruta;
+}

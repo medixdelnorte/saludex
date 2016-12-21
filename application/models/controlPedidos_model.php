@@ -43,6 +43,32 @@ class ControlPedidos_model extends CI_Model
 
 	}
 
+	function cambiaStatusVenta($ventaID,$nuevoStatus,$usuarioID)
+	{
+		$this->db->trans_start();
+
+			//status 4 = generar pedido
+			if ($nuevoStatus == 4) {
+
+				$this->db->set("usuario_id",$usuarioID);
+				$this->db->set("pedido_fecha","NOW()",FALSE);
+				$this->db->insert("t_pedido");
+
+				//recuperamos el numero de pedido insertado
+				$pedidoID = $this->db->insert_id();
+
+				//generamos el set del pedido_id para actualizarlo en la venta y relacionarlos
+				$this->db->set("pedido_id",$pedidoID);
+
+			}
+
+			$this->db->set("venta_status_id",$nuevoStatus);
+			$this->db->where("venta_id",$ventaID);
+			$this->db->update("t_venta");
+
+		$this->db->trans_complete();
+	}
+
 	function eliminaPartida($partidaID)
 	{
 		$this->db->trans_begin();
@@ -67,12 +93,13 @@ class ControlPedidos_model extends CI_Model
 
 	function getVentas()
 	{
-		$this->db->select("vta.venta_id AS op, emp.empresa_nombre_comercial AS empresa, vta.venta_status_id AS statusVenta, vta.venta_fecha AS fechaOp, vta.pedido_id AS numPedido, ped.pedido_fecha AS fechaPedido, vta.venta_total AS importe, cli.cliente_razon AS cliente, us.usuario_user AS usuario");
+		$this->db->select("vta.venta_id AS op, emp.empresa_nombre_comercial AS empresa, vta.venta_fecha AS fechaOp, vta.pedido_id AS numPedido, ped.pedido_fecha AS fechaPedido, vta.venta_total AS importe, cli.cliente_razon AS cliente, us.usuario_user AS usuario, svta.venta_status_ncorto AS statusNcorto, svta.venta_status_color AS statusColor");
 		$this->db->join("t_sucursal suc", "suc.sucursal_id = vta.sucursal_id","left");
 		$this->db->join("t_empresa emp", "emp.empresa_id = suc.empresa_id","left");
 		$this->db->join("t_pedido ped", "ped.pedido_id = vta.pedido_id", "left");
 		$this->db->join("t_cliente cli", "cli.cliente_id = vta.cliente_id","left");
 		$this->db->join("t_usuario us","vta.usuario_id = us.usuario_id");
+		$this->db->join("t_venta_status svta","svta.venta_status_id = vta.venta_status_id");
 		$ventas = $this->db->get("t_venta vta");
 
 		if ($ventas->num_rows() > 0) {
@@ -116,7 +143,7 @@ class ControlPedidos_model extends CI_Model
 		//establecemos la condicion where
 		$paramWhere = array("venta_id" => $ventaID);
 		//establecemos el select
-		$this->db->select("pro.producto_codigob AS codigob, pro.producto_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe");
+		$this->db->select("pro.producto_codigob AS codigob, pro.producto_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva");
 		//realizamos los join necesarios
 		$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
 		//realizamos el get
@@ -171,7 +198,7 @@ class ControlPedidos_model extends CI_Model
 
 				//traemos la informacion de la partida para mostrarla al usuario
 				$paramWhere = array("partidavt_id" => $partidaID);
-				$this->db->select("pro.producto_codigob AS codigo, pro.producto_descripcion AS descripcion, pvt.partidavt_id AS partidaID, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_iva AS iva, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe");
+				$this->db->select("pro.producto_codigob AS codigo, pro.producto_descripcion AS descripcion, pvt.partidavt_id AS partidaID, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe");
 				$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
 				$partidavt = $this->db->get_where("t_partidavt pvt",$paramWhere);				
 			//si alguna consulta fallo, se realiza rollback y se retorna false

@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         <tr class="text-center">
                             <td><?php echo $venta->op ?></td>
                             <td><?php echo $venta->empresa ?></td>
-                            <td><span class="label label-info label-mini"><?php echo $venta->statusVenta ?></span></td>
+                            <td><span class="label label-<?php echo $venta->statusColor ?> label-mini"><?php echo $venta->statusNcorto ?></span></td>
                             <td><?php echo $venta->fechaOp ?></td>
                             <td><?php echo $venta->numPedido ?></td>
                             <td><?php echo $venta->fechaPedido ?></td>
