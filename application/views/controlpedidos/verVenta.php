@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 ?>
 
+<!-- obtenemos el status de la venta -->
 <script type="text/javascript">
     
     statusVenta = "<?php echo $infoVenta->statusNombre ?>";

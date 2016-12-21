@@ -202,6 +202,9 @@ class ControlPedidos extends CI_Controller {
 		//si se tiene seleccionada una sucursal se traen las sucursales de la empresa a la cual pertenece la sucursal
 		$data["infoVenta"]->sucursalID != NULL ? $data["sucursales"] = $this->empresas_model->traerSucursalesEmpresa($data["infoVenta"]->empresaID) : $data["sucursales"] = FALSE;
 
+		$data["archivosjs"] = array("verVentaJs");
+
+
 		//traemos las partidas de la venta
 		$data["partidas"] = $this->controlPedidos_model->getPartidas($ventaID);
 

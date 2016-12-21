@@ -161,6 +161,7 @@ class Usuarios extends CI_Controller {
 	{
 		$data["menu"] = $this->menu;
 		$data["usuarios"] = $this->usuarios_model->getUsuarios();
+		$data["archivosjs"] = array("usuariosJs");
 
 		$this->load->view("header",$data);
 		$this->load->view("usuarios/usuarios",$data);

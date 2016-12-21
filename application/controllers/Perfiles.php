@@ -147,6 +147,7 @@ class Perfiles extends CI_Controller {
 		$data["infoPerfil"] = $this->consultas_model->traerRow("t_usuario_perfil",$paramWhere);
 		//creamos un arreglo de los permisos del perfil
 		$data["permisosPerfil"] = explode("||", $data["infoPerfil"]->usuario_perfil_permisos);
+		$data["archivosjs"] = array("perfilesJs");
 
 		if ($data["infoPerfil"] != false) {
 

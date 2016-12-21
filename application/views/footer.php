@@ -164,13 +164,17 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
     <!-- ===== Scripts de los modulos ====== -->
     <script src="<?php echo base_url("assets/js/modulos/helpersJs.js") ?>"></script>
-    <script src="<?php echo base_url("assets/js/modulos/clientesJs.js") ?>"></script>
-    <script src="<?php echo base_url("assets/js/modulos/usuariosJs.js") ?>"></script>
-    <script src="<?php echo base_url("assets/js/modulos/perfilesJs.js") ?>"></script>
-    <script src="<?php echo base_url("assets/js/modulos/ventasJs.js") ?>"></script>
 
-
-
+    <!-- cargamos los scripts solicitados -->
+    <?php 
+        if (isset($archivosjs)):
+            foreach ($archivosjs as $key => $archivo):
+     ?>
+        <script src="<?php echo base_url("assets/js/modulos/".$archivo.".js") ?>"></script>   
+    <?php 
+            endforeach;
+        endif;
+     ?>
 
 
     <script type="text/javascript">
@@ -200,7 +204,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
             App.initSkyCons();
             App.initWidgets();
 
-            
+
 
         });
     </script>

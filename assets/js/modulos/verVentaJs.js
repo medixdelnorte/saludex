@@ -12,11 +12,17 @@ $(function(){
 		
 	}else if(statusVenta == "COTIZACION CERRADA")
 	{
+
+		$("#empresa-venta").attr("disabled","disabled");
+		$("#sucursales-venta").attr("disabled","disabled");
+		$("#b-clientev").attr("disabled","disabled");
+
 		botonPrimario.attr("data-target","#genera-pedido");
 		botonPrimario.html("Generar Pedido");
 	}
 
 });
+
 
 
 // === funcion para traer las sucursales de una empresa 
