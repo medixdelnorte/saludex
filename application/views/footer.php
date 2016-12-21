@@ -200,6 +200,8 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
             App.initSkyCons();
             App.initWidgets();
 
+            
+
         });
     </script>
 

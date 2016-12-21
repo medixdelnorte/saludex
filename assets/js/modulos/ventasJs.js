@@ -1,6 +1,6 @@
 
 //cuando carga el documento modificamos los controles de acuerdo al status de la venta
-$(document).ready(function(){
+$(function(){
 
 	var botonPrimario = $("#boton-primario-venta");
 	var botonCancelar = $("#boton-cancelar-venta");
