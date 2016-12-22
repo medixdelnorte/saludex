@@ -2,23 +2,38 @@
 //cuando carga el documento modificamos los controles de acuerdo al status de la venta
 $(function(){
 
-	var botonPrimario = $("#boton-primario-venta");
-	var botonCancelar = $("#boton-cancelar-venta");
+	var botonPrimario = $("#btn-primario-venta");
+	var botonCancelar = $("#btn-cancelar-venta");
 
 	if (statusVenta == "COTIZACION") {
 
 		botonPrimario.attr("data-target","#cerrar-cot");
 		botonPrimario.html("Cerrar Cotizacion");
-		
-	}else if(statusVenta == "COTIZACION CERRADA")
-	{
 
-		$("#empresa-venta").attr("disabled","disabled");
-		$("#sucursales-venta").attr("disabled","disabled");
-		$("#b-clientev").attr("disabled","disabled");
+		botonCancelar.html("Cancelar Cotizacion");
+		botonCancelar.attr("data-target","#cancelar-cot");
+		
+	}else if(statusVenta == "COTIZACION CERRADA"){
 
 		botonPrimario.attr("data-target","#genera-pedido");
 		botonPrimario.html("Generar Pedido");
+
+		botonCancelar.html("Cancelar Cotizacion");
+		botonCancelar.attr("data-target","#cancelar-cot");
+
+	}else if(statusVenta == "PEDIDO"){
+
+		botonPrimario.attr("data-target","#genera-factura");
+		botonPrimario.html("Generar Factura");
+
+		botonCancelar.attr("data-target","#cancelar-pedido");
+		botonCancelar.html("Cancelar Pedido");
+
+	}else if(statusVenta == "PEDIDO CANCELADO"){
+
+		botonPrimario.hide();
+		botonCancelar.hide();
+		
 	}
 
 });
@@ -410,5 +425,19 @@ function cambiaStatusVenta(ventaID,statusNuevo)
 	info.ventaID = ventaID;
 	info.statusNuevo = statusNuevo;
 
-	ejecutaProceso(ruta,info,"",recargaModulo,modulo);
+	ejecutaProceso(ruta,info,"",rCambiaStatusVenta,modulo);
+}
+
+function rCambiaStatusVenta(paramCallback,respuesta)
+{
+	if (respuesta == 1) {
+
+		recargaModulo(paramCallback);
+
+	}else{
+
+
+		mensajeWarning("Error !", "Completa la Cotizacion.");
+
+	}
 }

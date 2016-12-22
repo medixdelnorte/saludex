@@ -74,6 +74,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Empresa</label>
                                 <div class="col-sm-9">
+                                    <?php 
+                                        if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                    ?>
                                     <select class="form-control traerSucursalesVenta" required action="<?php echo base_url("traerSucursalesVenta/".$ventaID) ?>" target="sucursales-venta" id="empresa-venta">
                                         <option></option>
                                         <?php 
@@ -86,6 +89,13 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                             endif;
                                          ?>
                                     </select>
+                                    <?php 
+                                        else:
+                                    ?>
+                                        <input type="text" class="form-control" value="<?php echo $infoVenta->empresa ?>" disabled>
+                                    <?php
+                                        endif;
+                                     ?>
                                 </div>
                             </div>                                         
                         </div>
@@ -94,6 +104,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Sucursal</label>
                                 <div class="col-sm-9">
+                                <?php 
+                                    if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                ?>
                                     <select class="form-control" required id="sucursales-venta" action="<?php echo base_url("cambiaSucursalVenta/".$ventaID); ?>">
                                         <option></option>
                                         <?php 
@@ -106,6 +119,13 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                             endif;
                                          ?>
                                     </select>
+                                <?php 
+                                    else:
+                                 ?>
+                                    <input type="text" class="form-control" value="<?php echo $infoVenta->sucursal ?>" disabled>
+                                <?php 
+                                    endif;
+                                 ?>
                                 </div>
                             </div>
                         </div>
@@ -150,12 +170,24 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
                         <div class="col-sm-12">
                             <div class="col-sm-12">
+                            <?php 
+                                if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                            ?>
                                 <div class="input-group margin-bottom-15">
                                     <span class="input-group-btn" data-toggle="tooltip" title="Buscar Cliente">
                                         <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-pull-top" id="b-clientev"><i class="fa fa-search"></i></button>
                                     </span>
                                     <input type="text" class="form-control" disabled placeholder="Buscar Cliente" id="buscar-cliente-venta" value="<?php echo $infoVenta->cliente ?>">
                                 </div>
+                            <?php 
+                                else:                                    
+                             ?>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" value="<?php echo $infoVenta->cliente ?>" disabled>
+                                </div>
+                            <?php 
+                                endif;
+                             ?>
                             </div>
                         </div>
                         
@@ -192,12 +224,17 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                 <div class="row">
                     
                     <div class="col-sm-12 margin-bottom-20">
-                        
+                        <?php 
+                            if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                        ?>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-success btn-raised rippler rippler-inverse" data-toggle="modal" data-target="#busca-producto-venta">
+                            <button class="btn btn-sm btn-success btn-raised rippler rippler-inverse" data-toggle="modal" data-target="#busca-producto-venta" id="b-productov">
                                 <i class="fa fa-plus"></i> Agregar Producto
                             </button>
-                        </div>            
+                        </div>
+                        <?php 
+                            endif;
+                         ?>      
 
                     </div>
 
@@ -238,13 +275,38 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <td class="text-center"><?php echo $partida->codigob ?></td>
                                     <td class="text-center"><?php echo $partida->descripcion ?></td>
                                     <td class="text-center">
+                                        <?php 
+                                            if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                        ?>
                                         <input type="text" class="caja text-center" size="8" value="<?php echo $partida->cantidad ?>" id="cantidadPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID.",".$ventaID ?>)">
+                                        <?php 
+                                            else:
+                                                echo $partida->cantidad;
+                                            endif;
+                                         ?>
+
                                     </td>
                                     <td class="text-center">
+                                        <?php 
+                                             if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                         ?>
                                         <input type="text" class="caja text-center" size="8" value="<?php echo number_format($partida->precio,2) ?>" id="precioPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID.",".$ventaID ?>)">
+                                        <?php 
+                                            else:
+                                                 echo "$ ".number_format($partida->precio,2);
+                                             endif;
+                                         ?>
                                     </td>
                                     <td class="text-center">
+                                        <?php 
+                                             if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                         ?>
                                         <input type="text" class="caja text-center" size="8" value="<?php echo $partida->descuento ?>" id="descuentoPartida<?php echo $partida->partidaID ?>" onBlur="actualizaPartidaVenta(<?php echo $partida->partidaID.",".$ventaID ?>)">
+                                        <?php 
+                                            else:
+                                                 echo $partida->descuento;
+                                             endif;
+                                         ?>
                                     </td>
                                     <td class="text-center">$ <?php echo number_format($partida->iva,2) ?></td>
                                     <td class="text-center" id="importePartida<?php echo $partida->partidaID ?>">$ <?php echo number_format($partida->importe,2); ?></td>
@@ -252,9 +314,13 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                         <div class="btn-group">
                                             <button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>
                                         </div>
+                                        <?php 
+                                             if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                         ?>
                                         <div class="btn-group">
                                             <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida" onClick="eliminaPartidaVenta(this,<?php echo $partida->partidaID ?>)"><i class="fa fa-minus"></i></button>
                                         </div>
+                                    <?php endif; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -295,22 +361,22 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                 <hr style="margin-top:1px"><!-- /separador -->
 
                 <div class="row">
+
+                    <div class="col-sm-2">
+                        
+                        <button class="btn btn-info btn-sm btn-raised col-xs-12 margin-top-10">Imprimir</button>
+                        
+                    </div>
                     
                     <div class="col-sm-2">
 
-                        <button class="btn btn-primary btn-sm btn-raised col-xs-12 margin-top-10" data-toggle="modal" data-target="" id="boton-primario-venta"></button>
+                        <button class="btn btn-primary btn-sm btn-raised col-xs-12 margin-top-10" data-toggle="modal" data-target="" id="btn-primario-venta"></button>
                         
                     </div>
 
                     <div class="col-sm-2">
 
-                        <button class="btn btn-info btn-sm btn-raised col-xs-12 margin-top-10">Imprimir Cotizacion</button>
-                        
-                    </div>
-
-                    <div class="col-sm-2">
-
-                        <button class="btn btn-danger btn-sm btn-raised col-xs-12 margin-top-10">Cancelar Cotizacion</button>
+                        <button class="btn btn-danger btn-sm btn-raised col-xs-12 margin-top-10" data-toggle="modal" data-target="" id="btn-cancelar-venta"></button>
                         
                     </div>
 
@@ -392,7 +458,6 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
             <div class="modal-body">
                  
             <div class="row">
-                
                 <div class="col-sm-12">
                     <form class="form-horizontal bProductoVenta" action="<?php echo base_url("buscar"); ?>" target="producto" buscar="descripcion|codigob|sustancia" ref="<?php echo $ventaID ?>">
                         <div class="input-group margin-bottom-15">
@@ -482,7 +547,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
 
 <!--****** Start Basic Modal ******-->
-<div class="modal" id="genera-pedido" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" id="generar-pedido" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -504,6 +569,47 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
             <div class="col-sm-12 text-center margin-top-15">
 
                 <button class="btn btn-primary btn-raised" onClick="cambiaStatusVenta(<?php echo $ventaID ?>,4)">Aceptar</button>
+                <button class="btn btn-danger btn-raised" data-dismiss="modal">Cancelar</button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+      &nbsp;
+    </div>
+  </div>
+</div>
+</div>
+<!--****** End Basic Modal ******-->
+
+
+
+
+<!--****** Start Basic Modal ******-->
+<div class="modal" id="cancelar-pedido" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+      <h4 class="modal-title"><strong>Cancelar Pedido</strong></h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                ¿ Realmente deseas Cancelar el Pedido ?
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-12 text-center margin-top-15">
+
+                <button class="btn btn-primary btn-raised" onClick="cambiaStatusVenta(<?php echo $ventaID ?>,5)">Aceptar</button>
                 <button class="btn btn-danger btn-raised" data-dismiss="modal">Cancelar</button>
 
             </div>

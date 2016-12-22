@@ -70,7 +70,28 @@ class ControlPedidos extends CI_Controller {
 		$statusNuevo = $datos["statusNuevo"];
 		$usuarioID = $this->usuarioID;
 
-		$actualiza = $this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
+		if ($statusNuevo == 2) {
+			
+			$validaCotizacion = $this->controlPedidos_model->validaCotizacion($ventaID);
+
+			if ($validaCotizacion > 0) {
+				
+				$actualiza = $this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
+
+				echo 1;
+
+			}else{
+
+				echo 0;
+			}
+
+		}else{
+
+			$actualiza = $this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
+
+			echo 1;
+
+		}		
 	}
 
 	function cambiaSucursalVenta()
@@ -120,6 +141,14 @@ class ControlPedidos extends CI_Controller {
 
 		}
 
+	}
+
+	function nuevaVenta()
+	{
+		$usuarioID = $this->usuarioID;
+		$venta = $this->controlPedidos_model->nuevaVenta($usuarioID);
+
+		redirect("controlpedidos/verVenta/".$venta,"refresh");
 	}
 
 	function quitarPartidaVt()
@@ -203,6 +232,7 @@ class ControlPedidos extends CI_Controller {
 		$data["infoVenta"]->sucursalID != NULL ? $data["sucursales"] = $this->empresas_model->traerSucursalesEmpresa($data["infoVenta"]->empresaID) : $data["sucursales"] = FALSE;
 
 		$data["archivosjs"] = array("verVentaJs");
+		$data["editarPartidas"] = array("COTIZACION","COTIZACION CERRADA");
 
 
 		//traemos las partidas de la venta
