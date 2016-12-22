@@ -233,6 +233,7 @@ class ControlPedidos extends CI_Controller {
 
 		$data["archivosjs"] = array("verVentaJs");
 		$data["editarPartidas"] = array("COTIZACION","COTIZACION CERRADA");
+		$data["editarInfoVenta"] = array("COTIZACION");
 
 
 		//traemos las partidas de la venta

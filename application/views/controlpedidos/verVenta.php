@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                 <label class="control-label col-sm-3">Empresa</label>
                                 <div class="col-sm-9">
                                     <?php 
-                                        if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                        if (in_array($infoVenta->statusNombre, $editarInfoVenta)):
                                     ?>
                                     <select class="form-control traerSucursalesVenta" required action="<?php echo base_url("traerSucursalesVenta/".$ventaID) ?>" target="sucursales-venta" id="empresa-venta">
                                         <option></option>
@@ -105,7 +105,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                 <label class="control-label col-sm-3">Sucursal</label>
                                 <div class="col-sm-9">
                                 <?php 
-                                    if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                    if (in_array($infoVenta->statusNombre, $editarInfoVenta)):
                                 ?>
                                     <select class="form-control" required id="sucursales-venta" action="<?php echo base_url("cambiaSucursalVenta/".$ventaID); ?>">
                                         <option></option>
@@ -171,7 +171,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         <div class="col-sm-12">
                             <div class="col-sm-12">
                             <?php 
-                                if (in_array($infoVenta->statusNombre, $editarPartidas)):
+                                if (in_array($infoVenta->statusNombre, $editarInfoVenta)):
                             ?>
                                 <div class="input-group margin-bottom-15">
                                     <span class="input-group-btn" data-toggle="tooltip" title="Buscar Cliente">
