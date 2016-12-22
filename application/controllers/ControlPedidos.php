@@ -76,7 +76,7 @@ class ControlPedidos extends CI_Controller {
 
 			if ($validaCotizacion > 0) {
 				
-				$actualiza = $this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
+				$this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
 
 				echo 1;
 
@@ -87,7 +87,7 @@ class ControlPedidos extends CI_Controller {
 
 		}else{
 
-			$actualiza = $this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
+			$this->controlPedidos_model->cambiaStatusVenta($ventaID,$statusNuevo,$usuarioID);
 
 			echo 1;
 
@@ -107,6 +107,16 @@ class ControlPedidos extends CI_Controller {
 		$paramWhere = array("venta_id" => $ventaID);
 
 		$this->consultas_model->actualizar("t_venta",$campos,$paramWhere);
+	}
+
+	function detallesPartidaVenta()
+	{
+		$datos = $this->input->post("datos");
+
+		$partidaID = $datos["partidaID"];
+		$detallesPartida = $this->controlPedidos_model->detallesPartida($partidaID);
+
+		echo json_encode($detallesPartida);
 	}
 
 	function infoAdvancePvta()

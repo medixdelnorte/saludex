@@ -311,8 +311,8 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <td class="text-center">$ <?php echo number_format($partida->iva,2) ?></td>
                                     <td class="text-center" id="importePartida<?php echo $partida->partidaID ?>">$ <?php echo number_format($partida->importe,2); ?></td>
                                     <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>
+                                        <div class="btn-group" data-toggle="tooltip" title="Detalles Partida">
+                                            <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#detalles-partida" onClick="abreDetallesPartida(<?php echo $partida->partidaID ?>)">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>
                                         </div>
                                         <?php 
                                              if (in_array($infoVenta->statusNombre, $editarPartidas)):
@@ -320,7 +320,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                         <div class="btn-group">
                                             <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida" onClick="eliminaPartidaVenta(this,<?php echo $partida->partidaID ?>)"><i class="fa fa-minus"></i></button>
                                         </div>
-                                    <?php endif; ?>
+                                         <?php endif; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -363,7 +363,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                 <div class="row">
 
                     <div class="col-sm-2">
-                        
+
                         <button class="btn btn-info btn-sm btn-raised col-xs-12 margin-top-10">Imprimir</button>
                         
                     </div>
@@ -547,7 +547,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
 
 <!--****** Start Basic Modal ******-->
-<div class="modal" id="generar-pedido" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" id="genera-pedido" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
@@ -624,3 +624,72 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 </div>
 </div>
 <!--****** End Basic Modal ******-->
+
+
+<!--****** Start Large Modal ******-->
+<div class="modal" id="detalles-partida" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+      <h4 class="modal-title"><strong>Detalles de Partida</strong></h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+    
+            <div class="col-sm-12">
+                <form class="form-horizontal">
+                
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Descripcion</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="dtll-descripcion">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-success" data-toggle="tooltip" title="Reestablecer Descripcion"><i class="fa fa-refresh"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">I.V.A.</label>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="dtll-iva">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Comentarios</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="dtll-comentario"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+      
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-raised rippler rippler-default">Guardar Cambios</button>
+        <button type="button" class="btn btn-default btn-raised rippler rippler-default" data-dismiss="modal">Cerrar</button>
+    </div>
+  </div>
+</div>
+</div>
+<!--****** End Large Modal ******-->

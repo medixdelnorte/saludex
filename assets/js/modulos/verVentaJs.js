@@ -305,8 +305,8 @@ function construyePartidaVt(paramCallback,respuesta)
 		tabla = tabla + '<td class="text-center">$ ' + parseFloat(partida.iva).toFixed(2) + '</td>';
 		tabla = tabla + '<td class="text-center" id="importePartida' + partida.partidaID + '">$ ' + parseFloat(partida.importe).toFixed(2) + '</td>';
 		tabla = tabla + '<td class="text-center">';
-			tabla = tabla + '<div class="btn-group">';
-				tabla = tabla + '<button class="btn btn-info btn-xs" data-toggle="tooltip" title="Detalles Partida">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>';
+			tabla = tabla + '<div class="btn-group data-toggle="tooltip" title="Detalles Partida"">';
+				tabla = tabla + '<button class="btn btn-info btn-xs" data-toggle="modal" data-target="#detalles-partida" onClick="abreDetallesPartida(' + partida.partidaID + ')">&nbsp;<i class="fa fa-info"></i>&nbsp;</button>';
 			tabla = tabla + '</div>';
 			tabla = tabla + ' <div class="btn-group">';
 				tabla = tabla + '<button class="btn btn-danger btn-xs" data-toggle="tooltip" title="Eliminar Partida" onClick="eliminaPartidaVenta(this,' + partida.partidaID + ')"><i class="fa fa-minus"></i></button>';
@@ -440,4 +440,25 @@ function rCambiaStatusVenta(paramCallback,respuesta)
 		mensajeWarning("Error !", "Completa la Cotizacion.");
 
 	}
+}
+
+//funcion para traer los detalles de la partida de venta
+function abreDetallesPartida(partidaID)
+{
+	var ruta = baseUrl + "detallesPartidaVenta";
+
+	var info = new Object();
+
+	info.partidaID = partidaID;
+
+	ejecutaProceso(ruta,info,"",muestraDetallesPartida,"");
+}
+
+function muestraDetallesPartida(paramCallback,respuesta)
+{
+	var datos = JSON.parse(respuesta);
+
+	$("#dtll-descripcion").val(datos.descripcion);
+	$("#dtll-iva").val(datos.iva);
+	$("#dtll-comentario").val(datos.comentario);
 }

@@ -69,6 +69,15 @@ class ControlPedidos_model extends CI_Model
 		$this->db->trans_complete();
 	}
 
+	function detallesPartida($partidaID)
+	{
+		$this->db->select("partidavt_descripcion AS descripcion, partidavt_iva AS iva, partidavt_comentario AS comentario");
+		$this->db->where("partidavt_id",$partidaID);
+		$partida = $this->db->get("t_partidavt");
+
+		return $partida->row();
+	}
+
 	function eliminaPartida($partidaID)
 	{
 		$this->db->trans_begin();
@@ -144,7 +153,7 @@ class ControlPedidos_model extends CI_Model
 		//establecemos la condicion where
 		$paramWhere = array("venta_id" => $ventaID);
 		//establecemos el select
-		$this->db->select("pro.producto_codigob AS codigob, pro.producto_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva");
+		$this->db->select("pro.producto_codigob AS codigob, pvt.partidavt_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva");
 		//realizamos los join necesarios
 		$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
 		//realizamos el get
@@ -185,12 +194,13 @@ class ControlPedidos_model extends CI_Model
 			$this->db->trans_begin();
 
 				$camposInsertar = array(
-						"producto_id" 		=>	$productoID,
-						"partidavt_precio"	=>	$infoProducto->producto_pref,
-						"partidavt_iva"		=>	$infoProducto->producto_iva,
-						"partidavt_pref"	=>	$infoProducto->producto_pref,
-						"usuario_id"		=>	$usuarioID,
-						"venta_id"			=>	$ventaID
+						"producto_id" 			=>	$productoID,
+						"partidavt_descripcion"	=>	$infoProducto->producto_descripcion,
+						"partidavt_precio"		=>	$infoProducto->producto_pref,
+						"partidavt_iva"			=>	$infoProducto->producto_iva,
+						"partidavt_pref"		=>	$infoProducto->producto_pref,
+						"usuario_id"			=>	$usuarioID,
+						"venta_id"				=>	$ventaID
 					);
 				$this->db->set("partidavt_fecha","NOW()", FALSE);
 				$this->db->insert("t_partidavt",$camposInsertar);
@@ -199,7 +209,7 @@ class ControlPedidos_model extends CI_Model
 
 				//traemos la informacion de la partida para mostrarla al usuario
 				$paramWhere = array("partidavt_id" => $partidaID);
-				$this->db->select("pro.producto_codigob AS codigo, pro.producto_descripcion AS descripcion, pvt.partidavt_id AS partidaID, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe");
+				$this->db->select("pro.producto_codigob AS codigo, pvt.partidavt_descripcion AS descripcion, pvt.partidavt_id AS partidaID, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe");
 				$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
 				$partidavt = $this->db->get_where("t_partidavt pvt",$paramWhere);				
 			//si alguna consulta fallo, se realiza rollback y se retorna false
