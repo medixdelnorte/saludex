@@ -71,7 +71,7 @@ class ControlPedidos_model extends CI_Model
 
 	function detallesPartida($partidaID)
 	{
-		$this->db->select("partidavt_descripcion AS descripcion, partidavt_iva AS iva, partidavt_comentario AS comentario");
+		$this->db->select("partidavt_descripcion AS descripcion, partidavt_iva AS iva, partidavt_comentario AS comentario, partidavt_id AS partidaID");
 		$this->db->where("partidavt_id",$partidaID);
 		$partida = $this->db->get("t_partidavt");
 

@@ -39,6 +39,22 @@ $(function(){
 });
 
 
+//funcion para guardar los detalles de una partida
+$("#btn-guarda-dtlls").click(function(){
+
+	var ruta = baseUrl + "guardaDtllsVenta";
+	var info = new Object();
+
+	info.partidaID = $("#partida-venta").val();;
+	info.descripcion = $("#dtll-descripcion").val();
+	info.iva = $("#dtll-iva").val();
+	info.comentario = $("#dtll-comentario").val();
+
+	
+
+});
+
+
 
 // === funcion para traer las sucursales de una empresa 
 $(".traerSucursalesVenta").on("change",function(){
@@ -461,4 +477,5 @@ function muestraDetallesPartida(paramCallback,respuesta)
 	$("#dtll-descripcion").val(datos.descripcion);
 	$("#dtll-iva").val(datos.iva);
 	$("#dtll-comentario").val(datos.comentario);
+	$("#partida-venta").val(datos.partidaID);
 }

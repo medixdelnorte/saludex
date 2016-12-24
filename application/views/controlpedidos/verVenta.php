@@ -249,7 +249,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
                        <!-- <section id="flip-scroll">-->
 
-                        <table class="table table-bordered table-striped table-condensed cf" style="border-spacing:0px; width:100%">
+                        <table class="table table-bordered table-striped table-condensed table-hover cf" style="border-spacing:0px; width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center">&nbsp;</th>
@@ -679,6 +679,8 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         </div>
                     </div>
 
+                    <input type="hidden" id="partida-venta" value="0">
+
                 </form>
             </div>
 
@@ -686,7 +688,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
       
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success btn-raised rippler rippler-default">Guardar Cambios</button>
+        <button type="button" class="btn btn-success btn-raised rippler rippler-default" id="btn-guarda-dtlls">Guardar Cambios</button>
         <button type="button" class="btn btn-default btn-raised rippler rippler-default" data-dismiss="modal">Cerrar</button>
     </div>
   </div>
