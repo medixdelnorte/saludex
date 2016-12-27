@@ -435,17 +435,20 @@ function actualizaPartidaVenta(partida,ventaID)
 // ejecutarla cuando se realice algun cambio en las partidas de venta que influya el cambio del subtota, iva y total de la venta
 function actualizaTotalesVenta(paramCallback,respuesta)
 {
-	// == actualizamos la ui IVA e IMPORTE == //
-	var datos = JSON.parse(respuesta);
-	var importe = parseFloat(datos.importe);
-	var iva = parseFloat(datos.iva);
+	//si la respuesta viene vacia, no se actualiza el tr de la partida ya que, o es nueva partida o se elimina la partida
+	if (respuesta != '') {
+		// == actualizamos la ui IVA e IMPORTE == //
+		var datos = JSON.parse(respuesta);
+		var importe = parseFloat(datos.importe);
+		var iva = parseFloat(datos.iva);
 
-	var importePartidaTr = $("#importePartida" + datos.partidaID);	
-	importePartidaTr.html("$ " + importe.toFixed(2));
+		var importePartidaTr = $("#importePartida" + datos.partidaID);	
+		importePartidaTr.html("$ " + importe.toFixed(2));
 
-	var ivaPartidaTr = $("#ivaPartida" + datos.partidaID);	
-	ivaPartidaTr.html("$ " + iva.toFixed(2));
-	// ======================================== //
+		var ivaPartidaTr = $("#ivaPartida" + datos.partidaID);	
+		ivaPartidaTr.html("$ " + iva.toFixed(2));
+		// ======================================== //
+	}
 
 	//actualizamos los totales de la venta
 	var ruta = baseUrl + "actualizarTotalesVenta";
