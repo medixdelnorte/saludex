@@ -119,6 +119,20 @@ class ControlPedidos extends CI_Controller {
 		echo json_encode($detallesPartida);
 	}
 
+	function guardaDtllsVenta()
+	{
+		$datos = $this->input->post("datos");
+
+		$camposUpdate = array(
+				"partidavt_iva"				=>	$datos["iva"],
+				"partidavt_descripcion"		=>	$datos["descripcion"],
+				"partidavt_comentario"		=>	$datos["comentario"]
+			);
+		$partidaID = $datos["partidaID"];
+
+		$this->controlPedidos_model->guardaDtllsVenta($partidaID,$camposUpdate);
+	}
+
 	function infoAdvancePvta()
 	{
 		$partidaID = $this->uri->segment(2);

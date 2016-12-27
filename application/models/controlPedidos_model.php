@@ -170,6 +170,12 @@ class ControlPedidos_model extends CI_Model
 		}
 	}
 
+	function guardaDtllsVenta($partidaID,$camposUpdate)
+	{
+		$this->db->where("partidavt_id",$partidaID);
+		$this->db->update("t_partidavt", $camposUpdate);
+	}
+
 	function infoAdvance($partidaID)
 	{
 		$this->db->select("us.usuario_user AS usuario, pvt.partidavt_fecha AS fecha");

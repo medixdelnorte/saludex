@@ -34,6 +34,11 @@ $(function(){
 		botonPrimario.hide();
 		botonCancelar.hide();
 		
+	}else if(statusVenta == "COTIZACION CANCELADA"){
+
+		botonPrimario.hide();
+		botonCancelar.hide();
+		
 	}
 
 });
@@ -50,7 +55,7 @@ $("#btn-guarda-dtlls").click(function(){
 	info.iva = $("#dtll-iva").val();
 	info.comentario = $("#dtll-comentario").val();
 
-	
+	ejecutaProceso(ruta,info,"","","");
 
 });
 
