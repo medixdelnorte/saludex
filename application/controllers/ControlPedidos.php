@@ -46,9 +46,10 @@ class ControlPedidos extends CI_Controller {
 
 		}
 
-		$paramWhere = array("partidavt_id" => $partidaID);
+		//actualizamos la partida de venta
+		$actualizaPvt = $this->controlPedidos_model->actualizaPartidaVenta($partidaID,$campos);
 
-		$this->consultas_model->actualizar("t_partidavt",$campos,$paramWhere);
+		echo $actualizaPvt === FALSE ? 0 : json_encode($actualizaPvt);		
 	}
 
 	function actualizarTotalesVenta()
@@ -119,20 +120,6 @@ class ControlPedidos extends CI_Controller {
 		echo json_encode($detallesPartida);
 	}
 
-	function guardaDtllsVenta()
-	{
-		$datos = $this->input->post("datos");
-
-		$camposUpdate = array(
-				"partidavt_iva"				=>	$datos["iva"],
-				"partidavt_descripcion"		=>	$datos["descripcion"],
-				"partidavt_comentario"		=>	$datos["comentario"]
-			);
-		$partidaID = $datos["partidaID"];
-
-		$this->controlPedidos_model->guardaDtllsVenta($partidaID,$camposUpdate);
-	}
-
 	function infoAdvancePvta()
 	{
 		$partidaID = $this->uri->segment(2);
@@ -195,6 +182,17 @@ class ControlPedidos extends CI_Controller {
 		$this->load->view("header",$data);
 		$this->load->view("controlpedidos/pedidos");
 		$this->load->view("footer");
+	}
+
+	function reestableceDescPvt()
+	{
+		$datos = $this->input->post("datos");
+
+		$partidaID = $datos["partidaID"];
+
+		$descripcion = $this->controlPedidos_model->reestableceDescPvt($partidaID);
+
+		echo $descripcion;
 	}
 
 	function setClienteVenta()

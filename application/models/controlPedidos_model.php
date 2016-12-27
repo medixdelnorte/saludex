@@ -9,6 +9,34 @@ class ControlPedidos_model extends CI_Model
 		parent::__construct();
 	}
 
+	function actualizaPartidaVenta($partidaID,$campos)
+	{
+		$this->db->trans_begin();
+
+			//actualizamos la partida de venta
+			$this->db->where("partidavt_id",$partidaID);
+			$this->db->update("t_partidavt",$campos);
+
+			//traemos la informacion de la partida actualizada
+			$this->db->select("( partidavt_precio - ( partidavt_precio * (partidavt_descuento/100) ) ) * partidavt_cantidad AS importe, (partidavt_cantidad * partidavt_precio) * (partidavt_iva / 100) AS iva, partidavt_id AS partidaID");
+			$this->db->where("partidavt_id",$partidaID);
+			$partida = $this->db->get("t_partidavt");
+
+		if ($this->db->trans_status() === FALSE) {
+			
+			$this->db->trans_rollback();
+
+			return false;
+
+		}else{
+
+			$this->db->trans_commit();
+
+			return $partida->row();
+
+		}
+	}
+
 	function actualizarTotalesVenta($ventaID)
 	{
 		$this->db->trans_begin();
@@ -170,12 +198,6 @@ class ControlPedidos_model extends CI_Model
 		}
 	}
 
-	function guardaDtllsVenta($partidaID,$camposUpdate)
-	{
-		$this->db->where("partidavt_id",$partidaID);
-		$this->db->update("t_partidavt", $camposUpdate);
-	}
-
 	function infoAdvance($partidaID)
 	{
 		$this->db->select("us.usuario_user AS usuario, pvt.partidavt_fecha AS fecha");
@@ -249,6 +271,41 @@ class ControlPedidos_model extends CI_Model
 		$ventaID = $this->db->insert_id();
 
 		return $ventaID;
+	}
+
+	function reestableceDescPvt($partidaID)
+	{
+		//iniciamos la transaccion
+		$this->db->trans_begin();
+
+			//obtenemos la descripcion original del producto de la partida de venta
+			$this->db->select("pro.producto_descripcion AS descripcion");
+			$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
+			$this->db->where("pvt.partidavt_id",$partidaID);
+			$consulta = $this->db->get("t_partidavt pvt");
+			//guardamos el row en la variable $resultado
+			$resultado = $consulta->row();
+
+			//actualizamos la descripcion de la partida de venta
+			$this->db->set("partidavt_descripcion",$resultado->descripcion);
+			$this->db->where("partidavt_id",$partidaID);
+			$this->db->update("t_partidavt");
+
+		if ($this->db->trans_status() === FALSE) {
+
+			$this->db->trans_rollback();
+
+			//retornamos el fallo con 0
+			return 0;
+
+		}else{
+
+			$this->db->trans_commit();
+
+			//retornamos la descripcion
+			return $resultado->descripcion;
+
+		}		
 	}
 
 	function validaCotizacion($ventaID)

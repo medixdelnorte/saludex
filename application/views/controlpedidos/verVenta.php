@@ -273,7 +273,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                         <img onclick="infoAdvancePvta(this)" src="<?php echo base_url("/assets/images/details_open.png") ?>" val="0" data-toggle="tooltip" title="Mas Informacion" p="<?php echo $partida->partidaID ?>">
                                     </td>
                                     <td class="text-center"><?php echo $partida->codigob ?></td>
-                                    <td class="text-center"><?php echo $partida->descripcion ?></td>
+                                    <td class="text-center" id="desc_<?php echo $partida->partidaID ?>"><?php echo $partida->descripcion ?></td>
                                     <td class="text-center">
                                         <?php 
                                             if (in_array($infoVenta->statusNombre, $editarPartidas)):
@@ -308,7 +308,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                              endif;
                                          ?>
                                     </td>
-                                    <td class="text-center">$ <?php echo number_format($partida->iva,2) ?></td>
+                                    <td class="text-center" id="ivaPartida<?php echo $partida->partidaID ?>">$ <?php echo number_format($partida->iva,2) ?></td>
                                     <td class="text-center" id="importePartida<?php echo $partida->partidaID ?>">$ <?php echo number_format($partida->importe,2); ?></td>
                                     <td class="text-center">
                                         <div class="btn-group" data-toggle="tooltip" title="Detalles Partida">
@@ -687,7 +687,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="dtll-descripcion">
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-success" data-toggle="tooltip" title="Reestablecer Descripcion"><i class="fa fa-refresh"></i></button>
+                                            <button type="button" class="btn btn-success refresh-desc-pvt" data-toggle="tooltip" title="Reestablecer Descripcion"><i class="fa fa-refresh"></i></button>
                                         </span>
                                     </div>
                                 </div>

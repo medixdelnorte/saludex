@@ -47,17 +47,47 @@ $(function(){
 //funcion para guardar los detalles de una partida
 $("#btn-guarda-dtlls").click(function(){
 
-	var ruta = baseUrl + "guardaDtllsVenta";
+	var ventaID = $("#op").val();
+	var partidaID = $("#partida-venta").val();
 	var info = new Object();
 
-	info.partidaID = $("#partida-venta").val();;
 	info.descripcion = $("#dtll-descripcion").val();
 	info.iva = $("#dtll-iva").val();
 	info.comentario = $("#dtll-comentario").val();
 
-	ejecutaProceso(ruta,info,"","","");
+	//escribimos la descripcion en la tabla de partidas
+	$("#desc_" + partidaID).html(info.descripcion);
+
+	//creamos la ruta
+	var ruta = baseUrl + "actualizaPartidaVenta/" + partidaID;
+
+	ejecutaProceso(ruta,info,"",actualizaTotalesVenta,ventaID);
 
 });
+
+
+//funcion para reestablecer la descripcion de una partida de venta
+$(".refresh-desc-pvt").click(function(){
+
+	var ruta = baseUrl + "reestableceDescPvt";
+
+	var info = new Object();
+	info.partidaID = $("#partida-venta").val();
+
+	ejecutaProceso(ruta,info,"",refreshDescPvt,info.partidaID);
+
+});
+
+
+function refreshDescPvt(paramCallback,respuesta)
+{
+	if (respuesta != 0) {
+
+		$("#desc_" + paramCallback).html(respuesta);
+		$("#dtll-descripcion").val(respuesta);
+
+	}
+}
 
 
 
@@ -313,7 +343,7 @@ function construyePartidaVt(paramCallback,respuesta)
 	tabla = tabla + '<tr>';
 		tabla = tabla + '<td class="text-center"><img src="' + baseUrl + '/assets/images/details_open.png" data-toggle="tooltip"  onclick="infoAdvancePvta(this)" val="0"  p="' + partida.partidaID + '" title="Mas Informacion"></td>';
 		tabla = tabla + '<td class="text-center">' + partida.codigo + '</td>';
-		tabla = tabla + '<td class="text-center">' + partida.descripcion + '</td>';
+		tabla = tabla + '<td class="text-center" id="desc_' + partida.partidaID + '">' + partida.descripcion + '</td>';
 		tabla = tabla + '<td class="text-center">';
 			tabla = tabla + '<input type="text" class="caja text-center" size="8" value="' + partida.cantidad + '" id="cantidadPartida' + partida.partidaID + '" onBlur="actualizaPartidaVenta(' + partida.partidaID + ',' + ventaID + ')">';
 		tabla = tabla + '</td>';
@@ -387,12 +417,7 @@ function actualizaPartidaVenta(partida,ventaID)
 	precioPartida = parseFloat(precioPartida);
 
 	var descuentoPartida = parseFloat($("#descuentoPartida" + partida)	.val());
-	var importePartida = $("#importePartida" + partida);
-
-	//calculamos el importe para mostrarlo en la IU
-	var importe = (cantidadPartida * precioPartida) - ( (cantidadPartida * precioPartida) * (descuentoPartida/100) );
-	//escribir el importe en la tabla
-	importePartida.html("$ " + importe.toFixed(2));
+	
 
 	var ruta = baseUrl + "actualizaPartidaVenta/" + partida;
 
@@ -410,6 +435,19 @@ function actualizaPartidaVenta(partida,ventaID)
 // ejecutarla cuando se realice algun cambio en las partidas de venta que influya el cambio del subtota, iva y total de la venta
 function actualizaTotalesVenta(paramCallback,respuesta)
 {
+	// == actualizamos la ui IVA e IMPORTE == //
+	var datos = JSON.parse(respuesta);
+	var importe = parseFloat(datos.importe);
+	var iva = parseFloat(datos.iva);
+
+	var importePartidaTr = $("#importePartida" + datos.partidaID);	
+	importePartidaTr.html("$ " + importe.toFixed(2));
+
+	var ivaPartidaTr = $("#ivaPartida" + datos.partidaID);	
+	ivaPartidaTr.html("$ " + iva.toFixed(2));
+	// ======================================== //
+
+	//actualizamos los totales de la venta
 	var ruta = baseUrl + "actualizarTotalesVenta";
 
 	var info = new Object();

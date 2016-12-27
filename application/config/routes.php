@@ -112,6 +112,7 @@ $route["infoAdvancePvta/(:num)"] = "controlpedidos/infoAdvancePvta/$1";
 $route["cambiaStatusVenta"] = "controlpedidos/cambiaStatusVenta";
 $route["detallesPartidaVenta"] = "controlpedidos/detallesPartidaVenta";
 $route["guardaDtllsVenta"] = "controlpedidos/guardaDtllsVenta";
+$route["reestableceDescPvt"] = "controlpedidos/reestableceDescPvt";
 
 
 // == rutas para realizar busquedas == //
