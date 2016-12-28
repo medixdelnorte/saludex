@@ -84,7 +84,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                 <?php 
                                     else:
                                  ?>
-                                <span data-toggle="tooltip" title="Ver Remision Abierta"><button type="button" class="btn btn-primary btn-flat btn-xs"><i class="fa fa-file-o"></i></button></span>
+                                <span data-toggle="tooltip" title="Ver Remision Abierta"><button type="button" class="btn btn-primary btn-flat btn-xs"><i class="fa fa-file-text-o"></i></button></span>
                                 <?php 
                                     endif;
                                  ?>
