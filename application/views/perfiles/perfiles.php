@@ -70,7 +70,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         <tr>
                             <td><?php echo $perfil->usuario_perfil_nombre ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("perfiles/verPerfil/".$perfil->usuario_perfil_id); ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Perfil"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <a href="<?php echo base_url("perfiles/verPerfil/".$perfil->usuario_perfil_id); ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Perfil"><i class="fa fa-pencil-square-o"></i></button></a>
                             </td>
                         </tr>
                          <?php 

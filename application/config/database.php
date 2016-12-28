@@ -95,9 +95,13 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 
+
 /*
 *	=== configuracion con errores db deshabilitados ===
 *
+*/
+
+/*
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',

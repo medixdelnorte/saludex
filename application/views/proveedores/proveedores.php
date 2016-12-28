@@ -76,7 +76,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <td><?php echo $proveedor->proveedor_dias_credito ?></td>
                             <td><?php echo $proveedor->proveedor_telefono ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("proveedores/verProveedor/".$proveedor->proveedor_id) ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Proveedor"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <a href="<?php echo base_url("proveedores/verProveedor/".$proveedor->proveedor_id) ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Proveedor"><i class="fa fa-pencil-square-o"></i></button></a>
                             </td>
                         </tr>
                         <?php 

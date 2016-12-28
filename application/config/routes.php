@@ -115,5 +115,9 @@ $route["guardaDtllsVenta"] = "controlpedidos/guardaDtllsVenta";
 $route["reestableceDescPvt"] = "controlpedidos/reestableceDescPvt";
 
 
+// == ruta de modulo almacen == //
+$route["iniciarRemision"] = "almacen/iniciarRemision";
+
+
 // == rutas para realizar busquedas == //
 $route["buscar"] = "buscar/ejecutarBusqueda";

@@ -249,7 +249,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
                        <!-- <section id="flip-scroll">-->
 
-                        <table class="table table-bordered table-striped table-condensed table-hover cf" style="border-spacing:0px; width:100%">
+                        <table class="table table-bordered table-condensed table-hover cf" style="border-spacing:0px; width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center">&nbsp;</th>

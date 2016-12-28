@@ -70,7 +70,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         <tr>
                             <td><?php echo $departamento->usuario_departamento_nombre; ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("departamentos/verDepartamento/".$departamento->usuario_departamento_id) ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Departamento"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <a href="<?php echo base_url("departamentos/verDepartamento/".$departamento->usuario_departamento_id) ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Departamento"><i class="fa fa-pencil-square-o"></i></button></a>
                             </td>
                         </tr>
                         <?php 

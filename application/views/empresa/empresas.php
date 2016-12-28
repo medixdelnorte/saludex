@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <td><?php echo $empresa->empresa_razon ?></td>
                             <td><?php echo $empresa->empresa_rfc ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("empresas/verEmpresa/".$empresa->empresa_id) ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Empresa"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <a href="<?php echo base_url("empresas/verEmpresa/".$empresa->empresa_id) ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Empresa"><i class="fa fa-pencil-square-o"></i></button></a>
                             </td>
                         </tr>
                     <?php 

@@ -76,8 +76,8 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <td><?php echo $usuario->usuario_departamento_nombre ?></td>
                             <td><?php echo $usuario->usuario_perfil_nombre ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("usuarios/verUsuario/".$usuario->usuario_id) ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Usuario"><i class="fa fa-pencil-square-o"></i></button></a>
-                                <button type="button" class="btn btn-success btn-flat btn-sm btnPasaValor" objetivo="cmUsPwd" valor="<?php echo $usuario->usuario_id; ?>" data-toggle="modal" data-target="#cambia-contra"><i class="fa fa-lock"></i></button>
+                                <a href="<?php echo base_url("usuarios/verUsuario/".$usuario->usuario_id) ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Usuario"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <button type="button" class="btn btn-success btn-flat btn-xs btnPasaValor" objetivo="cmUsPwd" valor="<?php echo $usuario->usuario_id; ?>" data-toggle="modal" data-target="#cambia-contra"><i class="fa fa-lock"></i></button>
                             </td>
                         </tr>
                     <?php 

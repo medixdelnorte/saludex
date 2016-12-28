@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <td><?php echo $value->cliente_dias_credito; ?></td>
                             <td><?php echo $value->cliente_telefono; ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("clientes/verCliente/".$value->cliente_id) ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Cliente"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <a href="<?php echo base_url("clientes/verCliente/".$value->cliente_id) ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Cliente"><i class="fa fa-pencil-square-o"></i></button></a>
                             </td>
                         </tr>
                     <?php 

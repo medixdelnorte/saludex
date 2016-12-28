@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <td><?php echo $sucursal->sucursal_nombre ?></td>
                             <td><?php echo $sucursal->empresa_razon ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("sucursales/verSucursal/".$sucursal->sucursal_id) ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Empresa"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <a href="<?php echo base_url("sucursales/verSucursal/".$sucursal->sucursal_id) ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Empresa"><i class="fa fa-pencil-square-o"></i></button></a>
                             </td>
                         </tr>
                     <?php 

@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <td>$ <?php echo number_format($producto->producto_ppublico,2) ?></td>
                             <td><?php echo $producto->existenciaGlobal ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url("productos/verProducto/".$producto->producto_id) ?>"><button type="button" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></button></a>
+                                <a href="<?php echo base_url("productos/verProducto/".$producto->producto_id) ?>"><button type="button" class="btn btn-default btn-flat btn-xs" data-toggle="tooltip" title="Editar Producto"><i class="fa fa-pencil-square-o"></i></button></a>
                             </td>
                         </tr>
                     <?php 
