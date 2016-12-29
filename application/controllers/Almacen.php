@@ -30,6 +30,9 @@ class Almacen extends CI_controller
 		$this->load->model("consultas_model");
 		//cargamos el modelo de almacen
 		$this->load->model("almacen_model");
+
+		$this->load->model("controlPedidos_model");
+		$this->load->model("empresas_model");
 	}
 
 	function controlpedidos()
@@ -41,6 +44,16 @@ class Almacen extends CI_controller
 		$this->load->view("header",$data);
 		$this->load->view("almacen/controlPedidos");
 		$this->load->view("footer");
+	}
+
+	function getRemisiones()
+	{
+		$datos = $this->input->post("datos");
+		$pedidoID = $datos["pedidoID"];
+
+		$remisiones = $this->almacen_model->getRemisiones($pedidoID);
+
+		echo $remisiones != false ? json_encode($remisiones) : 0;
 	}
 
 	function iniciarRemision()
@@ -63,9 +76,20 @@ class Almacen extends CI_controller
 		$data["menu"] = $this->menu;
 		$data["archivosjs"] = array("almacenJs");
 
-		$this->load->view("header",$data);
-		$this->load->view("almacen/verRemision");
-		$this->load->view("footer");
+		$data["infoRemision"] = $this->almacen_model->getInfoRemision($remisionID);
+
+		if ($data["infoRemision"] != false) {
+			
+			$this->load->view("header",$data);
+			$this->load->view("almacen/verRemision");
+			$this->load->view("footer");
+
+		}else{
+
+			$this->load->view("error404");
+
+		}
+
 	}
 }
 

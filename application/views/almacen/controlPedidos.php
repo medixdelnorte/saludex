@@ -53,7 +53,6 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                 <table id="tablaBoot" class="table table-bordered table-condensed table-hover cf" style="border-spacing:0px; width:100%">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Pedido</th>
                             <th>Fecha</th>
                             <th>Status</th>
@@ -68,9 +67,6 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                 foreach ($pedidos as $key => $pedido):
                          ?>
                         <tr class="text-center">
-                            <td class="text-center">
-                                <img onclick="" src="<?php echo base_url("/assets/images/details_open.png") ?>" val="0" data-toggle="tooltip" title="Mas Informacion">
-                            </td>
                             <td><?php echo $pedido->pedidoID; ?></td>
                             <td><?php echo $pedido->fecha; ?></td>
                             <td><span class="label label-<?php echo $pedido->statusColor ?> label-mini"><?php echo $pedido->statusNombre ?></span></td>
@@ -82,9 +78,10 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                  ?>
                                 <span data-toggle="tooltip" title="Iniciar Remision"><button type="button" class="btn btn-success btn-flat btn-xs btnPasaValor" objetivo="pd" valor="<?php echo $pedido->pedidoID; ?>" data-toggle="modal" data-target="#iniciar-remision"><i class="fa fa-share-square-o"></i></button></span>
                                 <?php 
-                                    else:
+                                    endif;
+                                    if ($pedido->remisiones > 0):
                                  ?>
-                                <span data-toggle="tooltip" title="Ver Remision Abierta"><button type="button" class="btn btn-primary btn-flat btn-xs"><i class="fa fa-file-text-o"></i></button></span>
+                                <span data-toggle="tooltip" title="Ver Remisiones"><button type="button" class="btn btn-primary btn-flat btn-xs show-rem" data-toggle="modal" data-target="#ver-remisiones" p="<?php echo $pedido->pedidoID ?>"><i class="fa fa-file-text-o"></i></button></span>
                                 <?php 
                                     endif;
                                  ?>
@@ -125,7 +122,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
         <div class="row">
 
-            <div class="col-sm-12">
+            <div class="col-sm-12 text-center">
                 ¿ Realmente deseas Iniciar la Remision ?
             </div>
 
@@ -144,6 +141,52 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
     </div>
     <div class="modal-footer">
       &nbsp;
+    </div>
+  </div>
+</div>
+</div>
+<!--****** End Basic Modal ******-->
+
+
+
+<!--****** Start Basic Modal ******-->
+<div class="modal" id="ver-remisiones" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+      <h4 class="modal-title"><strong>Remisiones</strong></h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Remision #</th>
+                            <th class="text-center">Fecha</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Usuario</th>
+                            <th class="text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contenedor-remisiones">
+                        
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default btn-raised rippler rippler-default" id="btn-dismiss-modal" data-dismiss="modal">Cerrar</button>
     </div>
   </div>
 </div>
