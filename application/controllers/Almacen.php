@@ -30,9 +30,9 @@ class Almacen extends CI_controller
 		$this->load->model("consultas_model");
 		//cargamos el modelo de almacen
 		$this->load->model("almacen_model");
-
+		//cargamos el modelo de controlPedidos_model para reutilizar sus consultas
 		$this->load->model("controlPedidos_model");
-		$this->load->model("empresas_model");
+
 	}
 
 	function controlpedidos()
@@ -78,7 +78,12 @@ class Almacen extends CI_controller
 
 		$data["infoRemision"] = $this->almacen_model->getInfoRemision($remisionID);
 
+
 		if ($data["infoRemision"] != false) {
+
+			$ventaID = $data["infoRemision"]->ventaID;
+			//traemos las partidas de la venta
+			$data["partidas"] = $this->controlPedidos_model->getPartidas($ventaID);
 			
 			$this->load->view("header",$data);
 			$this->load->view("almacen/verRemision");

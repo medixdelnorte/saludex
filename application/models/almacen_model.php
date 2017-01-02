@@ -18,7 +18,7 @@ class Almacen_model extends CI_Model
 
 	function getInfoRemision($remisionID)
 	{
-		$this->db->select("rem.pedido_id AS pedidoID,stpd.pedido_status_nombre AS pedidoStatus, pd.pedido_fecha AS pedidoFecha, uspd.usuario_user AS pedidoUsuario, cli.cliente_razon AS cliente, suc.sucursal_nombre AS sucursal, emp.empresa_razon AS empresa");
+		$this->db->select("rem.pedido_id AS pedidoID,stpd.pedido_status_nombre AS pedidoStatus, pd.pedido_fecha AS pedidoFecha, uspd.usuario_user AS pedidoUsuario, cli.cliente_razon AS cliente, suc.sucursal_nombre AS sucursal, emp.empresa_razon AS empresa, vt.venta_id AS ventaID, rem.remision_fecha AS remisionFecha, usrem.usuario_user AS remisionUsuario, strem.remision_status_nombre AS remisionStatus");
 		$this->db->join("t_pedido pd","pd.pedido_id = rem.pedido_id");
 		$this->db->join("t_pedido_status stpd","stpd.pedido_status_id = pd.pedido_status_id");
 		$this->db->join("t_usuario uspd","uspd.usuario_id = pd.usuario_id");
@@ -26,6 +26,8 @@ class Almacen_model extends CI_Model
 		$this->db->join("t_cliente cli", "cli.cliente_id = vt.cliente_id");
 		$this->db->join("t_sucursal suc","suc.sucursal_id = vt.sucursal_id");
 		$this->db->join("t_empresa emp", "emp.empresa_id = suc.empresa_id");
+		$this->db->join("t_usuario usrem","usrem.usuario_id = rem.usuario_id");
+		$this->db->join("t_remision_status strem", "strem.remision_status_id = rem.remision_status_id");
 		$this->db->where("rem.remision_id",$remisionID);
 		$remision = $this->db->get("t_remision rem");
 
