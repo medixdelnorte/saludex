@@ -186,7 +186,12 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                             if ($almacenes != false):
                                                 foreach ($almacenes as $key => $almacen):
                                          ?>
-                                        <option value="<?php echo $almacen->almacen_id ?>"><?php echo $almacen->almacen_nombre ?></option>
+                                        <option value="<?php echo $almacen->almacen_id ?>"<?php 
+
+                                            echo $infoRemision->remisionAlmacen == $almacen->almacen_id ? " selected " : "";
+                                            echo ">".$almacen->almacen_nombre; 
+
+                                            ?></option>
                                         <?php 
                                                 endforeach;
                                             endif;
@@ -235,6 +240,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                         <table id="partidasPedido" class="table table-bordered table-condensed table-hover cf" style="border-spacing:0px; width:100%">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th class="text-center">Codigo</th>
                                     <th class="text-center">Descripcion</th>
                                     <th class="text-center">Solicitado</th>
@@ -249,6 +255,9 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                         foreach ($partidas as $key => $partida):
                                  ?>
                                 <tr>
+                                    <td class="text-center">
+                                        <img onclick="infoAdvancePvta(this)" src="<?php echo base_url("/assets/images/details_open.png") ?>" val="0" data-toggle="tooltip" title="Mas Informacion" p="<?php echo $partida->partidaID ?>">
+                                    </td>
                                     <td class="text-center"><?php echo $partida->codigob ?></td>
                                     <td class="text-center" id="desc_<?php echo $partida->partidaID ?>"><?php echo $partida->descripcion ?></td>
                                     <td class="text-center"><?php echo $partida->cantidad ?></td>
@@ -263,10 +272,19 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                          ?>
                                     </td>
                                     <td class="text-center">
+                                        <div class="btn-group" data-toggle="tooltip" title="Sugerido">
+                                            <button class="btn btn-info btn-xs"><i class="fa fa-random"></i></button>
+                                        </div>
+                                        <div class="btn-group" data-toggle="tooltip" title="Solicitar Compra">
+                                            <button class="btn btn-primary btn-xs"><i class="fa fa-shopping-cart"></i></button>
+                                        </div>
                                         <div class="btn-group" data-toggle="tooltip" title="Surtir">
-                                            <button class="btn btn-success btn-xs"><i class="fa fa-sign-out"></i></button>
+                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#surtir-producto"><i class="fa fa-sign-out"></i></button>
                                         </div>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7" style="display: none" id="advance_<?php echo $partida->partidaID ?>"></td>
                                 </tr>
                                 <?php 
                                         endforeach;
@@ -286,3 +304,75 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
     </div><!--/col-md-12-->
 </div><!--/row-->
 
+
+
+
+
+
+<!--****** Start Basic Modal ******-->
+<div class="modal" id="surtir-producto" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+      <h4 class="modal-title"><strong>Surtir Producto</strong></h4>
+    </div>
+    <div class="modal-body">
+
+         <small><b>Producto Solicitado</b></small>
+         <hr style="margin-top:1px"><!-- /separador -->
+
+        <div class="row">
+
+            <div class="col-md-3 text-right">Codigo:</div>
+            <div class="col-md-5"><b>34567897</b></div>
+
+        </div>
+
+        <div class="row margin-top-10 margin-bottom-20">
+            
+            <div class="col-md-3 text-right">Pendientes:</div>
+            <div class="col-md-5"></div>
+
+        </div>
+
+         <small><b>Producto a Surtir</b></small>
+         <hr style="margin-top:1px"><!-- /separador -->
+
+        <div class="row margin-top-10">
+            
+            <div class="col-md-12">
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Codigo:</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="row margin-top-20">
+
+            <div class="col-sm-12 text-center">
+
+                <button class="btn btn-primary btn-raised">Surtir</button>
+                <button class="btn btn-danger btn-raised" data-dismiss="modal">Cancelar</button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+      &nbsp;
+    </div>
+  </div>
+</div>
+</div>
+<!--****** End Basic Modal ******-->

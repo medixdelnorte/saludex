@@ -82,6 +82,21 @@ class Almacen extends CI_controller
 		echo $setAlmacen === true ? 1 : 0;
 	}
 
+	function traerExistenciaProducto()
+	{
+		$datos = $this->input->post("datos");
+
+		$almacenID = $datos["almacenID"];
+		$codigoBarras = $datos["codigoBarras"];
+
+		$paramWhere = array("producto_codigob" => $codigoBarras);
+		$producto = $this->consultas_model->traerRow("t_producto",$paramWhere);
+
+		$existencia = $this->almacen_model->getExistenciaProducto($almacenID,$producto->producto_id);
+
+		echo $existencia;
+	}
+
 	function verRemision()
 	{
 		$remisionID = $this->uri->segment(3);

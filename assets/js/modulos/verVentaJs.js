@@ -170,43 +170,6 @@ $(".bClienteVenta").on("submit",function(form){
 });
 
 
-//funcion para mostrar informacion avanzada de la partida de venta
-function infoAdvancePvta(boton)
-{
-	var objeto = $(boton);
-	var valor = objeto.attr("val");
-	var partida = objeto.attr("p");
-
-	var trAdvance = $("#advance_" + partida);
-
-	if (valor == 0) {
-
-		objeto.attr("src",baseUrl + 'assets/images/details_close.png');
-		objeto.attr("val",1);
-		trAdvance.show();
-
-		var ruta =  baseUrl + "infoAdvancePvta/" + partida;
-
-		ejecutaProceso(ruta,"","",muestraAdvance,trAdvance);
-
-	}else{
-
-		objeto.attr("src",baseUrl + 'assets/images/details_open.png');		
-		objeto.attr("val",0);
-		trAdvance.hide();
-
-	}
-}
-
-
-function muestraAdvance(paramCallback,respuesta)
-{
-	var contenedor = paramCallback;
-
-	contenedor.html(respuesta);
-}
-
-
 
 function rBuscaClienteVenta(paramCallback,respuesta)
 {

@@ -62,7 +62,7 @@ $(".select-almacen").change(function(){
 function almacenSeleccionado(paramCallback,respuesta)
 {
 	if (respuesta == 1) {
-
+		//recorremos la tabla de las partidas del pedido
 		$("#partidasPedido tbody tr").each(function(index){
 
 			var codigoBarras;
@@ -76,7 +76,19 @@ function almacenSeleccionado(paramCallback,respuesta)
 					break;
 
 					case 4:
-						$(this).text("aku estoy prRoooooo");
+
+						// == traemos la existencia del producto == //
+						var ruta = baseUrl + "traerExistenciaProducto";
+						var info = new Object();
+
+						info.almacenID = paramCallback;
+						info.codigoBarras = codigoBarras;
+
+						var objeto = $(this);
+
+						ejecutaProceso(ruta,info,"",escribeExistencia,objeto);
+						// ======================================== //
+
 					break;
 
 				}
@@ -90,6 +102,11 @@ function almacenSeleccionado(paramCallback,respuesta)
 		mensajeWarning("Error","No se puede cambiar el Almacen");
 
 	}
+}
+
+function escribeExistencia(paramCallback,respuesta)
+{
+	paramCallback.text(respuesta);
 }
 
 

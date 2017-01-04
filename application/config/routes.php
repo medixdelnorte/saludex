@@ -119,6 +119,7 @@ $route["reestableceDescPvt"] = "controlpedidos/reestableceDescPvt";
 $route["iniciarRemision"] = "almacen/iniciarRemision";
 $route["getRemisiones"] = "almacen/getRemisiones";
 $route["setAlmacenRemision"] = "almacen/setAlmacenRemision";
+$route["traerExistenciaProducto"] = "almacen/traerExistenciaProducto";
 
 
 // == rutas para realizar busquedas == //
