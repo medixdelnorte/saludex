@@ -118,6 +118,7 @@ $route["reestableceDescPvt"] = "controlpedidos/reestableceDescPvt";
 // == ruta de modulo almacen == //
 $route["iniciarRemision"] = "almacen/iniciarRemision";
 $route["getRemisiones"] = "almacen/getRemisiones";
+$route["setAlmacenRemision"] = "almacen/setAlmacenRemision";
 
 
 // == rutas para realizar busquedas == //

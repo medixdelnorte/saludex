@@ -18,7 +18,7 @@ class Almacen_model extends CI_Model
 
 	function getInfoRemision($remisionID)
 	{
-		$this->db->select("rem.pedido_id AS pedidoID,stpd.pedido_status_nombre AS pedidoStatus, pd.pedido_fecha AS pedidoFecha, uspd.usuario_user AS pedidoUsuario, cli.cliente_razon AS cliente, suc.sucursal_nombre AS sucursal, emp.empresa_razon AS empresa, vt.venta_id AS ventaID, rem.remision_fecha AS remisionFecha, usrem.usuario_user AS remisionUsuario, strem.remision_status_nombre AS remisionStatus");
+		$this->db->select("rem.pedido_id AS pedidoID,stpd.pedido_status_nombre AS pedidoStatus, pd.pedido_fecha AS pedidoFecha, uspd.usuario_user AS pedidoUsuario, cli.cliente_razon AS cliente, suc.sucursal_nombre AS sucursal, emp.empresa_razon AS empresa, vt.venta_id AS ventaID, rem.remision_fecha AS remisionFecha, usrem.usuario_user AS remisionUsuario, strem.remision_status_nombre AS remisionStatus, suc.sucursal_id AS sucursalID, rem.almacen_id AS remisionAlmacen");
 		$this->db->join("t_pedido pd","pd.pedido_id = rem.pedido_id");
 		$this->db->join("t_pedido_status stpd","stpd.pedido_status_id = pd.pedido_status_id");
 		$this->db->join("t_usuario uspd","uspd.usuario_id = pd.usuario_id");
@@ -39,6 +39,27 @@ class Almacen_model extends CI_Model
 
 			return false;
 
+		}
+	}
+
+	function getExistenciaProducto($almacenID,$productoID)
+	{
+		$paramWhere = array(
+				"almacen_id"	=>	$almacenID,
+				"producto_id"	=>	$productoID
+			);
+		$this->db->select("existencia_cantidad AS existencia");
+		$existencia = $this->db->get_where("t_existencia",$paramWhere);
+
+		if($existencia->num_rows() > 0){
+
+			$resultado = $existencia->row();
+
+			return $resultado->existencia;
+
+		}else{
+
+			return "Null";
 		}
 	}
 
@@ -113,6 +134,44 @@ class Almacen_model extends CI_Model
 			$this->db->trans_commit();
 
 			return $remisionID;
+
+		}
+	}
+
+	function setAlmacen($remisionID,$almacenID)
+	{
+		$this->db->trans_begin();
+
+			//verificamos si en la remision no se han surtido productos
+			$this->db->select("COUNT(*) AS surtido");
+			$this->db->where("remision_id",$remisionID);
+			$query = $this->db->get("t_partidavt_surtido");
+			$surtido = $query->row();
+
+			if ($surtido->surtido == 0) {
+				
+				$cambiaAlmacen = true;
+				$this->db->set("almacen_id",$almacenID);
+				$this->db->where("remision_id",$remisionID);
+				$this->db->update("t_remision");
+
+			}else{
+
+				$cambiaAlmacen = false;
+
+			}
+
+		if ($this->db->trans_status() === FALSE) {
+			
+			$this->db->trans_rollback();
+
+			return false;
+
+		}else{
+
+			$this->db->trans_commit();
+
+			return $cambiaAlmacen;
 
 		}
 	}

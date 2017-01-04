@@ -62,5 +62,20 @@ class Consultas_model extends CI_Model
 		}
 	}
 
+	function traerWhere($tabla,$paramWhere)
+	{
+		$rows = $this->db->get_where($tabla,$paramWhere);
+
+		if ($rows->num_rows() > 0) {
+			
+			return $rows->result();
+
+		}else{
+
+			return false;
+
+		}
+	}
+
 
 }

@@ -44,6 +44,55 @@ $(".show-rem").click(function(){
 });
 
 
+$(".select-almacen").change(function(){
+
+	var objeto = $(this);
+
+	var info = new Object();
+
+	info.almacenID = objeto.val();
+	info.remisionID = $("#remision").val();
+
+	var ruta = baseUrl + "setAlmacenRemision";
+
+	ejecutaProceso(ruta,info,"",almacenSeleccionado,info.almacenID);
+
+});
+
+function almacenSeleccionado(paramCallback,respuesta)
+{
+	if (respuesta == 1) {
+
+		$("#partidasPedido tbody tr").each(function(index){
+
+			var codigoBarras;
+
+			$(this).children("td").each(function(index2){
+
+				switch(index2){
+
+					case 0:
+						codigoBarras = $(this).text();
+					break;
+
+					case 4:
+						$(this).text("aku estoy prRoooooo");
+					break;
+
+				}
+
+			});
+
+		});
+
+	}else{
+
+		mensajeWarning("Error","No se puede cambiar el Almacen");
+
+	}
+}
+
+
 function muestraRemisiones(paramCallback,respuesta)
 {
 	if (respuesta != 0) {

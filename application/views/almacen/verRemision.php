@@ -140,7 +140,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Remision</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" disabled value="<?php echo $remisionID ?>">
+                                    <input type="text" class="form-control" disabled value="<?php echo $remisionID ?>" id="remision">
                                 </div>
                             </div>              
                         </div>
@@ -174,6 +174,26 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <input type="text" class="form-control" disabled value="<?php echo $infoRemision->remisionStatus ?>">
                                 </div>
                             </div>                           
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Almacen</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control select-almacen">
+                                        <option></option>
+                                        <?php 
+                                            if ($almacenes != false):
+                                                foreach ($almacenes as $key => $almacen):
+                                         ?>
+                                        <option value="<?php echo $almacen->almacen_id ?>"><?php echo $almacen->almacen_nombre ?></option>
+                                        <?php 
+                                                endforeach;
+                                            endif;
+                                         ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                     </div><!--  /.row--> 
@@ -212,14 +232,14 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
                        <!-- <section id="flip-scroll">-->
 
-                        <table class="table table-bordered table-condensed table-hover cf" style="border-spacing:0px; width:100%">
+                        <table id="partidasPedido" class="table table-bordered table-condensed table-hover cf" style="border-spacing:0px; width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center">Codigo</th>
                                     <th class="text-center">Descripcion</th>
                                     <th class="text-center">Solicitado</th>
                                     <th class="text-center">Pendiente</th>
-                                    <th class="text-center">en Sucursal</th>
+                                    <th class="text-center">en Almacen</th>
                                     <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>
@@ -232,8 +252,16 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <td class="text-center"><?php echo $partida->codigob ?></td>
                                     <td class="text-center" id="desc_<?php echo $partida->partidaID ?>"><?php echo $partida->descripcion ?></td>
                                     <td class="text-center"><?php echo $partida->cantidad ?></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
+                                    <td class="text-center">
+                                        <?php 
+                                            echo $partida->pendienteSurtir === NULL ? $partida->cantidad : $partida->pendienteSurtir;
+                                         ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php 
+                                            echo ($infoRemision->remisionAlmacen != NULL) ? $this->almacen_model->getExistenciaProducto($infoRemision->remisionAlmacen,$partida->productoID) : "Null";
+                                         ?>
+                                    </td>
                                     <td class="text-center">
                                         <div class="btn-group" data-toggle="tooltip" title="Surtir">
                                             <button class="btn btn-success btn-xs"><i class="fa fa-sign-out"></i></button>

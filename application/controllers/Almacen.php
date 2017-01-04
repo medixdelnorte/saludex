@@ -69,6 +69,19 @@ class Almacen extends CI_controller
 
 	}
 
+	function setAlmacenRemision()
+	{
+		$datos = $this->input->post("datos");
+
+		$remisionID = $datos["remisionID"];
+		//su el valor viene en 0, pondremos el almacenID en Nulo
+		$datos["almacenID"] != 0 ? $almacenID = $datos["almacenID"] : $almacenID = NULL;
+
+		$setAlmacen = $this->almacen_model->setAlmacen($remisionID,$almacenID);
+
+		echo $setAlmacen === true ? 1 : 0;
+	}
+
 	function verRemision()
 	{
 		$remisionID = $this->uri->segment(3);
@@ -82,8 +95,12 @@ class Almacen extends CI_controller
 		if ($data["infoRemision"] != false) {
 
 			$ventaID = $data["infoRemision"]->ventaID;
+			$sucursalID = $data["infoRemision"]->sucursalID;
 			//traemos las partidas de la venta
 			$data["partidas"] = $this->controlPedidos_model->getPartidas($ventaID);
+			//traemos los almacenes de la sucursal
+			$paramWhere = array("sucursal_id" => $sucursalID);
+			$data["almacenes"] = $this->consultas_model->traerWhere("t_almacen",$paramWhere);
 			
 			$this->load->view("header",$data);
 			$this->load->view("almacen/verRemision");

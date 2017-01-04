@@ -181,7 +181,7 @@ class ControlPedidos_model extends CI_Model
 		//establecemos la condicion where
 		$paramWhere = array("venta_id" => $ventaID);
 		//establecemos el select
-		$this->db->select("pro.producto_codigob AS codigob, pvt.partidavt_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva");
+		$this->db->select("pro.producto_codigob AS codigob, pvt.partidavt_descripcion AS descripcion, pvt.partidavt_cantidad AS cantidad, pvt.partidavt_precio AS precio, pvt.partidavt_descuento AS descuento, pvt.partidavt_id AS partidaID, ( pvt.partidavt_precio - ( pvt.partidavt_precio * (pvt.partidavt_descuento/100) ) ) * pvt.partidavt_cantidad AS importe, (pvt.partidavt_cantidad * pvt.partidavt_precio) * (pvt.partidavt_iva / 100) AS iva, (pvt.partidavt_cantidad - (SELECT SUM(partidavt_surtido_cantidad) FROM t_partidavt_surtido WHERE partidavt_id = pvt.partidavt_id)) AS pendienteSurtir, pvt.producto_id AS productoID");
 		//realizamos los join necesarios
 		$this->db->join("t_producto pro","pro.producto_id = pvt.producto_id");
 		//realizamos el get
