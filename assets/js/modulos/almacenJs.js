@@ -59,6 +59,26 @@ $(".select-almacen").change(function(){
 
 });
 
+
+$(".surtir-producto").click(function(){
+
+	var objeto = $(this);
+
+	var partida = objeto.attr("p");
+	var descripcion = $("#desc_" + partida).html();
+	var pendientes = $("#pen_" + partida).html();
+
+	$("#pendientes-surtir").html(pendientes);
+	$("#descripcion-surtir").html(descripcion);
+	$("#partida-surtir").val(partida);
+
+});
+
+
+/*
+*	funcion se ejecuta al momento de seleccionar un almacen para la remision, dispara el proceso de buscar la existencia de cada producto
+*	dentro de la tabla de partidas
+*/
 function almacenSeleccionado(paramCallback,respuesta)
 {
 	if (respuesta == 1) {
@@ -108,6 +128,7 @@ function escribeExistencia(paramCallback,respuesta)
 {
 	paramCallback.text(respuesta);
 }
+// ======= /almacenSeleccionado ======= //
 
 
 function muestraRemisiones(paramCallback,respuesta)

@@ -261,7 +261,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                     <td class="text-center"><?php echo $partida->codigob ?></td>
                                     <td class="text-center" id="desc_<?php echo $partida->partidaID ?>"><?php echo $partida->descripcion ?></td>
                                     <td class="text-center"><?php echo $partida->cantidad ?></td>
-                                    <td class="text-center">
+                                    <td class="text-center" id="pen_<?php echo $partida->partidaID ?>">
                                         <?php 
                                             echo $partida->pendienteSurtir === NULL ? $partida->cantidad : $partida->pendienteSurtir;
                                          ?>
@@ -279,7 +279,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                                             <button class="btn btn-primary btn-xs"><i class="fa fa-shopping-cart"></i></button>
                                         </div>
                                         <div class="btn-group" data-toggle="tooltip" title="Surtir">
-                                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#surtir-producto"><i class="fa fa-sign-out"></i></button>
+                                            <button class="btn btn-success btn-xs surtir-producto" data-toggle="modal" data-target="#surtir-producto" p="<?php echo $partida->partidaID ?>"><i class="fa fa-sign-out"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -329,44 +329,62 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
         </div>
 
+        <div class="row margin-top-10">
+
+            <div class="col-md-3 text-right">Descripcion:</div>
+            <div class="col-md-5"><b><span id="descripcion-surtir"></span></b></div>
+
+        </div>
+
         <div class="row margin-top-10 margin-bottom-20">
             
             <div class="col-md-3 text-right">Pendientes:</div>
-            <div class="col-md-5"></div>
+            <div class="col-md-5"><b><span id="pendientes-surtir"></span></b></div>
 
         </div>
 
          <small><b>Producto a Surtir</b></small>
          <hr style="margin-top:1px"><!-- /separador -->
 
-        <div class="row margin-top-10">
-            
-            <div class="col-md-12">
-                <form class="form-horizontal">
+        <form class="form-horizontal" onSubmit="ejecutaFormulario(this,'','',''); return false" action="<?php echo base_url("almacen/surtirproducto/".$remisionID); ?>">
+            <div class="row margin-top-10">                
+                <div class="col-md-12">
 
                     <div class="form-group">
                         <label class="control-label col-md-3">Codigo:</label>
                         <div class="col-md-5">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" required name="codigob-surtir">
                         </div>
                     </div>
 
-                </form>
-
+                </div>
             </div>
 
-        </div>
+            <div class="row">                
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Cantidad:</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" required name="cantidad-surtir">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
         <div class="row margin-top-20">
 
             <div class="col-sm-12 text-center">
 
-                <button class="btn btn-primary btn-raised">Surtir</button>
+                <input type="hidden" id="partida-surtir" name="partida-surtir">
+                <button type="submit" class="btn btn-primary btn-raised">Surtir</button>
                 <button class="btn btn-danger btn-raised" data-dismiss="modal">Cancelar</button>
 
             </div>
 
         </div>
+        </form>
 
     </div>
     <div class="modal-footer">

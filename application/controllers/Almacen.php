@@ -82,6 +82,33 @@ class Almacen extends CI_controller
 		echo $setAlmacen === true ? 1 : 0;
 	}
 
+	function surtirproducto()
+	{
+		$remisionID = $this->uri->segment("3");
+
+		// == validamos la informacion del formulario == //
+		$this->form_validation->set_rules("codigob-surtir","trim");
+		$this->form_validation->set_rules("cantidad-surtir","trim|numeric");
+		$this->form_validation->set_rules("partida-surtir","trim|numeric");
+		// ============================================= //
+
+		if ($this->form_valudarion->run() === true) {
+			
+			//si es correcta la validacion de los datos del formulario procedemos a insertar el producto surtido
+			$datosFormulario = $this->input->post();
+
+			$codigoSurtir = $datosFormulario["codigob-surtir"];
+			$cantidadSurtir = $datosFormulario["cantidad-surtir"]
+			$partidaVt = $datosFormulario["partida-surtir"];
+			$usuarioID = $this->usuarioID;
+
+		}else{
+
+			echo 0;
+
+		}
+	}
+
 	function traerExistenciaProducto()
 	{
 		$datos = $this->input->post("datos");
