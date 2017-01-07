@@ -346,7 +346,7 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
          <small><b>Producto a Surtir</b></small>
          <hr style="margin-top:1px"><!-- /separador -->
 
-        <form class="form-horizontal" onSubmit="ejecutaFormulario(this,'','',''); return false" action="<?php echo base_url("almacen/surtirproducto/".$remisionID); ?>">
+        <form class="form-horizontal" onSubmit="ejecutaFormulario(this,'','',''); return false" action="<?php echo base_url("almacen/surtirproducto/".$remisionID); ?>" method="post">
             <div class="row margin-top-10">                
                 <div class="col-md-12">
 

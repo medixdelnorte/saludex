@@ -92,13 +92,13 @@ class Almacen extends CI_controller
 		$this->form_validation->set_rules("partida-surtir","trim|numeric");
 		// ============================================= //
 
-		if ($this->form_valudarion->run() === true) {
+		if ($this->form_validation->run() === true) {
 			
 			//si es correcta la validacion de los datos del formulario procedemos a insertar el producto surtido
 			$datosFormulario = $this->input->post();
 
 			$codigoSurtir = $datosFormulario["codigob-surtir"];
-			$cantidadSurtir = $datosFormulario["cantidad-surtir"]
+			$cantidadSurtir = $datosFormulario["cantidad-surtir"];
 			$partidaVt = $datosFormulario["partida-surtir"];
 			$usuarioID = $this->usuarioID;
 

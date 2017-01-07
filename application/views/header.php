@@ -317,18 +317,18 @@ defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
                             </ul>
                         </li>
 
-                        <li class='sub-menu '><a href="#" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "productos")?"active":"" ?>"><span class='icon-sidebar fa fa-cubes fa-2x'></span><span>Productos</span></a>
-                            <ul class='sub'>
-                                <li><a href="<?php echo base_url("productos/controlProductos"); ?>">Control de Productos</a>
-                                </li>
-                            </ul>
-                        </li>
-
                         <li class='sub-menu '><a href="#" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "almacen")?"active":"" ?>"><span class='icon-sidebar pe-7s-box1 fa-2x'></span><span>Almacen</span></a>
                             <ul class='sub'>
                                 <li><a href="<?php echo base_url("almacen/controlpedidos"); ?>">Control de Pedidos</a>
                                 </li>
                                 <li><a href="<?php echo base_url("almacen/existencias"); ?>">Existencias</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sub-menu '><a href="#" class="hvr-bounce-to-right-sidebar-parent <?php echo ($menu == "productos")?"active":"" ?>"><span class='icon-sidebar fa fa-cubes fa-2x'></span><span>Productos</span></a>
+                            <ul class='sub'>
+                                <li><a href="<?php echo base_url("productos/controlProductos"); ?>">Control de Productos</a>
                                 </li>
                             </ul>
                         </li>
