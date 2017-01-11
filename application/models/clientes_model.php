@@ -3,8 +3,7 @@
 defined('BASEPATH') OR exit('No se puede acceder al archivo directamente.');
 
 class Clientes_model extends CI_Model
-{
-	
+{	
 	function __construct()
 	{
 		parent::__construct();
@@ -29,7 +28,6 @@ class Clientes_model extends CI_Model
 	{
 		$this->db->insert("t_cliente",$campos);
 	}
-
 }
 
 

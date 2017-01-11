@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2016 a las 22:33:22
+-- Tiempo de generación: 11-01-2017 a las 16:47:52
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -41,7 +41,8 @@ CREATE TABLE `t_almacen` (
 INSERT INTO `t_almacen` (`almacen_id`, `almacen_nombre`, `sucursal_id`, `usuario_id`, `almacen_fecha_alta`) VALUES
 (1, 'ALMACEN 10', 1, 1, '2016-12-06 16:48:59'),
 (2, 'ALMACEN 2', 1, 1, '2016-12-06 17:45:53'),
-(3, 'NUEVO ALMACEN', 1, 1, '2016-12-12 17:25:27');
+(3, 'NUEVO ALMACEN', 1, 1, '2016-12-12 17:25:27'),
+(4, 'ALM 10', 2, 1, '2017-01-03 11:20:50');
 
 -- --------------------------------------------------------
 
@@ -162,24 +163,30 @@ CREATE TABLE `t_existencia` (
 --
 
 INSERT INTO `t_existencia` (`existencia_id`, `producto_id`, `almacen_id`, `existencia_cantidad`, `existencia_maximo`, `existencia_minimo`) VALUES
-(1, 1, 1, 0, 0, 0),
+(1, 1, 1, 5, 0, 0),
 (2, 2, 1, 5, 0, 0),
-(3, 3, 1, 0, 0, 0),
-(4, 4, 1, 0, 0, 0),
-(5, 1, 2, 0, 0, 0),
-(6, 2, 2, 3, 0, 0),
-(7, 3, 2, 0, 0, 0),
-(8, 4, 2, 0, 0, 0),
-(12, 5, 1, 0, 0, 0),
-(13, 5, 2, 0, 0, 0),
-(15, 6, 1, 0, 0, 0),
-(16, 6, 2, 0, 0, 0),
-(17, 1, 3, 0, 0, 0),
-(18, 5, 3, 0, 0, 0),
-(19, 6, 3, 0, 0, 0),
-(20, 2, 3, 0, 0, 0),
-(21, 3, 3, 0, 0, 0),
-(22, 4, 3, 0, 0, 0);
+(3, 3, 1, 5, 0, 0),
+(4, 4, 1, 5, 0, 0),
+(5, 1, 2, 5, 0, 0),
+(6, 2, 2, 5, 0, 0),
+(7, 3, 2, 5, 0, 0),
+(8, 4, 2, 5, 0, 0),
+(12, 5, 1, 5, 0, 0),
+(13, 5, 2, 5, 0, 0),
+(15, 6, 1, 5, 0, 0),
+(16, 6, 2, 5, 0, 0),
+(17, 1, 3, 5, 0, 0),
+(18, 5, 3, 5, 0, 0),
+(19, 6, 3, 5, 0, 0),
+(20, 2, 3, 5, 0, 0),
+(21, 3, 3, 5, 0, 0),
+(22, 4, 3, 5, 0, 0),
+(23, 1, 4, 5, 0, 0),
+(24, 5, 4, 5, 0, 0),
+(25, 6, 4, 5, 0, 0),
+(26, 2, 4, 5, 0, 0),
+(27, 3, 4, 5, 0, 0),
+(28, 4, 4, 5, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -198,20 +205,52 @@ CREATE TABLE `t_partidavt` (
   `usuario_id` int(11) NOT NULL,
   `partidavt_fecha` datetime DEFAULT NULL,
   `partidavt_comentario` text COLLATE utf8_unicode_ci,
-  `venta_id` int(11) NOT NULL
+  `venta_id` int(11) NOT NULL,
+  `partidavt_descripcion` text COLLATE utf8_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `t_partidavt`
 --
 
-INSERT INTO `t_partidavt` (`partidavt_id`, `producto_id`, `partidavt_precio`, `partidavt_descuento`, `partidavt_cantidad`, `partidavt_iva`, `partidavt_pref`, `usuario_id`, `partidavt_fecha`, `partidavt_comentario`, `venta_id`) VALUES
-(1, 1, 100.23, 0, 1, 0, 70, 1, '2016-12-16 07:26:30', NULL, 1),
-(30, 5, 300, 0, 1, 0, 300, 1, '2016-12-16 15:47:54', NULL, 1),
-(33, 4, 100, 0, 1, 16, 100, 1, '2016-12-16 16:18:59', NULL, 1),
-(34, 4, 100, 0, 1, 16, 100, 1, '2016-12-16 16:19:32', NULL, 1),
-(35, 6, 80, 0, 1, 0, 80, 1, '2016-12-16 16:19:41', NULL, 1),
-(36, 5, 300, 0, 1, 0, 300, 1, '2016-12-16 16:19:46', NULL, 1);
+INSERT INTO `t_partidavt` (`partidavt_id`, `producto_id`, `partidavt_precio`, `partidavt_descuento`, `partidavt_cantidad`, `partidavt_iva`, `partidavt_pref`, `usuario_id`, `partidavt_fecha`, `partidavt_comentario`, `venta_id`, `partidavt_descripcion`) VALUES
+(74, 2, 690, 0, 1, 0, 690, 1, '2016-12-20 15:54:39', NULL, 1, NULL),
+(76, 6, 80, 0, 1, 0, 80, 1, '2016-12-20 15:54:43', NULL, 1, NULL),
+(77, 5, 300, 0, 1, 0, 300, 1, '2016-12-20 15:54:44', NULL, 1, NULL),
+(79, 4, 250, 0, 1, 16, 100, 1, '2016-12-20 15:54:59', NULL, 1, NULL),
+(84, 2, 690, 0, 1, 0, 690, 1, '2016-12-22 12:08:32', NULL, 2, 'SEGUNDO PRODUCTO'),
+(85, 5, 300, 0, 1, 0, 300, 1, '2016-12-22 12:08:32', NULL, 2, 'OTRO PRODUCTO'),
+(86, 4, 100, 0, 1, 16, 100, 1, '2016-12-22 12:20:25', NULL, 2, 'SEGUNDO SERVICIO'),
+(91, 5, 300, 0, 1, 0, 300, 1, '2016-12-22 12:23:01', NULL, 2, 'OTRO PRODUCTO'),
+(93, 3, 100, 0, 1, 0, 100, 1, '2016-12-27 12:30:02', '', 5, 'PRIMER SERVICIO'),
+(94, 4, 100, 0, 1, 16, 100, 1, '2016-12-27 12:30:02', 'servicio', 5, 'SEGUNDO SERVICIO'),
+(98, 2, 690, 0, 1, 0, 690, 1, '2016-12-27 16:22:51', NULL, 5, 'SEGUNDO PRODUCTO'),
+(99, 3, 100, 0, 1, 0, 100, 1, '2016-12-28 17:44:02', 'Y LE PUSE UNOS COMENTARIOS', 4, 'A ESTE LE MODIFIQUE LA DESCRIPCION'),
+(100, 2, 690, 0, 1, 0, 690, 1, '2017-01-02 13:47:30', NULL, 6, 'SEGUNDO PRODUCTO'),
+(101, 6, 80, 0, 1, 0, 80, 1, '2017-01-02 13:47:31', NULL, 6, 'PRODUCTO PRODUCTO'),
+(102, 5, 300, 0, 1, 0, 300, 1, '2017-01-02 13:47:31', NULL, 6, 'OTRO PRODUCTO'),
+(103, 1, 70, 0, 1, 0, 70, 1, '2017-01-03 11:07:05', NULL, 7, 'PRIMER PRODUCTO'),
+(104, 2, 690, 0, 1, 0, 690, 1, '2017-01-03 11:07:05', NULL, 7, 'SEGUNDO PRODUCTO'),
+(105, 5, 300, 0, 1, 0, 300, 1, '2017-01-03 11:07:05', NULL, 7, 'OTRO PRODUCTO'),
+(106, 6, 80, 0, 1, 0, 80, 1, '2017-01-03 11:07:06', NULL, 7, 'PRODUCTO PRODUCTO'),
+(107, 2, 690, 0, 4, 0, 690, 1, '2017-01-06 11:15:44', NULL, 9, 'SEGUNDO PRODUCTO'),
+(108, 6, 80, 0, 1, 0, 80, 1, '2017-01-06 11:15:46', NULL, 9, 'PRODUCTO PRODUCTO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_partidavt_surtido`
+--
+
+CREATE TABLE `t_partidavt_surtido` (
+  `partidavt_surtido_id` int(11) NOT NULL,
+  `partidavt_surtido_cantidad` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `partidavt_surtido_fecha` datetime DEFAULT NULL,
+  `partidavt_id` int(11) NOT NULL,
+  `remision_id` int(11) NOT NULL,
+  `almacen_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -222,8 +261,43 @@ INSERT INTO `t_partidavt` (`partidavt_id`, `producto_id`, `partidavt_precio`, `p
 CREATE TABLE `t_pedido` (
   `pedido_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
-  `pedido_fecha` datetime DEFAULT NULL
+  `pedido_fecha` datetime DEFAULT NULL,
+  `pedido_status_id` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `t_pedido`
+--
+
+INSERT INTO `t_pedido` (`pedido_id`, `usuario_id`, `pedido_fecha`, `pedido_status_id`) VALUES
+(1, 1, '2016-12-21 12:15:12', 1),
+(2, 1, '2016-12-21 16:26:21', 1),
+(3, 1, '2016-12-27 10:40:15', 2),
+(4, 1, '2016-12-27 16:58:31', 2),
+(5, 1, '2016-12-28 17:45:19', 2),
+(6, 1, '2017-01-02 13:47:41', 2),
+(7, 1, '2017-01-03 11:07:12', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_pedido_status`
+--
+
+CREATE TABLE `t_pedido_status` (
+  `pedido_status_id` int(11) NOT NULL,
+  `pedido_status_nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `pedido_status_color` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `t_pedido_status`
+--
+
+INSERT INTO `t_pedido_status` (`pedido_status_id`, `pedido_status_nombre`, `pedido_status_color`) VALUES
+(1, 'PENDIENTE', 'silver'),
+(2, 'SURTIENDO', 'success'),
+(3, 'CANCELADO', 'danger');
 
 -- --------------------------------------------------------
 
@@ -243,17 +317,17 @@ CREATE TABLE `t_permiso` (
 --
 
 INSERT INTO `t_permiso` (`permiso_id`, `permiso_descripcion`, `permiso_valor`, `permiso_modulo`) VALUES
-(2, 'Acceso Control de Clientes', '1100', 'CLIENTES'),
-(4, 'Acceso Control de Productos', '2100', 'PRODUCTOS'),
-(6, 'Acceso a Existencias', '3100', 'ALMACEN'),
+(2, 'Acceso Modulo Clientes', '1100', 'CLIENTES'),
+(4, 'Acceso Modulo Productos', '2100', 'PRODUCTOS'),
+(6, 'Acceso Modulo Almacen', '3100', 'ALMACEN'),
 (8, 'Acceso Control de Usuarios', '4100', 'CONFIGURACION'),
 (9, 'Acceso Perfiles de Usuario', '4200', 'CONFIGURACION'),
 (10, 'Acceso Control de Departamentos', '4300', 'CONFIGURACION'),
 (11, 'Acceso Control Empresa', '4400', 'CONFIGURACION'),
 (12, 'Acceso Control Sucursal', '4500', 'CONFIGURACION'),
 (13, 'Acceso Control Almacen', '4600', 'CONFIGURACION'),
-(14, 'Acceso Control de Proveedores', '5100', 'PROVEEDORES'),
-(15, 'Acceso Control de Pedidos', '6100', 'VENTAS');
+(14, 'Acceso Modulo Proveedores', '5100', 'PROVEEDORES'),
+(15, 'Acceso Modulo Ventas', '6100', 'VENTAS');
 
 -- --------------------------------------------------------
 
@@ -362,6 +436,53 @@ INSERT INTO `t_proveedor` (`proveedor_id`, `proveedor_razon`, `proveedor_rfc`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `t_remision`
+--
+
+CREATE TABLE `t_remision` (
+  `remision_id` int(11) NOT NULL,
+  `remision_fecha` datetime DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `pedido_id` int(11) NOT NULL,
+  `remision_status_id` int(11) NOT NULL DEFAULT '1',
+  `almacen_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `t_remision`
+--
+
+INSERT INTO `t_remision` (`remision_id`, `remision_fecha`, `usuario_id`, `pedido_id`, `remision_status_id`, `almacen_id`) VALUES
+(1, '2016-12-28 16:49:32', 1, 4, 1, NULL),
+(11, '2016-12-28 16:58:38', 1, 3, 1, NULL),
+(12, '2016-12-29 16:21:17', 1, 5, 2, NULL),
+(13, '2016-12-29 16:22:50', 1, 5, 1, NULL),
+(14, '2017-01-03 10:51:51', 1, 6, 1, 4),
+(15, '2017-01-06 10:54:32', 1, 7, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_remision_status`
+--
+
+CREATE TABLE `t_remision_status` (
+  `remision_status_id` int(11) NOT NULL,
+  `remision_status_nombre` varchar(150) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `t_remision_status`
+--
+
+INSERT INTO `t_remision_status` (`remision_status_id`, `remision_status_nombre`) VALUES
+(1, 'ABIERTA'),
+(2, 'CERRADA'),
+(3, 'CANCELADA');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `t_sucursal`
 --
 
@@ -415,7 +536,7 @@ CREATE TABLE `t_usuario` (
 
 INSERT INTO `t_usuario` (`usuario_id`, `usuario_nombre`, `usuario_apellido`, `usuario_telefono`, `usuario_user`, `usuario_pwd`, `usuario_fecha_alta`, `usuario_registro`, `usuario_perfil_id`, `usuario_departamento_id`, `usuario_correo`) VALUES
 (1, 'Jorge', 'Gomez', '', 'administrador', '595b396dfee50a8df152d747ae3103d3', '2016-12-07 11:20:38', 1, 1, 1, 'correo@correo.com'),
-(2, 'George', 'Gmess', '', 'georgegmes', '595b396dfee50a8df152d747ae3103d3', '2016-12-07 11:39:07', 1, 6, 1, 'gmes@correo.com');
+(2, 'George', 'Gmess', '', 'georgegmes', '67660694cfdb99750aa233b55e242edd', '2016-12-07 11:39:07', 1, 6, 1, 'gmes@correo.com');
 
 -- --------------------------------------------------------
 
@@ -463,7 +584,8 @@ INSERT INTO `t_usuario_perfil` (`usuario_perfil_id`, `usuario_perfil_nombre`, `u
 (1, 'ADMINISTRADOR', '||1100||2100||3100||4100||4200||4300||4400||4500||4600||5100||6100', 1, '2016-12-07 10:27:15'),
 (2, 'VENTAS', NULL, 1, '2016-12-07 10:50:13'),
 (3, 'SUPER-USUARIO', NULL, 1, '2016-12-08 14:20:08'),
-(6, 'COMPRAS', '||2100', 1, '2016-12-08 17:37:49');
+(6, 'COMPRAS', '||2100', 1, '2016-12-08 17:37:49'),
+(7, 'perfil 3', '||1100||2100||3100', 1, '2016-12-21 15:54:40');
 
 -- --------------------------------------------------------
 
@@ -489,7 +611,15 @@ CREATE TABLE `t_venta` (
 --
 
 INSERT INTO `t_venta` (`venta_id`, `usuario_id`, `venta_fecha`, `sucursal_id`, `venta_status_id`, `pedido_id`, `cliente_id`, `venta_subtotal`, `venta_iva`, `venta_total`) VALUES
-(1, 1, '2016-12-13 08:23:42', 1, 1, NULL, 2, NULL, NULL, NULL);
+(1, 1, '2016-12-13 08:23:42', NULL, 5, 2, 2, 1320, 40, 1360),
+(2, 1, '2016-12-21 17:42:50', 2, 3, NULL, 10, 1390, 16, 1406),
+(3, 1, '2016-12-21 17:52:45', 1, 5, 3, 11, NULL, NULL, NULL),
+(4, 1, '2016-12-27 10:39:50', 3, 4, 5, 1, 100, 0, 100),
+(5, 1, '2016-12-27 11:29:01', 1, 4, 4, 10, 890, 16, 906),
+(6, 1, '2017-01-02 13:47:12', 2, 4, 6, 5, 1070, 0, 1070),
+(7, 1, '2017-01-03 11:06:48', 2, 4, 7, 2, 1140, 0, 1140),
+(8, 1, '2017-01-06 11:11:48', NULL, 1, NULL, NULL, NULL, NULL, NULL),
+(9, 1, '2017-01-06 11:13:34', 2, 2, NULL, 4, 2840, 0, 2840);
 
 -- --------------------------------------------------------
 
@@ -499,16 +629,21 @@ INSERT INTO `t_venta` (`venta_id`, `usuario_id`, `venta_fecha`, `sucursal_id`, `
 
 CREATE TABLE `t_venta_status` (
   `venta_status_id` int(11) NOT NULL,
-  `venta_status_nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `venta_status_nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `venta_status_ncorto` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `venta_status_color` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `t_venta_status`
 --
 
-INSERT INTO `t_venta_status` (`venta_status_id`, `venta_status_nombre`) VALUES
-(1, 'COTIZACION'),
-(2, 'COTIZACION CERRADA');
+INSERT INTO `t_venta_status` (`venta_status_id`, `venta_status_nombre`, `venta_status_ncorto`, `venta_status_color`) VALUES
+(1, 'COTIZACION', 'COTIZACION', 'default'),
+(2, 'COTIZACION CERRADA', 'CERRADA', 'success'),
+(3, 'COTIZACION CANCELADA', 'CANCELADA', 'danger'),
+(4, 'PEDIDO', 'PEDIDO', 'primary'),
+(5, 'PEDIDO CANCELADO', 'PED. CANCEL', 'warning');
 
 --
 -- Índices para tablas volcadas
@@ -551,10 +686,22 @@ ALTER TABLE `t_partidavt`
   ADD PRIMARY KEY (`partidavt_id`);
 
 --
+-- Indices de la tabla `t_partidavt_surtido`
+--
+ALTER TABLE `t_partidavt_surtido`
+  ADD PRIMARY KEY (`partidavt_surtido_id`);
+
+--
 -- Indices de la tabla `t_pedido`
 --
 ALTER TABLE `t_pedido`
   ADD PRIMARY KEY (`pedido_id`);
+
+--
+-- Indices de la tabla `t_pedido_status`
+--
+ALTER TABLE `t_pedido_status`
+  ADD PRIMARY KEY (`pedido_status_id`);
 
 --
 -- Indices de la tabla `t_permiso`
@@ -586,6 +733,18 @@ ALTER TABLE `t_producto_tipo`
 --
 ALTER TABLE `t_proveedor`
   ADD PRIMARY KEY (`proveedor_id`);
+
+--
+-- Indices de la tabla `t_remision`
+--
+ALTER TABLE `t_remision`
+  ADD PRIMARY KEY (`remision_id`);
+
+--
+-- Indices de la tabla `t_remision_status`
+--
+ALTER TABLE `t_remision_status`
+  ADD PRIMARY KEY (`remision_status_id`);
 
 --
 -- Indices de la tabla `t_sucursal`
@@ -631,7 +790,7 @@ ALTER TABLE `t_venta_status`
 -- AUTO_INCREMENT de la tabla `t_almacen`
 --
 ALTER TABLE `t_almacen`
-  MODIFY `almacen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `almacen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `t_cliente`
 --
@@ -651,17 +810,27 @@ ALTER TABLE `t_empresa`
 -- AUTO_INCREMENT de la tabla `t_existencia`
 --
 ALTER TABLE `t_existencia`
-  MODIFY `existencia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `existencia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `t_partidavt`
 --
 ALTER TABLE `t_partidavt`
-  MODIFY `partidavt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `partidavt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+--
+-- AUTO_INCREMENT de la tabla `t_partidavt_surtido`
+--
+ALTER TABLE `t_partidavt_surtido`
+  MODIFY `partidavt_surtido_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `t_pedido`
 --
 ALTER TABLE `t_pedido`
-  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `t_pedido_status`
+--
+ALTER TABLE `t_pedido_status`
+  MODIFY `pedido_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `t_permiso`
 --
@@ -688,6 +857,16 @@ ALTER TABLE `t_producto_tipo`
 ALTER TABLE `t_proveedor`
   MODIFY `proveedor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT de la tabla `t_remision`
+--
+ALTER TABLE `t_remision`
+  MODIFY `remision_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT de la tabla `t_remision_status`
+--
+ALTER TABLE `t_remision_status`
+  MODIFY `remision_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `t_sucursal`
 --
 ALTER TABLE `t_sucursal`
@@ -706,17 +885,17 @@ ALTER TABLE `t_usuario_departamento`
 -- AUTO_INCREMENT de la tabla `t_usuario_perfil`
 --
 ALTER TABLE `t_usuario_perfil`
-  MODIFY `usuario_perfil_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `usuario_perfil_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `t_venta`
 --
 ALTER TABLE `t_venta`
-  MODIFY `venta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `venta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `t_venta_status`
 --
 ALTER TABLE `t_venta_status`
-  MODIFY `venta_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `venta_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
